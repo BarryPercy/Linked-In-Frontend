@@ -1,4 +1,5 @@
 import { Row, Col, Card, Button } from "react-bootstrap";
+import { BsPencil } from "react-icons/bs";
 
 const About = () => {
   return (
@@ -7,6 +8,12 @@ const About = () => {
         <div className="about-section">
           <Card>
             <Card.Body>
+              <div
+                className="edit-main mr-4
+              "
+              >
+                <BsPencil className="pencil-icon" />
+              </div>
               <Card.Title>About</Card.Title>
               <Card.Text>
                 🖥 Currently in education, studying, to become a full-stack

@@ -6,15 +6,19 @@ body {
 .profile-area {
   width: 750px;
   height: 600px;
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: white;
   box-shadow: 0 0 2px 1px #cacaca;
 }
 
 .about-section {
   width: 750px;
-  border-radius: 10px;
+  border-radius: 15px;
   box-shadow: 0 0 2px 1px #cacaca;
+}
+
+.about-section .card {
+  border-radius: 15px;
 }
 
 .profile-icon img {
@@ -31,8 +35,8 @@ body {
   width: 100%;
   height: 20vh;
   background-size: cover;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
 }
 
 .card {
