@@ -1,6 +1,7 @@
 import TopNav from "./components/TopNav";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./profileCss.css";
 import "./App.css";
 import Profile from "./components/Profile";
 
