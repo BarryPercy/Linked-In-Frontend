@@ -1,3 +1,37 @@
 body{
   background-color: #f3f2ef;
+  font-family: sans-serif;
+}
+
+.form-background{
+  background-color: #eef3f8 !important;
+  color: #5f6163 !important;
+}
+
+.nav-options{
+  font-size: 13px;
+  margin-right: 18px;
+}
+
+@media (max-width: 992px) {
+  /* .nav-text {
+    display: none;
+  } */
+}
+
+.user-image{
+  border-radius: 50%;
+  width:30px;
+}
+
+.navbar-collapse{
+  flex-grow: unset;
+}
+
+.navbar{
+  padding:0;
+}
+
+.linked-in-nav-icon{
+  filter: invert(23%) sepia(72%) saturate(2403%) hue-rotate(203deg) brightness(102%) contrast(75%);
 }
