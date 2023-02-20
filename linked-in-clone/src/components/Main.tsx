@@ -26,7 +26,9 @@ const Main = () => {
             <Col>
               <Sidebar />
             </Col>
-            <Col>Area 2</Col>
+            <Col>
+              <Sidebar />
+            </Col>
           </Row>
         </div>
       </Container>
