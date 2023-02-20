@@ -1,24 +1,33 @@
 const initialState = {
-    UserList:[]
+    users:{
+        userList:[],
+        currentUser:{},
+    }
   }
 
-  const songsReducer = (state = initialState, action) => {
+  const usersReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'GET_USERS':
             return {
-                ...state,
-                songsSearched:true,
-                songList: action.payload, 
+                ...state.users.userList,
             }
         case 'GET_MY_USER':  
             return {
-                ...state,
-                currentSong:action.payload
+                ...state.users.currentUser,
             }
+        case 'GET_SPECIFIC_USER':  
+            return {
+                ...state.users.userList.find(user=>user._id===id)
+        }
+        case 'UPDATE_USER':  
+            return {
+            ...state,
+            currentSong:action.payload
+        }
         default:
             return state
     }
   }
   
-  export default songsReducer
+  export default usersReducer
   
