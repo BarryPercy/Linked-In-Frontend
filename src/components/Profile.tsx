@@ -2,6 +2,7 @@ import { Container, Row, Col, Card, Image, Button } from "react-bootstrap";
 import { FaPuzzlePiece, FaDeviantart } from "react-icons/fa";
 import { AiFillCamera } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
+import About from "./About";
 
 const Profile = () => {
   return (
@@ -73,6 +74,7 @@ const Profile = () => {
           </div>
         </Col>
       </Row>
+      <About />
     </Container>
   );
 };

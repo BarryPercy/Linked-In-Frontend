@@ -1,11 +1,18 @@
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f3f2ef;
 }
 
 .profile-area {
   width: 750px;
   height: 600px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 0 2px 1px #cacaca;
+}
 
+.about-section {
+  width: 750px;
   border-radius: 10px;
   box-shadow: 0 0 2px 1px #cacaca;
 }
@@ -48,6 +55,12 @@ body {
   border: 2.4px solid #007bff;
 }
 
+.artdeco-button--muted.artdeco-button--secondary:hover {
+  background-color: rgba(80, 80, 80, 0.08);
+  color: rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.08);
+}
+
 .camera-btn {
   position: absolute;
   top: 20px;
@@ -66,4 +79,20 @@ body {
 
 .pencil-icon {
   font-size: 25px;
+}
+
+.btn-outline-light {
+  color: #777777;
+  border-color: white;
+}
+
+.active .btn-outline-light:hover {
+  background-color: transparent;
+  color: #007bff;
+  border-color: white;
+}
+
+.see-more-btn {
+  position: absolute;
+  right: 0;
 }
