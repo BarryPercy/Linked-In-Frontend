@@ -4,6 +4,7 @@ import Experience from "./Experience";
 import Footer from "./Footer";
 import Profile from "./Profile";
 import Sidebar from "./Sidebar";
+import Skills from "./Skills";
 import TopNav from "./TopNav";
 
 const Main = () => {
@@ -22,6 +23,7 @@ const Main = () => {
             </Col>
             <Col sm={6} md={8} className="mt-2 mb-3">
               <Experience />
+              <Skills />
             </Col>
           </Row>
         </div>
@@ -29,10 +31,10 @@ const Main = () => {
           {/* side section */}
           <Row className="d-flex flex-column mt-3">
             <Col>
-              <Sidebar firstIndex={0} secondIndex={5}/>
+              <Sidebar firstIndex={0} secondIndex={5} />
             </Col>
             <Col>
-              <Sidebar firstIndex={5} secondIndex={10}/>
+              <Sidebar firstIndex={5} secondIndex={10} />
             </Col>
           </Row>
         </div>
