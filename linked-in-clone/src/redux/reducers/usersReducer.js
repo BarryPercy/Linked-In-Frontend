@@ -1,23 +1,23 @@
 const initialState = {
-    users:{
-        userList:[],
-        currentUser:{},
-    }
+    userList:[],
+    currentUser:{},
   }
 
   const usersReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'GET_USERS':
+            console.log(action.payload)
             return {
-                ...state.users.userList,
+                ...state,
+                userList:action.payload
             }
         case 'GET_MY_USER':  
             return {
-                ...state.users.currentUser,
+                ...state.currentUser,
             }
         case 'GET_SPECIFIC_USER':  
             return {
-                ...state.users.userList.find(user=>user._id===id)
+                ...state.userList.find(user=>user._id===id)
         }
         case 'UPDATE_USER':  
             return {
