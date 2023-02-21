@@ -1,7 +1,7 @@
 const initialState = {
-    userList:[],
-    currentUser:{},
-  }
+  userList: [],
+  currentUser: {},
+};
 
   const usersReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -27,7 +27,6 @@ const initialState = {
         default:
             return state
     }
-  }
-  
-  export default usersReducer
-  
+  };
+
+export default usersReducer;

@@ -1,6 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import About from "./About";
 import Experience from "./Experience";
+import Footer from "./Footer";
 import Profile from "./Profile";
 import Sidebar from "./Sidebar";
 import TopNav from "./TopNav";
@@ -36,6 +37,7 @@ const Main = () => {
           </Row>
         </div>
       </Container>
+      <Footer />
     </>
   );
 };
