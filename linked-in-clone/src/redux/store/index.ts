@@ -3,12 +3,14 @@ import usersReducer from "../reducers/usersReducer";
 import mySkillsReducer from "../reducers/mySkillsReducer";
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
+import experiencesRecuder from "../reducers/experienceReducer";
 
 const persistConfig = {
   storage: storage,
   key: "root",
 };
 const combinedReducer = combineReducers({
+  exps: experiencesRecuder,
   mySkills: mySkillsReducer,
   users: usersReducer,
 });

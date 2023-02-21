@@ -1,4 +1,4 @@
-import { GET_USER_EXPERIENCE } from "../actions";
+import { GET_USER_EXPERIENCES, POST_USER_EXP } from "../actions";
 
 const initialState = {
   expList: [],
@@ -6,10 +6,15 @@ const initialState = {
 
 const experiencesRecuder = (state = initialState, action) => {
   switch (action.type) {
-    case GET_USER_EXPERIENCE:
+    case GET_USER_EXPERIENCES:
       return {
         ...state,
         expList: action.payload,
+      };
+    case POST_USER_EXP:
+      return {
+        ...state,
+        expList: [...state.expList, action.payload],
       };
     default:
       return state;
