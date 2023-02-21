@@ -39,10 +39,10 @@ const Experience = () => {
   //         "https://media.licdn.com/dms/image/C4D0BAQEFWO_s8a0FHQ/company-logo_100_100/0/1647618816994?e=1684972800&v=beta&t=TPNYWQvNS5llJxWVNsaOC9JuymAFPxR8tOSYYjqu8Q4",
   //     },
   //   ];
-
   useEffect(() => {
     dispatch(fetchUserExps());
   }, []);
+
   return (
     <div className="about-section">
       <Card>
