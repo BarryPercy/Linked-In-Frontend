@@ -108,10 +108,9 @@ export const updateUser = (id, profile) => {
 
 export const fetchUserExps = async () => {
   return async (dispatch) => {
-    const basepoint = "https://striveschool-api.herokuapp.com/api/profile/";
     try {
       const response = await fetch(
-        basepoint + "63f331b78381fc0013fffad0/experiences",
+        "https://striveschool-api.herokuapp.com/api/profile/63f331b78381fc0013fffad0/experiences",
         {
           method: "GET",
           headers: {

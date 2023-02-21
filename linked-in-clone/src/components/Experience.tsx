@@ -19,31 +19,30 @@ interface Experiences {
   image: string;
 }
 const Experience = () => {
-  //   const dispatch = useAppDispatch();
-  //   let experience = useAppSelector((state) => state.exps.expList);
+  const dispatch = useAppDispatch();
+  let experiences = useAppSelector((state) => state.exps.expList);
   // let experiences = useAppSelector((state)=>state.experiences.experienceList)
-  let array: Experiences[] = [
-    {
-      _id: "123",
-      role: "Developer",
-      company: "Epicode",
-      startDate: "2023-02-21",
-      endDate: "2023-02-21",
-      description: "Developing Stuff",
-      area: "Belfast",
-      username: "dude",
-      createdAt: "2019-09-30T19:58:31.019Z",
-      updatedAt: "2019-09-30T19:58:31.019Z",
-      __v: 0,
-      image:
-        "https://media.licdn.com/dms/image/C4D0BAQEFWO_s8a0FHQ/company-logo_100_100/0/1647618816994?e=1684972800&v=beta&t=TPNYWQvNS5llJxWVNsaOC9JuymAFPxR8tOSYYjqu8Q4",
-    },
-  ];
+  //   let array: Experiences[] = [
+  //     {
+  //       _id: "123",
+  //       role: "Developer",
+  //       company: "Epicode",
+  //       startDate: "2023-02-21",
+  //       endDate: "2023-02-21",
+  //       description: "Developing Stuff",
+  //       area: "Belfast",
+  //       username: "dude",
+  //       createdAt: "2019-09-30T19:58:31.019Z",
+  //       updatedAt: "2019-09-30T19:58:31.019Z",
+  //       __v: 0,
+  //       image:
+  //         "https://media.licdn.com/dms/image/C4D0BAQEFWO_s8a0FHQ/company-logo_100_100/0/1647618816994?e=1684972800&v=beta&t=TPNYWQvNS5llJxWVNsaOC9JuymAFPxR8tOSYYjqu8Q4",
+  //     },
+  //   ];
 
-  //   useEffect(() => {
-  //     dispatch(fetchUserExps());
-  //     console.log("this is experiences", experience);
-  //   }, []);
+  useEffect(() => {
+    dispatch(fetchUserExps());
+  }, []);
   return (
     <div className="about-section">
       <Card>
@@ -57,7 +56,7 @@ const Experience = () => {
           <Card.Title>
             <h4>Experience</h4>
           </Card.Title>
-          {array.map((experience: Experiences) => {
+          {experiences.map((experience: Experiences) => {
             return (
               <div key={experience._id} className="d-flex">
                 <Image src={experience.image} className="align-self-start" />

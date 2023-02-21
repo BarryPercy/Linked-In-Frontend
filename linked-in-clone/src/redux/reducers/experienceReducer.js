@@ -2,6 +2,7 @@ import { GET_USER_EXPERIENCES, POST_USER_EXP } from "../actions";
 
 const initialState = {
   expList: [],
+  currentExp: {},
 };
 
 const experiencesRecuder = (state = initialState, action) => {
