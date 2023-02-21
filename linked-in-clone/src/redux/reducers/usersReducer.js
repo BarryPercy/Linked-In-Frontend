@@ -17,7 +17,7 @@ const initialState = {
             }
         case 'GET_SPECIFIC_USER':  
             return {
-                ...state.userList.find(user=>user._id===id)
+                ...state.userList.find(user=>user._id===action.payload)
         }
         case 'UPDATE_USER':  
             return {
