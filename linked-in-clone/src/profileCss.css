@@ -1,0 +1,222 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f3f2ef;
+}
+
+.profile-area {
+  width: 750px;
+  height: 600px;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0 0 2px 1px #cacaca;
+}
+
+.about-section {
+  width: 750px;
+  border-radius: 15px;
+  box-shadow: 0 0 2px 1px #cacaca;
+}
+
+.about-section .card {
+  border-radius: 15px;
+}
+
+.profile-icon img {
+  width: 180px;
+  height: 180px;
+  position: absolute;
+  z-index: 1;
+  top: 12vh;
+  left: 50px;
+  border: 5px solid white;
+}
+
+.img-area img {
+  width: 100%;
+  height: 20vh;
+  background-size: cover;
+  /* border-top-right-radius: 15px;
+  border-top-left-radius: 15px; */
+}
+
+.card {
+  border: none;
+}
+
+.button-area button {
+  border-radius: 50px;
+  font-weight: 500;
+  margin-inline: 3px;
+}
+
+.btn-outline-primar {
+  background-color: white;
+}
+
+.btn-outline-primary:hover {
+  background-color: rgba(112, 181, 249, 0.2);
+  color: #007bff;
+  border: 2.4px solid #007bff;
+}
+
+.artdeco-button--muted.artdeco-button--secondary:hover {
+  background-color: rgba(80, 80, 80, 0.08);
+  color: rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.08);
+}
+
+.camera-btn {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: white;
+  color: #007bff;
+}
+
+.edit-main {
+  position: absolute;
+  right: 0;
+}
+
+.pencil-icon {
+  font-size: 25px;
+  margin-left: auto;
+}
+
+.btn-outline-light {
+  color: #777777;
+  border-color: white;
+}
+
+.active .btn-outline-light:hover {
+  background-color: transparent;
+  color: #007bff;
+  border-color: white;
+}
+
+.see-more-btn {
+  position: absolute;
+  right: 0;
+}
+
+.sidebar1 {
+  width: 320px;
+  margin-top: 8px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 0 2px 1px #cacaca;
+}
+
+.side-pro-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.sidebar1 .card-body {
+  padding: 0;
+  font-size: 18px;
+}
+.sidebar1 hr.line-1 {
+  margin-inline: 20px;
+}
+
+.btn-outline-secondary.connect-btn {
+  border-radius: 50px;
+}
+
+.btn-outline-secondary.connect-btn:hover {
+  border-radius: 50px;
+  background-color: #ebebeb;
+}
+
+.sidebar1 hr.line-2 {
+  margin-bottom: 0;
+}
+
+.btn-outline-secondary.show-btn {
+  border: none;
+  border-bottom-left-radius: 15px;
+}
+
+.btn-outline-secondary.show-btn:hover {
+  border: none;
+  background-color: #ebebeb;
+  color: black;
+  border-top-right-radius: 0%;
+  border-top-left-radius: 0%;
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .profile-area {
+    width: 700px;
+  }
+
+  .about-section {
+    width: 700px;
+  }
+
+  .profile-icon img {
+    width: 160px;
+    height: 160px;
+    position: absolute;
+    z-index: 1;
+    top: 10vh;
+    left: 50px;
+    border: 5px solid white;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .profile-area {
+    width: 750px;
+    height: 600px;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0 0 2px 1px #cacaca;
+  }
+
+  .about-section {
+    width: 750px;
+    border-radius: 15px;
+    box-shadow: 0 0 2px 1px #cacaca;
+  }
+
+  .profile-icon img {
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    z-index: 1;
+    top: 10vh;
+    left: 50px;
+    border: 5px solid white;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .profile-icon img {
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    z-index: 1;
+    top: 12vh;
+    left: 50px;
+    border: 5px solid white;
+  }
+}
+
+@media only screen and (min-width: 1900px) {
+  .profile-icon img {
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    z-index: 1;
+    top: 12vh;
+    left: 50px;
+    border: 5px solid white;
+  }
+}
