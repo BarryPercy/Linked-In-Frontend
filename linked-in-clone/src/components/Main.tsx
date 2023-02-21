@@ -29,10 +29,10 @@ const Main = () => {
           {/* side section */}
           <Row className="d-flex flex-column mt-3">
             <Col>
-              <Sidebar />
+              <Sidebar firstIndex={0} secondIndex={5}/>
             </Col>
             <Col>
-              <Sidebar />
+              <Sidebar firstIndex={5} secondIndex={10}/>
             </Col>
           </Row>
         </div>
