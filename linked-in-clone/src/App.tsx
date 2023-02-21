@@ -11,6 +11,7 @@ function App() {
       <TopNav />
       <Routes>
         <Route path="/profile/" element={<Main />}></Route>
+        <Route path="/profile/:userId" element={<h1>testing</h1>} />
       </Routes>
     </BrowserRouter>
   );
