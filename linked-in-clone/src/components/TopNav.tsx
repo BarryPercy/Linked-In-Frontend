@@ -1,11 +1,4 @@
-import {
-  Container,
-  Nav,
-  Navbar,
-  Form,
-  Image,
-  InputGroup,
-} from "react-bootstrap";
+import { Container, Nav, Navbar, Form, Image, InputGroup } from "react-bootstrap";
 import {
   BsLinkedin,
   BsFillPeopleFill,
@@ -14,6 +7,7 @@ import {
 import { AiFillHome, AiFillMessage } from "react-icons/ai";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { FaBell } from "react-icons/fa";
+import userPic from '../images/jovelynn.png'
 const TopNav = () => {
   return (
     <Navbar bg="white" expand="lg" fixed="top">
@@ -67,7 +61,7 @@ const TopNav = () => {
             <Nav.Link href="">
               <div className="d-flex flex-column align-items-center nav-options">
                 <Image
-                  src="../../public/images/jovelynn.jfif"
+                  src={userPic}
                   className="user-image"
                 />
                 Me

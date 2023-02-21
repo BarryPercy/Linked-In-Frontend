@@ -12,7 +12,7 @@ const About = () => {
           >
             <BsPencil className="pencil-icon" />
           </div>
-          <Card.Title>About</Card.Title>
+          <Card.Title><h4>About</h4></Card.Title>
           <Card.Text>
             🖥 Currently in education, studying, to become a full-stack
             developer.

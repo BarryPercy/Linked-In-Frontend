@@ -12,6 +12,7 @@ const persistConfig = {
 const combinedReducer = combineReducers({
     mySkills: mySkillsReducer,
     users: usersReducer,
+
 })
 const persistedReducer = persistReducer(persistConfig, combinedReducer)
 
@@ -28,4 +29,3 @@ const persistedStore = persistStore(store)
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 export { store, persistedStore }
-

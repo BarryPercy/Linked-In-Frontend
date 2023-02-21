@@ -32,7 +32,7 @@ const Sidebar = (props:SideBarProps) => {
   useEffect(() => {
     dispatch(getUsers())
     console.log("this is users",users)
-}, [])
+  }, [])
   return (
     <div className="sidebar1 ">
       <h4 className="ml-3 pt-3">People also viewed</h4>
