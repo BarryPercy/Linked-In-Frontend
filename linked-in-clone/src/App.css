@@ -35,3 +35,29 @@ body{
 .linked-in-nav-icon{
   filter: invert(23%) sepia(72%) saturate(2403%) hue-rotate(203deg) brightness(102%) contrast(75%);
 }
+
+
+.footer-text {
+  font-size: 10px;
+  text-align: left;
+  padding: 0;
+}
+
+.footer-text li {
+  list-style: none;
+  text-align: left;
+}
+
+.li-logo-container {
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: cover;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.li-logo {
+  max-width: 100px;
+  max-height: 100px;
+}
+
