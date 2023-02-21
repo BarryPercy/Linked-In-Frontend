@@ -138,7 +138,6 @@ body {
 
 .btn-outline-secondary.show-btn {
   border: none;
-  border-bottom-left-radius: 15px;
 }
 
 .btn-outline-secondary.show-btn:hover {
