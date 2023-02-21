@@ -1,3 +1,5 @@
+import { Dispatch } from "redux";
+
 export const GET_USER_EXPERIENCES = "GET_USER_EXPERIENCES";
 export const GET_USERS = "GET_USERS";
 export const GET_MY_USER = "GET_MY_USER";
@@ -134,14 +136,14 @@ export const fetchUserExps = () => {
   };
 };
 
-export const postUserExp = (experience) => {
+export const postUserExp = (newExp) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
         "https://striveschool-api.herokuapp.com/api/profile/5fc4bb8db708c200175de89c/experiences",
         {
           method: "POST",
-          body: JSON.stringify(),
+          body: JSON.stringify(newExp),
           headers: {
             "Content-type": "application/json",
             Authorization:
@@ -150,10 +152,9 @@ export const postUserExp = (experience) => {
         }
       );
       if (response.ok) {
-        dispatch({
-          type: POST_USER_EXP,
-          payload: experience,
-        });
+        console.log("new experience added!");
+      } else {
+        alert("failure to add new experience!");
       }
     } catch (error) {
       console.log(error);
