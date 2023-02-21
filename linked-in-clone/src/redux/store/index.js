@@ -1,17 +1,17 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import usersReducer from "../reducers/usersReducer";
+import mySkillsReducer from "../reducers/mySkillsReducer";
+import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
-import experiencesRecuder from "../reducers/experienceReducer";
-import localStorage from "redux-persist/lib/storage";
 
 const persistConfig = {
-  storage: localStorage,
+  storage: storage,
   key: "root",
 };
-
 const combinedReducer = combineReducers({
-  exp: experiencesRecuder,
+  mySkills: mySkillsReducer,
+  users: usersReducer,
 });
-
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
 
 const store = configureStore({
@@ -22,7 +22,6 @@ const store = configureStore({
     });
   },
 });
-
 const persistedStore = persistStore(store);
 
 export { store, persistedStore };
