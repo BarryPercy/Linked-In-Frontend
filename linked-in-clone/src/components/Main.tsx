@@ -23,6 +23,8 @@ const Main = () => {
             </Col>
             <Col sm={6} md={8} className="mt-2 mb-3">
               <Experience />
+            </Col>
+            <Col sm={6} md={8} className="mt-2 mb-3">
               <Skills />
             </Col>
           </Row>

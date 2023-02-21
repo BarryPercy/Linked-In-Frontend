@@ -7,6 +7,7 @@ const initialState = {
 const experiencesRecuder = (state = initialState, action) => {
   switch (action.type) {
     case GET_USER_EXPERIENCES:
+      console.log(action.payload);
       return {
         ...state,
         expList: action.payload,
