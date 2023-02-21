@@ -53,16 +53,16 @@ const Skills: React.FC = () => {
       <Card style={{ borderRadius: "15px" }}>
         <Card.Body>
           <Card.Title className="d-flex align-items-center">
-            Skills
+            <h4>Skills</h4>
             <div className="edit-main mr-4 d-flex align-items-center">
               <Button className="mr-4" style={{ borderRadius: "20px" }}>
                 Demonstrate Skill
               </Button>
-              <BsPlusLg
+              <h5><BsPlusLg
                 style={{ cursor: "pointer" }}
                 className="plus-icon mr-4"
                 onClick={() => setIsAddClicked(!isAddClicked)}
-              />
+              /></h5>
               <BsPencil
                 style={{ cursor: "pointer" }}
                 className="pencil-icon"

@@ -29,9 +29,9 @@ const Sidebar = (props: SideBarProps) => {
   const dispatch = useAppDispatch();
   let users = useAppSelector((state) => state.users.userList);
   let fewUsers = users.slice(props.firstIndex, props.secondIndex);
+  
   useEffect(() => {
     dispatch(getUsers());
-    console.log("this is users", users);
   }, []);
 
   return (
