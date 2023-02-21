@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { Row, Col, Card, Button } from "react-bootstrap";
+import { BsPencil, BsPlusLg } from "react-icons/bs";
+import { text } from 'stream/consumers';
+
 
 interface Skill {
   id: number;
@@ -14,6 +18,8 @@ const Skills: React.FC = () => {
 
   const [editingSkill, setEditingSkill] = useState<Skill | null>(null);
   const [newSkill, setNewSkill] = useState<string>('');
+  const [isEditClicked, setIsEditClicked] = useState(false);
+  const [isAddClicked, setIsAddClicked] = useState(false);
 
   const handleAddSkill = () => {
     if (newSkill) {
@@ -42,42 +48,66 @@ const Skills: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Skills</h2>
-      <ul>
-        {skills.map((skill) => (
-          <li key={skill.id}>
-            {editingSkill?.id === skill.id ? (
-              <div>
+    <div className="skills-section border" style={{borderRadius: '15px', width: "750px"}}>
+      <Card style={{borderRadius: '15px'}}>
+        <Card.Body>
+          <Card.Title className='d-flex align-items-center'>Skills
+
+            <div className="edit-main mr-4 d-flex align-items-center">
+              <Button className='mr-4' style={{borderRadius: '20px'}}>Demonstrate Skill</Button>
+              <BsPlusLg style={{cursor: "pointer"}} className="plus-icon mr-4" onClick={() => setIsAddClicked(!isAddClicked)} />
+              <BsPencil style={{cursor: "pointer"}} className="pencil-icon" onClick={() => setIsEditClicked(!isEditClicked)} />
+            </div>
+
+          </Card.Title>
+          <Card.Text>
+            <ul className='list-group font-weight-bold' style={{listStyle: 'none'}}>
+              {skills.map((skill) => (
+                <li className='text-decoration-none py-3' key={skill.id} style={{ borderBottom: '1px solid #ccc' }}>
+                  {isEditClicked ? (
+                    editingSkill?.id === skill.id ? (
+                      <div className='d-flex'>
+                        <input
+                          type="text"
+                          value={editingSkill.name}
+                          onChange={(e) =>
+                            setEditingSkill({ ...editingSkill, name: e.target.value })
+                          }
+                        />
+                        <Button className='mx-1' onClick={() => handleSaveSkill(skill, editingSkill.name)}>Save</Button>
+                        <Button className='mx-1' onClick={() => setEditingSkill(null)}>Cancel</Button>
+                        <Button className='mx-1' onClick={() => handleDeleteSkill(skill)}>Delete</Button>
+                      </div>
+                    ) : (
+                      <div className='d-flex'>
+                        {skill.name}
+                        <div className='ml-auto'><BsPencil onClick={() => handleEditSkill(skill)}>Edit</BsPencil></div>
+                      </div>
+                    )
+                  ) : (
+                  <div>
+                    {skill.name}
+                  </div>
+                )}
+              </li>
+            ))}
+            </ul>
+          </Card.Text>
+
+          {isAddClicked && (
+            <Row className='align-items-center'>
+              <Col className='d-flex'>
                 <input
                   type="text"
-                  value={editingSkill.name}
-                  onChange={(e) =>
-                    setEditingSkill({ ...editingSkill, name: e.target.value })
-                  }
+                  value={newSkill}
+                  onChange={(e) => setNewSkill(e.target.value)}
                 />
-                <button onClick={() => handleSaveSkill(skill, editingSkill.name)}>Save</button>
-                <button onClick={() => setEditingSkill(null)}>Cancel</button>
-                <button onClick={() => handleDeleteSkill(skill)}>Delete</button>
-              </div>
-            ) : (
-              <div>
-                {skill.name}
-                <button onClick={() => handleEditSkill(skill)}>Edit</button>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
-      <div>
-        <input
-          type="text"
-          value={newSkill}
-          onChange={(e) => setNewSkill(e.target.value)}
-          placeholder="Add a new skill"
-        />
-        <button onClick={handleAddSkill}>Add Skill</button>
-      </div>
+                <div className='ml-auto'><Button variant="primary" onClick={handleAddSkill}>Add</Button></div>
+              </Col>
+            </Row>
+          )}
+        </Card.Body>
+      </Card>
     </div>
   );
 };

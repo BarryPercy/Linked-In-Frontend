@@ -2,6 +2,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import About from "./About";
 import Profile from "./Profile";
 import Sidebar from "./Sidebar";
+import Skills from "./Skills";
 import TopNav from "./TopNav";
 
 const Main = () => {
@@ -17,6 +18,9 @@ const Main = () => {
             </Col>
             <Col sm={6} md={8} className="mt-2 mb-3">
               <About />
+            </Col>
+            <Col sm={6} md={8} className="mt-2 mb-3">
+              <Skills />
             </Col>
           </Row>
         </div>
