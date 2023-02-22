@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { BsPencil, BsPlusLg, BsFillTrashFill } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { parseISO, format } from "date-fns";
 
 interface Experiences {
   _id: string;
@@ -29,6 +30,7 @@ const Experience = () => {
   const dispatch = useAppDispatch();
   let experiences = useAppSelector((state) => state.exps.expList);
   const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   let expId: string;
@@ -52,9 +54,19 @@ const Experience = () => {
     dispatch(fetchUserExps());
   }, []);
 
+  const handleShow2 = (id: string) => {
+    setShow2(true);
+    editExp(id);
+  };
+
   const handleSubmit = () => {
     dispatch(postUserExp(newExp));
     handleClose();
+  };
+  const handleClose2 = () => setShow2(false);
+
+  const handleSubmit2 = () => {
+    dispatch(editUserExp(newExp, editExp));
   };
 
   return (
@@ -77,10 +89,6 @@ const Experience = () => {
                 });
               }}
             />
-            {/* <Form.Label>Employment Type*</Form.Label>
-                <Form.Control as="select">
-                    <option value="Full-Time">Full-Time<
-                </Form.Control> */}
             <Form.Label>Company name*</Form.Label>
             <Form.Control
               type="text"
@@ -173,7 +181,6 @@ const Experience = () => {
                   onClick={handleShow}
                 />
               </h5>
-              <BsPencil className="pencil-icon" />
             </div>
           </div>
           <Card.Title>
@@ -187,8 +194,13 @@ const Experience = () => {
                   <h5>{experience.role}</h5>
                   <h6>{experience.company}</h6>
                   <h6 className="grey-text">
-                    {new Date(experience.startDate).toLocaleDateString("en-GB")}{" "}
-                    - {new Date(experience.endDate).toLocaleDateString("en-GB")}
+                    {/* {experience.startDate} - {experience.endDate} */}
+                    {/* {{new Date(experience.startDate).toLocaleDateString("en-GB")}{" "}}
+                    - {new Date(experience.endDate).toLocaleDateString("en-GB")} */}{" "}
+                    {format(parseISO(experience.startDate), "MMMM, yyyy")} -{" "}
+                    {experience.endDate === null
+                      ? "Present"
+                      : format(parseISO(experience.endDate), "MMMM, yyyy")}
                   </h6>
                   <h6 className="grey-text">{experience.area}</h6>
                   <h6>{experience.description}</h6>
@@ -199,6 +211,109 @@ const Experience = () => {
                     dispatch(deleteUserExp(expId));
                   }}
                 />
+                <BsPencil
+                  className="pencil-icon"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    handleShow2(experience._id);
+                  }}
+                />
+                <Modal show={show2} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Edit Experience</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <Form>
+                      <Form.Label>Job Title*</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Ex: Full-Stack Developer"
+                        value={newExp.role}
+                        onChange={(e) => {
+                          setNewExp({
+                            ...newExp,
+                            role: e.target.value,
+                          });
+                        }}
+                      />
+                      <Form.Label>Company name*</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Ex: Epicode"
+                        value={newExp.company}
+                        onChange={(e) => {
+                          setNewExp({
+                            ...newExp,
+                            company: e.target.value,
+                          });
+                        }}
+                      />
+                      <Form.Label>Location</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Ex: Berlin"
+                        value={newExp.area}
+                        onChange={(e) => {
+                          setNewExp({
+                            ...newExp,
+                            area: e.target.value,
+                          });
+                        }}
+                      />
+                      <Form.Label>Start date*</Form.Label>
+                      <Form.Control
+                        type="date"
+                        id="startdate"
+                        required
+                        value={newExp.startDate}
+                        onChange={(e) =>
+                          setNewExp({
+                            ...newExp,
+                            startDate: e.target.value,
+                          })
+                        }
+                      />
+
+                      <Form.Label>End Date*</Form.Label>
+                      <Form.Control
+                        type="date"
+                        id="startdate"
+                        required
+                        value={newExp.endDate}
+                        onChange={(e) =>
+                          setNewExp({
+                            ...newExp,
+                            endDate: e.target.value,
+                          })
+                        }
+                      />
+
+                      <Form.Label>Description</Form.Label>
+                      <Form.Control
+                        type="textarea"
+                        value={newExp.description}
+                        onChange={(e) => {
+                          setNewExp({
+                            ...newExp,
+                            description: e.target.value,
+                          });
+                        }}
+                      />
+                      <Form.Label>
+                        Skills &#40;We recommend adding your top 5 used in this
+                        role. They'll also appear in your Skills section.&#41;
+                      </Form.Label>
+                    </Form>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose2}>
+                      Close
+                    </Button>
+                    <Button variant="primary" onClick={handleSubmit2}>
+                      Save Changes
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
               </div>
             );
           })}
