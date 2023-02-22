@@ -15,6 +15,7 @@ const experiencesReducer = (state = initialState, action) => {
         ...state,
         expList: [...state.expList, action.payload],
       };
+
     default:
       return state;
   }

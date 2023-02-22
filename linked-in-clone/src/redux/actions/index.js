@@ -21,7 +21,7 @@ export const getUsers = () => {
       );
       if (response.ok) {
         const users = await response.json();
-        console.log(users);
+        // console.log(users);
         dispatch({
           type: GET_USERS,
           payload: users,
@@ -166,12 +166,12 @@ export const postUserExp = (newExp) => {
   };
 };
 
-export const deleteUserExp = (id) => {
+export const deleteUserExp = (expId) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/profile/63f331b78381fc0013fffad0/experiences/" +
-          id,
+          expId,
         {
           method: "DELETE",
           headers: {
@@ -181,6 +181,7 @@ export const deleteUserExp = (id) => {
         }
       );
       if (response.ok) {
+        dispatch(deleteUserExp(expId));
         console.log("deleted");
       } else {
         console.log("try again!");

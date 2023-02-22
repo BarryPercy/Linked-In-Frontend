@@ -6,7 +6,6 @@ const initialState = {
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
     case "GET_USERS":
-      console.log(action.payload);
       return {
         ...state,
         userList: action.payload,

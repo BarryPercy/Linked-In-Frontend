@@ -23,27 +23,20 @@ interface Experiences {
 const Experience = () => {
   const dispatch = useAppDispatch();
   let experiences = useAppSelector((state) => state.exps.expList);
+  let expId: string;
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // let experiences = useAppSelector((state)=>state.experiences.experienceList)
-  //   let array: Experiences[] = [
-  //     {
-  //       _id: "123",
-  //       role: "Developer",
-  //       company: "Epicode",
-  //       startDate: "2023-02-21",
-  //       endDate: "2023-02-21",
-  //       description: "Developing Stuff",
-  //       area: "Belfast",
-  //       username: "dude",
-  //       createdAt: "2019-09-30T19:58:31.019Z",
-  //       updatedAt: "2019-09-30T19:58:31.019Z",
-  //       __v: 0,
-  //       image:
-  //         "https://media.licdn.com/dms/image/C4D0BAQEFWO_s8a0FHQ/company-logo_100_100/0/1647618816994?e=1684972800&v=beta&t=TPNYWQvNS5llJxWVNsaOC9JuymAFPxR8tOSYYjqu8Q4",
-  //     },
-  //   ];
+
+  const editExp = async (id: string) => {
+    let selectedExpId = experiences.find(
+      (s: Experiences) => s._id === selectedExpId
+    );
+    console.log(selectedExpId);
+
+    setNewExp(selectedExpId);
+    expId = id;
+  };
 
   const [newExp, setNewExp] = useState({
     role: "",
@@ -62,6 +55,10 @@ const Experience = () => {
     dispatch(postUserExp(newExp));
     handleClose();
   };
+
+  // const handleSubmit = () => {
+  //   dispatch();
+  // };
 
   return (
     <div className="about-section">
@@ -112,8 +109,30 @@ const Experience = () => {
               }}
             />
             <Form.Label>Start date*</Form.Label>
-            <div className="d-flex">
-              <Form.Control as="select" placeholder="Month">
+            <Form.Control
+              type="date"
+              id="startdate"
+              required
+              value={newExp.startDate}
+              onChange={(e) =>
+                setNewExp({
+                  ...newExp,
+                  startDate: e.target.value,
+                })
+              }
+            />
+            {/* <div className="d-flex">
+              <Form.Control
+                as="select"
+                placeholder="Month"
+                value={newExp.startDate}
+                onChange={(e) => {
+                  setNewExp({
+                    ...newExp,
+                    startDate: e.target.value,
+                  });
+                }}
+              >
                 <option value="" disabled selected>
                   Month
                 </option>
@@ -130,7 +149,7 @@ const Experience = () => {
                 <option value="November">November</option>
                 <option value="December">December</option>
               </Form.Control>
-              <Form.Control as="select" placeholder="Year">
+              <Form.Control as="select" placeholder="Year" value={newExp.startDate}>
                 <option value="" disabled selected>
                   Year
                 </option>
@@ -152,10 +171,32 @@ const Experience = () => {
                 <option value="December">2008</option>
                 <option value="December">2007</option>
               </Form.Control>
-            </div>
+            </div> */}
             <Form.Label>End Date*</Form.Label>
-            <div className="d-flex">
-              <Form.Control as="select" placeholder="Month">
+            <Form.Control
+              type="date"
+              id="startdate"
+              required
+              value={newExp.endDate}
+              onChange={(e) =>
+                setNewExp({
+                  ...newExp,
+                  endDate: e.target.value,
+                })
+              }
+            />
+            {/* <div className="d-flex">
+              <Form.Control
+                as="select"
+                placeholder="Month"
+                value={newExp.endDate}
+                onChange={(e) => {
+                  setNewExp({
+                    ...newExp,
+                    endDate: e.target.value,
+                  });
+                }}
+              >
                 <option value="" disabled selected>
                   Month
                 </option>
@@ -194,7 +235,7 @@ const Experience = () => {
                 <option value="December">2008</option>
                 <option value="December">2007</option>
               </Form.Control>
-            </div>
+            </div> */}
             <Form.Label>Description</Form.Label>
             <Form.Control
               type="textarea"
@@ -254,7 +295,12 @@ const Experience = () => {
                   <h6 className="grey-text">{experience.area}</h6>
                   <h6>{experience.description}</h6>
                 </div>
-                <BsFillTrashFill />
+                <BsFillTrashFill
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    dispatch(deleteUserExp(editExp));
+                  }}
+                />
               </div>
             );
           })}
