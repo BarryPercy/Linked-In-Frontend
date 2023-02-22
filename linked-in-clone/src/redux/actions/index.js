@@ -181,10 +181,35 @@ export const deleteUserExp = (expId) => {
         }
       );
       if (response.ok) {
-        dispatch(deleteUserExp(expId));
         console.log("deleted");
       } else {
         console.log("try again!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const editUserExp = (newExp, id) => {
+  return async (dispatch) => {
+    try {
+      let response = await fetch(
+        "https://striveschool-api.herokuapp.com/api/profile/63f331b78381fc0013fffad0/experiences/" +
+          id,
+        {
+          method: "PUT",
+          body: JSON.stringify(newExp),
+          headers: {
+            Authorization:
+              "BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0",
+          },
+        }
+      );
+      if (response.ok) {
+        console.log("edited experience");
+      } else {
+        alert("Error");
       }
     } catch (error) {
       console.log(error);

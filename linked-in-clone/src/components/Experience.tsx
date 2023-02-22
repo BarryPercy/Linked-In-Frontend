@@ -1,5 +1,10 @@
 import { Card, Image, Form } from "react-bootstrap";
-import { fetchUserExps, postUserExp, deleteUserExp } from "../redux/actions";
+import {
+  fetchUserExps,
+  postUserExp,
+  deleteUserExp,
+  editUserExp,
+} from "../redux/actions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { useEffect, useState } from "react";
 import { BsPencil, BsPlusLg, BsFillTrashFill } from "react-icons/bs";
@@ -23,20 +28,10 @@ interface Experiences {
 const Experience = () => {
   const dispatch = useAppDispatch();
   let experiences = useAppSelector((state) => state.exps.expList);
-  let expId: string;
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const editExp = async (id: string) => {
-    let selectedExpId = experiences.find(
-      (s: Experiences) => s._id === selectedExpId
-    );
-    console.log(selectedExpId);
-
-    setNewExp(selectedExpId);
-    expId = id;
-  };
+  let expId: string;
 
   const [newExp, setNewExp] = useState({
     role: "",
@@ -47,6 +42,12 @@ const Experience = () => {
     area: "",
   });
 
+  const editExp = async (id: string) => {
+    let selectedExpId = experiences.find((s: Experiences) => s._id === id);
+    setNewExp(selectedExpId);
+    id = expId;
+  };
+
   useEffect(() => {
     dispatch(fetchUserExps());
   }, []);
@@ -55,10 +56,6 @@ const Experience = () => {
     dispatch(postUserExp(newExp));
     handleClose();
   };
-
-  // const handleSubmit = () => {
-  //   dispatch();
-  // };
 
   return (
     <div className="about-section">
@@ -121,57 +118,7 @@ const Experience = () => {
                 })
               }
             />
-            {/* <div className="d-flex">
-              <Form.Control
-                as="select"
-                placeholder="Month"
-                value={newExp.startDate}
-                onChange={(e) => {
-                  setNewExp({
-                    ...newExp,
-                    startDate: e.target.value,
-                  });
-                }}
-              >
-                <option value="" disabled selected>
-                  Month
-                </option>
-                <option value="January">January</option>
-                <option value="February">February</option>
-                <option value="March">March</option>
-                <option value="April">April</option>
-                <option value="May">May</option>
-                <option value="June">June</option>
-                <option value="July">July</option>
-                <option value="August">August</option>
-                <option value="September">September</option>
-                <option value="October">October</option>
-                <option value="November">November</option>
-                <option value="December">December</option>
-              </Form.Control>
-              <Form.Control as="select" placeholder="Year" value={newExp.startDate}>
-                <option value="" disabled selected>
-                  Year
-                </option>
-                <option value="January">2023</option>
-                <option value="February">2022</option>
-                <option value="March">2021</option>
-                <option value="April">2020</option>
-                <option value="May">2019</option>
-                <option value="June">2018</option>
-                <option value="July">2017</option>
-                <option value="August">2016</option>
-                <option value="September">2015</option>
-                <option value="October">2014</option>
-                <option value="November">2013</option>
-                <option value="December">2012</option>
-                <option value="December">2011</option>
-                <option value="December">2010</option>
-                <option value="December">2009</option>
-                <option value="December">2008</option>
-                <option value="December">2007</option>
-              </Form.Control>
-            </div> */}
+
             <Form.Label>End Date*</Form.Label>
             <Form.Control
               type="date"
@@ -185,57 +132,7 @@ const Experience = () => {
                 })
               }
             />
-            {/* <div className="d-flex">
-              <Form.Control
-                as="select"
-                placeholder="Month"
-                value={newExp.endDate}
-                onChange={(e) => {
-                  setNewExp({
-                    ...newExp,
-                    endDate: e.target.value,
-                  });
-                }}
-              >
-                <option value="" disabled selected>
-                  Month
-                </option>
-                <option value="January">January</option>
-                <option value="February">February</option>
-                <option value="March">March</option>
-                <option value="April">April</option>
-                <option value="May">May</option>
-                <option value="June">June</option>
-                <option value="July">July</option>
-                <option value="August">August</option>
-                <option value="September">September</option>
-                <option value="October">October</option>
-                <option value="November">November</option>
-                <option value="December">December</option>
-              </Form.Control>
-              <Form.Control as="select" placeholder="Year">
-                <option value="" disabled selected>
-                  Year
-                </option>
-                <option value="January">2023</option>
-                <option value="February">2022</option>
-                <option value="March">2021</option>
-                <option value="April">2020</option>
-                <option value="May">2019</option>
-                <option value="June">2018</option>
-                <option value="July">2017</option>
-                <option value="August">2016</option>
-                <option value="September">2015</option>
-                <option value="October">2014</option>
-                <option value="November">2013</option>
-                <option value="December">2012</option>
-                <option value="December">2011</option>
-                <option value="December">2010</option>
-                <option value="December">2009</option>
-                <option value="December">2008</option>
-                <option value="December">2007</option>
-              </Form.Control>
-            </div> */}
+
             <Form.Label>Description</Form.Label>
             <Form.Control
               type="textarea"
@@ -290,7 +187,8 @@ const Experience = () => {
                   <h5>{experience.role}</h5>
                   <h6>{experience.company}</h6>
                   <h6 className="grey-text">
-                    {experience.startDate} - {experience.endDate}
+                    {new Date(experience.startDate).toLocaleDateString("en-GB")}{" "}
+                    - {new Date(experience.endDate).toLocaleDateString("en-GB")}
                   </h6>
                   <h6 className="grey-text">{experience.area}</h6>
                   <h6>{experience.description}</h6>
@@ -298,7 +196,7 @@ const Experience = () => {
                 <BsFillTrashFill
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    dispatch(deleteUserExp(editExp));
+                    dispatch(deleteUserExp(expId));
                   }}
                 />
               </div>
