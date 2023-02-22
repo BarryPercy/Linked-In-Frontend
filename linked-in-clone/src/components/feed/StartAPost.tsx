@@ -1,7 +1,7 @@
 import React from "react"
 import { MdPhotoSizeSelectActual, MdOutlineArticle } from "react-icons/md"
 import { BsFillPlayBtnFill, BsBriefcaseFill } from "react-icons/bs"
-import { Card } from "react-bootstrap"
+import { Card, Image, Button } from "react-bootstrap"
 
 
 
@@ -10,17 +10,17 @@ export default function StartAPost() {
 
   return (
     <>
-    <Card>
+    <Card className="start-post">
         <div id="feed-start-a-post-container" className="p-feed">
         <div id="start-a-post-top">
           <div className="recommended-user-image mr-1 d-flex p-3" style={{ objectFit: "cover" }}>
-            <img alt="Avatar" style={{ height: "100%" }} />
-            <div
+            <Image className="avatar" src="./images/jovelynn.png "alt="Avatar" style={{ height: "100%" }} />
+            <Button
             id="start-a-post"
-            className="gray-hover small-header-text border ml-3 p-1" style={{borderRadius: "20px", width: "400px"}}
+            className="start-a-post-button d-flex border ml-3 p-1" style={{borderRadius: "30px", width: "400px"}}
           >
-            Start a post
-          </div>
+            <span className="align-self-center text-button-start">Start a post</span>
+          </Button>
           </div>
         </div>
         <div id="start-a-post-lower" className="small-header-text d-flex justify-content-around">

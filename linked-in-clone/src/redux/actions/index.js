@@ -171,6 +171,7 @@ export const postUserExp = (newExp) => {
 };
 
 export const deleteUserExp = (expId) => {
+  console.log(expId)
   return async (dispatch) => {
     try {
       let response = await fetch(
@@ -185,7 +186,7 @@ export const deleteUserExp = (expId) => {
         }
       );
       if (response.ok) {
-        console.log("deleted");
+        dispatch(fetchUserExps)
       } else {
         console.log("try again!");
       }
@@ -196,6 +197,7 @@ export const deleteUserExp = (expId) => {
 };
 
 export const editUserExp = (newExp, id) => {
+  console.log(newExp)
   return async (dispatch) => {
     try {
       let response = await fetch(
@@ -211,7 +213,7 @@ export const editUserExp = (newExp, id) => {
         }
       );
       if (response.ok) {
-        console.log("edited experience");
+        dispatch(fetchUserExps)
       } else {
         alert("Error");
       }

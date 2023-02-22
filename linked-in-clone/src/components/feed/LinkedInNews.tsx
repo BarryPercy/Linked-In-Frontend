@@ -10,8 +10,8 @@ const LinkedInNews = () => {
   };
 
   return (
-    <Card>
-      <Card.Title className='d-flex ml-4'>
+    <Card className="linked-in-news">
+      <Card.Title className='d-flex ml-4 linked-in-news-title'>
         LinkedIn News
         <div className='ml-auto pr-4'>
           <BsFillInfoSquareFill />

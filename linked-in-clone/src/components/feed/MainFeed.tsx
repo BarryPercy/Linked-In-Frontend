@@ -8,15 +8,18 @@ const MainFeed = () => {
     return (
       <>
         <TopNav />
-        <Container>
-            <Row>
-                <Col className="mt-5">
-                  <LinkedInNews/>
-                </Col>
+        <Container className="d-flex">
+            <Row className="flex-col">
+              <Col className="mt-5">
+                <StartAPost/>
+              </Col>
+              <Col className="mt-5">
+                <Posts/>
+              </Col>
             </Row>
             <Row>
               <Col className="mt-5">
-                <StartAPost/>
+                <LinkedInNews/>
               </Col>
             </Row>
         </Container>
