@@ -58,11 +58,11 @@ const Skills: React.FC = () => {
               <Button className="mr-4" style={{ borderRadius: "20px" }}>
                 Demonstrate Skill
               </Button>
-              <h5><BsPlusLg
+              <BsPlusLg
                 style={{ cursor: "pointer" }}
                 className="plus-icon mr-4"
                 onClick={() => setIsAddClicked(!isAddClicked)}
-              /></h5>
+              />
               <BsPencil
                 style={{ cursor: "pointer" }}
                 className="pencil-icon"

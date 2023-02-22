@@ -4,6 +4,12 @@ export const GET_MY_USER = "GET_MY_USER";
 export const GET_SPECIFIC_USER = "GET_SPECIFIC_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const POST_USER_EXP = "POST_USER_EXP";
+export const GET_POSTS = "GET_POSTS"
+export const GET_POST = "GET_POST"
+export const POST_POST = "POST_POST"
+export const EDIT_POST = "EDIT_POSTS"
+export const DELETE_POST = "DELETE_POSTS"
+
 
 export const getUsers = () => {
   return async (dispatch) => {
@@ -154,6 +160,34 @@ export const postUserExp = (experience) => {
           type: POST_USER_EXP,
           payload: experience,
         });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const fetchPosts = () => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        "https://striveschool-api.herokuapp.com/api/posts/",
+        {
+          method: "GET",
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0",
+          },
+        }
+      );
+      if (response.ok) {
+        let data = await response.json();
+        dispatch({
+          type: GET_POSTS,
+          payload: data,
+        });
+      } else {
+        alert("Fetching went wrong!!!!");
       }
     } catch (error) {
       console.log(error);
