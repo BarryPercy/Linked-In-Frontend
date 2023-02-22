@@ -1,5 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import TopNav from "../TopNav";
+import FeedCompanyDetails from "./FeedCompanyDetails";
 import LinkedInNews from "./LinkedInNews";
 import Posts from "./Posts";
 import StartAPost from "./StartAPost";
