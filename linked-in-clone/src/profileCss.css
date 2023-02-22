@@ -223,3 +223,26 @@ body {
 .grey-text{
   color:#a4a4a4;
 }
+
+/*
+Posts Css Below Here
+*/
+
+.posts {
+  width: 660px;
+  border-radius: 15px;
+  box-shadow: 0 0 2px 1px #cacaca;
+  margin-bottom:10px;
+}
+
+.post-user-title{
+  color:grey;
+  font-weight: lighter;
+
+}
+
+.avatar{
+  width:60px;
+  margin-right:10px;
+  border-radius: 50%;
+}
