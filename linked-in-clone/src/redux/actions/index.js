@@ -1,11 +1,10 @@
-import { Dispatch } from "redux";
-
 export const GET_USER_EXPERIENCES = "GET_USER_EXPERIENCES";
 export const GET_USERS = "GET_USERS";
 export const GET_MY_USER = "GET_MY_USER";
 export const GET_SPECIFIC_USER = "GET_SPECIFIC_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const POST_USER_EXP = "POST_USER_EXP";
+export const DELETE_USER_EXP = "DELETE_USER_EXP";
 
 export const getUsers = () => {
   return async (dispatch) => {
@@ -22,6 +21,7 @@ export const getUsers = () => {
       );
       if (response.ok) {
         const users = await response.json();
+        console.log(users);
         dispatch({
           type: GET_USERS,
           payload: users,
@@ -112,7 +112,7 @@ export const fetchUserExps = () => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/5fc4bb8db708c200175de89c/experiences",
+        "https://striveschool-api.herokuapp.com/api/profile/63f331b78381fc0013fffad0/experiences",
         {
           method: "GET",
           headers: {
@@ -139,8 +139,8 @@ export const fetchUserExps = () => {
 export const postUserExp = (newExp) => {
   return async (dispatch) => {
     try {
-      const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/5fc4bb8db708c200175de89c/experiences",
+      let response = await fetch(
+        "https://striveschool-api.herokuapp.com/api/profile/63f331b78381fc0013fffad0/experiences",
         {
           method: "POST",
           body: JSON.stringify(newExp),
@@ -152,9 +152,38 @@ export const postUserExp = (newExp) => {
         }
       );
       if (response.ok) {
+        dispatch({
+          type: POST_USER_EXP,
+          payload: newExp,
+        });
         console.log("new experience added!");
       } else {
         alert("failure to add new experience!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const deleteUserExp = (id) => {
+  return async (dispatch) => {
+    try {
+      let response = await fetch(
+        "https://striveschool-api.herokuapp.com/api/profile/63f331b78381fc0013fffad0/experiences/" +
+          id,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization:
+              "BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0",
+          },
+        }
+      );
+      if (response.ok) {
+        console.log("deleted");
+      } else {
+        console.log("try again!");
       }
     } catch (error) {
       console.log(error);

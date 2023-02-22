@@ -1,6 +1,5 @@
 const initialState = {
   expList: [],
-  currentExp: {},
 };
 
 const experiencesReducer = (state = initialState, action) => {
@@ -11,7 +10,11 @@ const experiencesReducer = (state = initialState, action) => {
         ...state,
         expList: action.payload,
       };
-
+    case "POST_USER_EXP":
+      return {
+        ...state,
+        expList: [...state.expList, action.payload],
+      };
     default:
       return state;
   }

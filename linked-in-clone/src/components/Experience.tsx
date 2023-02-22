@@ -1,8 +1,8 @@
 import { Card, Image, Form } from "react-bootstrap";
-import { fetchUserExps, postUserExp, POST_USER_EXP } from "../redux/actions";
+import { fetchUserExps, postUserExp, deleteUserExp } from "../redux/actions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { useEffect, useState } from "react";
-import { BsPencil, BsPlusLg } from "react-icons/bs";
+import { BsPencil, BsPlusLg, BsFillTrashFill } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
@@ -254,6 +254,7 @@ const Experience = () => {
                   <h6 className="grey-text">{experience.area}</h6>
                   <h6>{experience.description}</h6>
                 </div>
+                <BsFillTrashFill />
               </div>
             );
           })}
