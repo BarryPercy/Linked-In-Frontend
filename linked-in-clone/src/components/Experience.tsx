@@ -76,6 +76,7 @@ const Experience = () => {
 
   const handleSubmit2 = () => {
     dispatch(editUserExp(newExp, editExp));
+    window.location.reload();
   };
 
   return (
