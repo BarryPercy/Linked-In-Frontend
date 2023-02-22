@@ -4,7 +4,6 @@ export const GET_MY_USER = "GET_MY_USER";
 export const GET_SPECIFIC_USER = "GET_SPECIFIC_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const POST_USER_EXP = "POST_USER_EXP";
-export const DELETE_USER_EXP = "DELETE_USER_EXP";
 export const GET_POSTS = "GET_POSTS";
 export const GET_POST = "GET_POST";
 export const POST_POST = "POST_POST";
