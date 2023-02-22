@@ -32,7 +32,17 @@ const Experience = () => {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setNewExp({
+      role: "",
+      company: "",
+      startDate: "",
+      endDate: "",
+      description: "",
+      area: "",
+    });
+    setShow(true);
+  };
 
   const [newExp, setNewExp] = useState({
     role: "",
@@ -59,6 +69,7 @@ const Experience = () => {
 
   const handleSubmit = () => {
     dispatch(postUserExp(newExp));
+
     handleClose();
   };
   const handleClose2 = () => setShow2(false);
@@ -139,7 +150,7 @@ const Experience = () => {
               }
             />
 
-            <Form.Label>Description</Form.Label>
+            <Form.Label>Description*</Form.Label>
             <Form.Control
               type="textarea"
               value={newExp.description}
@@ -288,7 +299,7 @@ const Experience = () => {
                         }
                       />
 
-                      <Form.Label>Description</Form.Label>
+                      <Form.Label>Description*</Form.Label>
                       <Form.Control
                         type="textarea"
                         value={newExp.description}
@@ -310,6 +321,7 @@ const Experience = () => {
                       variant="secondary"
                       onClick={() => {
                         dispatch(deleteUserExp(experience._id));
+                        window.location.reload();
                         handleClose2();
                       }}
                     >
