@@ -33,7 +33,6 @@ const Experience = () => {
   const [show2, setShow2] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  let expId: string;
 
   const [newExp, setNewExp] = useState({
     role: "",
@@ -47,7 +46,6 @@ const Experience = () => {
   const editExp = async (id: string) => {
     let selectedExpId = experiences.find((s: Experiences) => s._id === id);
     setNewExp(selectedExpId);
-    expId = id;
   };
 
   useEffect(() => {
@@ -213,12 +211,6 @@ const Experience = () => {
                   <h6 className="grey-text">{experience.area}</h6>
                   <h6>{experience.description}</h6>
                 </div>
-                <BsFillTrashFill
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    dispatch(deleteUserExp(expId));
-                  }}
-                />
                 <BsPencil
                   className="pencil-icon"
                   style={{ cursor: "pointer" }}
@@ -314,8 +306,14 @@ const Experience = () => {
                     </Form>
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose2}>
-                      Close
+                    <Button
+                      variant="secondary"
+                      onClick={() => {
+                        dispatch(deleteUserExp(experience._id));
+                        handleClose2();
+                      }}
+                    >
+                      Delete
                     </Button>
                     <Button variant="primary" onClick={handleSubmit2}>
                       Save Changes
