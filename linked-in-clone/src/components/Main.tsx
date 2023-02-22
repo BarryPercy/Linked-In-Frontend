@@ -7,46 +7,27 @@ import Sidebar from "./Sidebar";
 import Skills from "./Skills";
 import TopNav from "./TopNav";
 import Education from "./Education";
+import { EditProfile } from "./EditProfile";
 
 const Main = () => {
   return (
     <>
       <TopNav />
-      <Container className="d-flex">
-        <div className="d-flex flex-column pt-5">
-          {/* left main section */}
-          <Row className="mt-3">
-            <Col sm={6} md={8} className="mt-2 mb-3">
-              <Profile />
-            </Col>
-            <Col sm={6} md={8} className="mt-2 mb-3">
-              <About />
-            </Col>
-            <Col sm={6} md={8} className="mt-2 mb-3">
-              <Skills />
-            </Col>
-            <Col sm={6} md={8} className="mt-2 mb-3">
-              <Experience />
-            </Col>
-            <Col sm={6} md={8} className="mt-2 mb-3">
-              <Skills />
-            </Col>
-            <Col sm={6} md={8} className="mt-2 mb-3">
-              <Education />
-            </Col>
-          </Row>
-        </div>
-        <div className="d-flex flex-column pt-5">
-          {/* side section */}
-          <Row className="d-flex flex-column mt-3">
-            <Col>
-              <Sidebar firstIndex={0} secondIndex={5} />
-            </Col>
-            <Col>
-              <Sidebar firstIndex={5} secondIndex={10} />
-            </Col>
-          </Row>
-        </div>
+      <Container className="my-5 pt-3">
+        <Row className="d-flex ">
+          <Col className=" col-lg-8 col-md-12 col-sm-12  mr-3">
+            <Profile />
+            <About />
+            <Education />
+            <Experience />
+            <Skills />
+          </Col>
+          <Col className="col-lg-3 col-md-2 col-sm-12 mt-2">
+            <EditProfile />
+            <Sidebar firstIndex={0} secondIndex={5} />
+            <Sidebar firstIndex={5} secondIndex={10} />
+          </Col>
+        </Row>
       </Container>
       <Footer />
     </>

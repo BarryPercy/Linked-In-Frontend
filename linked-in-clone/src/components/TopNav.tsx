@@ -1,4 +1,11 @@
-import { Container, Nav, Navbar, Form, Image, InputGroup } from "react-bootstrap";
+import {
+  Container,
+  Nav,
+  Navbar,
+  Form,
+  Image,
+  InputGroup,
+} from "react-bootstrap";
 import {
   BsLinkedin,
   BsFillPeopleFill,
@@ -7,15 +14,21 @@ import {
 import { AiFillHome, AiFillMessage } from "react-icons/ai";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { FaBell } from "react-icons/fa";
-import userPic from '../images/jovelynn.png'
+import userPic from "../images/jovelynn.png";
+import { Link, useLocation } from "react-router-dom";
+
 const TopNav = () => {
+  const location = useLocation();
   return (
     <Navbar bg="white" expand="lg" fixed="top">
       <Container className="nav-padding">
         <div className="d-flex align-items-center">
-          <Navbar.Brand href="#home">
-            <BsLinkedin size="2em" className="linked-in-nav-icon" />
-          </Navbar.Brand>
+          <Link to="/feed">
+            <Navbar.Brand href="#home">
+              <BsLinkedin size="2em" className="linked-in-nav-icon" />
+            </Navbar.Brand>
+          </Link>
+
           <Form className="d-flex">
             <Form.Control
               type="search"
@@ -28,7 +41,7 @@ const TopNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-end">
-            <Nav.Link href="#home">
+            <Nav.Link>
               <div className="d-flex flex-column align-items-center nav-options">
                 <AiFillHome size="2em" />
                 <span className="nav-text">Home</span>
@@ -58,15 +71,12 @@ const TopNav = () => {
                 <span className="nav-text">Notifications</span>
               </div>
             </Nav.Link>
-            <Nav.Link href="">
-              <div className="d-flex flex-column align-items-center nav-options">
-                <Image
-                  src={userPic}
-                  className="user-image"
-                />
+            <Link className="profile-text" to="/profile/">
+              <div className="d-flex flex-column align-items-center nav-options mt-1 profile-text">
+                <Image src={userPic} className="user-image" />
                 Me
               </div>
-            </Nav.Link>
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

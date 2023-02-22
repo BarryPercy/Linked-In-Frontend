@@ -46,112 +46,111 @@ const Skills: React.FC = () => {
   };
 
   return (
-    <div
-      className="skills-section border"
-      style={{ borderRadius: "15px", width: "750px" }}
-    >
-      <Card style={{ borderRadius: "15px" }}>
-        <Card.Body>
-          <Card.Title className="d-flex align-items-center">
-            <h4>Skills</h4>
-            <div className="edit-main mr-4 d-flex align-items-center">
-              <Button className="mr-4" style={{ borderRadius: "20px" }}>
-                Demonstrate Skill
-              </Button>
-              <BsPlusLg
-                style={{ cursor: "pointer" }}
-                className="plus-icon mr-4"
-                onClick={() => setIsAddClicked(!isAddClicked)}
-              />
-              <BsPencil
-                style={{ cursor: "pointer" }}
-                className="pencil-icon"
-                onClick={() => setIsEditClicked(!isEditClicked)}
-              />
-            </div>
-          </Card.Title>
-          <Card.Text>
-            <ul
-              className="list-group font-weight-bold"
-              style={{ listStyle: "none" }}
-            >
-              {skills.map((skill) => (
-                <li
-                  className="text-decoration-none py-3"
-                  key={skill.id}
-                  style={{ borderBottom: "1px solid #ccc" }}
-                >
-                  {isEditClicked ? (
-                    editingSkill?.id === skill.id ? (
-                      <div className="d-flex">
-                        <input
-                          type="text"
-                          value={editingSkill.name}
-                          onChange={(e) =>
-                            setEditingSkill({
-                              ...editingSkill,
-                              name: e.target.value,
-                            })
-                          }
-                        />
-                        <Button
-                          className="mx-1"
-                          onClick={() =>
-                            handleSaveSkill(skill, editingSkill.name)
-                          }
-                        >
-                          Save
-                        </Button>
-                        <Button
-                          className="mx-1"
-                          onClick={() => setEditingSkill(null)}
-                        >
-                          Cancel
-                        </Button>
-                        <Button
-                          className="mx-1"
-                          onClick={() => handleDeleteSkill(skill)}
-                        >
-                          Delete
-                        </Button>
-                      </div>
-                    ) : (
-                      <div className="d-flex">
-                        {skill.name}
-                        <div className="ml-auto">
-                          <BsPencil onClick={() => handleEditSkill(skill)}>
-                            Edit
-                          </BsPencil>
-                        </div>
-                      </div>
-                    )
-                  ) : (
-                    <div>{skill.name}</div>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </Card.Text>
-
-          {isAddClicked && (
-            <Row className="align-items-center">
-              <Col className="d-flex">
-                <input
-                  type="text"
-                  value={newSkill}
-                  onChange={(e) => setNewSkill(e.target.value)}
+    <Col className="main">
+      <div className=" my-3">
+        <Card>
+          <Card.Body>
+            <Card.Title className="d-flex align-items-center">
+              <h4>Skills</h4>
+              <div className="edit-main mr-4 d-flex align-items-center">
+                <Button className="mr-4" style={{ borderRadius: "20px" }}>
+                  Demonstrate Skill
+                </Button>
+                <BsPlusLg
+                  style={{ cursor: "pointer" }}
+                  className="plus-icon mr-4"
+                  onClick={() => setIsAddClicked(!isAddClicked)}
                 />
-                <div className="ml-auto">
-                  <Button variant="primary" onClick={handleAddSkill}>
-                    Add
-                  </Button>
-                </div>
-              </Col>
-            </Row>
-          )}
-        </Card.Body>
-      </Card>
-    </div>
+                <BsPencil
+                  style={{ cursor: "pointer" }}
+                  className="pencil-icon"
+                  onClick={() => setIsEditClicked(!isEditClicked)}
+                />
+              </div>
+            </Card.Title>
+            <Card.Text>
+              <ul
+                className="list-group font-weight-bold"
+                style={{ listStyle: "none" }}
+              >
+                {skills.map((skill) => (
+                  <li
+                    className="text-decoration-none py-3"
+                    key={skill.id}
+                    style={{ borderBottom: "1px solid #ccc" }}
+                  >
+                    {isEditClicked ? (
+                      editingSkill?.id === skill.id ? (
+                        <div className="d-flex">
+                          <input
+                            type="text"
+                            value={editingSkill.name}
+                            onChange={(e) =>
+                              setEditingSkill({
+                                ...editingSkill,
+                                name: e.target.value,
+                              })
+                            }
+                          />
+                          <Button
+                            className="mx-1"
+                            onClick={() =>
+                              handleSaveSkill(skill, editingSkill.name)
+                            }
+                          >
+                            Save
+                          </Button>
+                          <Button
+                            className="mx-1"
+                            onClick={() => setEditingSkill(null)}
+                          >
+                            Cancel
+                          </Button>
+                          <Button
+                            className="mx-1"
+                            onClick={() => handleDeleteSkill(skill)}
+                          >
+                            Delete
+                          </Button>
+                        </div>
+                      ) : (
+                        <div className="d-flex">
+                          {skill.name}
+                          <div className="ml-auto">
+                            <BsPencil onClick={() => handleEditSkill(skill)}>
+                              Edit
+                            </BsPencil>
+                          </div>
+                        </div>
+                      )
+                    ) : (
+                      <div>{skill.name}</div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </Card.Text>
+
+            {isAddClicked && (
+              <Row className="align-items-center">
+                <Col className="d-flex">
+                  <input
+                    type="text"
+                    value={newSkill}
+                    onChange={(e) => setNewSkill(e.target.value)}
+                  />
+                  <div className="ml-auto">
+                    <Button variant="primary" onClick={handleAddSkill}>
+                      Add
+                    </Button>
+                  </div>
+                </Col>
+              </Row>
+            )}
+          </Card.Body>
+        </Card>
+      </div>
+    </Col>
   );
 };
 
