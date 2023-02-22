@@ -2,6 +2,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import TopNav from "../TopNav";
 import LinkedInNews from "./LinkedInNews";
 import Posts from "./Posts";
+import StartAPost from "./StartAPost";
 
 const MainFeed = () => {
     return (
@@ -15,7 +16,7 @@ const MainFeed = () => {
             </Row>
             <Row>
               <Col className="mt-5">
-                  <Posts/>
+                <StartAPost/>
               </Col>
             </Row>
         </Container>
