@@ -2,23 +2,22 @@ import React from "react";
 import { MdPhotoSizeSelectActual, MdOutlineArticle } from "react-icons/md";
 import { BsFillPlayBtnFill, BsBriefcaseFill } from "react-icons/bs";
 import { Card } from "react-bootstrap";
-import userPic from "../../images/jovelynn.png";
 
 export default function StartAPost() {
   return (
     <>
-      <Card className="outer-p-feed">
+      <Card>
         <div id="feed-start-a-post-container" className="p-feed">
           <div id="start-a-post-top">
             <div
               className="recommended-user-image mr-1 d-flex p-3"
               style={{ objectFit: "cover" }}
             >
-              <img src={userPic} className="user-p-image" alt="" />
+              <img alt="Avatar" style={{ height: "100%" }} />
               <div
                 id="start-a-post"
                 className="gray-hover small-header-text border ml-3 p-1"
-                style={{ borderRadius: "20px", width: "700px" }}
+                style={{ borderRadius: "20px", width: "400px" }}
               >
                 Start a post
               </div>
