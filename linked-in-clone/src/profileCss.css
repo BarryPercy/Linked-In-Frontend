@@ -268,6 +268,7 @@ Posts Css Below Here
 .text-button-start{
   color: #a6a6a6;
   font-weight: 500;
+  padding-left:17px;
 }
 
 .start-a-post-button{
@@ -285,3 +286,10 @@ Posts Css Below Here
   background-color:#ebebeb;
 }
 
+#start-a-post-lower{
+  margin-bottom:15px;
+}
+
+.post-modal{
+  width:60%
+}
