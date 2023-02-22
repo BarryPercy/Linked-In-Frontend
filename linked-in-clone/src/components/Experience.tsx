@@ -47,7 +47,7 @@ const Experience = () => {
   const editExp = async (id: string) => {
     let selectedExpId = experiences.find((s: Experiences) => s._id === id);
     setNewExp(selectedExpId);
-    id = expId;
+    expId = id;
   };
 
   useEffect(() => {
@@ -195,12 +195,20 @@ const Experience = () => {
                   <h6>{experience.company}</h6>
                   <h6 className="grey-text">
                     {/* {experience.startDate} - {experience.endDate} */}
-                    {/* {{new Date(experience.startDate).toLocaleDateString("en-GB")}{" "}}
-                    - {new Date(experience.endDate).toLocaleDateString("en-GB")} */}{" "}
-                    {format(parseISO(experience.startDate), "MMMM, yyyy")} -{" "}
+                    {new Date(experience.startDate).toLocaleDateString(
+                      "en-GB",
+                      { day: "2-digit", month: "2-digit", year: "numeric" }
+                    )}
+                    -{" "}
+                    {new Date(experience.endDate).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                    })}
+                    {/* {format(parseISO(experience.startDate), "MMMM, yyyy")} -{" "}
                     {experience.endDate === null
                       ? "Present"
-                      : format(parseISO(experience.endDate), "MMMM, yyyy")}
+                      : format(parseISO(experience.endDate), "MMMM, yyyy")} */}
                   </h6>
                   <h6 className="grey-text">{experience.area}</h6>
                   <h6>{experience.description}</h6>
@@ -218,7 +226,7 @@ const Experience = () => {
                     handleShow2(experience._id);
                   }}
                 />
-                <Modal show={show2} onHide={handleClose}>
+                <Modal show={show2} onHide={handleClose2}>
                   <Modal.Header closeButton>
                     <Modal.Title>Edit Experience</Modal.Title>
                   </Modal.Header>
@@ -277,7 +285,7 @@ const Experience = () => {
                       <Form.Label>End Date*</Form.Label>
                       <Form.Control
                         type="date"
-                        id="startdate"
+                        id="enddate"
                         required
                         value={newExp.endDate}
                         onChange={(e) =>
