@@ -313,7 +313,6 @@ Posts Css Below Here
 */
 
 .posts {
-  width: 660px;
   border-radius: 15px;
   box-shadow: 0 0 2px 1px #cacaca;
   margin-bottom: 10px;
@@ -331,14 +330,12 @@ Posts Css Below Here
 }
 
 .start-post {
-  width: 660px;
   border-radius: 15px;
   box-shadow: 0 0 2px 1px #cacaca;
   margin-top: 50px;
 }
 
 .linked-in-news {
-  width: 320px;
   border-radius: 15px;
   box-shadow: 0 0 2px 1px #cacaca;
   margin-top: 50px;

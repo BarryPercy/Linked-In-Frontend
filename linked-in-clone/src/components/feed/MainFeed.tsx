@@ -9,17 +9,20 @@ const MainFeed = () => {
   return (
     <>
       <TopNav />
-      <Container className="d-flex">
-        <Row className="flex-col">
-          <Col className="mt-5">
-            <StartAPost />
+      <Container className="d-flex mt-5">
+        <Row>
+          {/* at a certain width this area disappears , this is left sidebard*/}
+          <Col className="col-lg-3">
+            {/* replace area below for specific components */}
+            <LinkedInNews />
           </Col>
-          <Col className="mt-5">
+          {/* this is center area */}
+          <Col className="col-lg-6">
+            <StartAPost />
             <Posts />
           </Col>
-        </Row>
-        <Row>
-          <Col className="mt-5">
+          {/* this is right sidebar */}
+          <Col className="col-lg-3">
             <LinkedInNews />
           </Col>
         </Row>

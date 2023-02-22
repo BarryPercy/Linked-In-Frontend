@@ -14,6 +14,7 @@ const combinedReducer = combineReducers({
   exps: experiencesReducer,
   mySkills: mySkillsReducer,
   users: usersReducer,
+
   posts: postsReducer,
 });
 const persistedReducer = persistReducer(persistConfig, combinedReducer);

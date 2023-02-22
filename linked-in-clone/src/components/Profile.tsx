@@ -17,9 +17,6 @@ const Profile = () => {
           <div className="camera-btn mr-3 d-flex justify-content-center align-items-center">
             <AiFillCamera />
           </div>
-          {/* <div className="edit-main mt-3">
-          <BsPencil className="pencil-icon" />
-        </div> */}
         </div>
         <div className="d-flex mt-5 pt-2">
           <Card className="left-info">

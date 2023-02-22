@@ -24,7 +24,7 @@ export default function StartAPost() {
 
   return (
     <>
-      <Card className="start-post">
+      <Card className="start-post mb-3">
         <div id="feed-start-a-post-container" className="p-feed">
           <div id="start-a-post-top">
             <div
@@ -52,7 +52,7 @@ export default function StartAPost() {
                   <Modal.Title>Create a Post</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <div className="d-flex">
+                  <div className="d-flex my-2">
                     <Image className="avatar" src="./images/jovelynn.png" />
                     <h5 className="align-self-center">Jovellyn Quiapos</h5>
                   </div>
