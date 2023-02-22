@@ -171,6 +171,7 @@ export const postUserExp = (newExp) => {
 };
 
 export const deleteUserExp = (expId) => {
+  console.log(expId)
   return async (dispatch) => {
     try {
       let response = await fetch(
@@ -185,7 +186,7 @@ export const deleteUserExp = (expId) => {
         }
       );
       if (response.ok) {
-        console.log("deleted");
+        dispatch(fetchUserExps)
       } else {
         console.log("try again!");
       }
@@ -196,6 +197,7 @@ export const deleteUserExp = (expId) => {
 };
 
 export const editUserExp = (newExp, id) => {
+  console.log(newExp)
   return async (dispatch) => {
     try {
       let response = await fetch(
@@ -211,7 +213,7 @@ export const editUserExp = (newExp, id) => {
         }
       );
       if (response.ok) {
-        console.log("edited experience");
+        dispatch(fetchUserExps)
       } else {
         alert("Error");
       }
@@ -240,6 +242,32 @@ export const fetchPosts = () => {
           type: GET_POSTS,
           payload: data,
         });
+      } else {
+        alert("Fetching went wrong!!!!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const postPost = (post) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        "https://striveschool-api.herokuapp.com/api/posts/",
+        {
+          method: "POST",
+          body: JSON.stringify(post),
+          headers: {
+            "Content-type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0",
+          },
+        }
+      );
+      if (response.ok) {
+        dispatch(fetchPosts);
       } else {
         alert("Fetching went wrong!!!!");
       }

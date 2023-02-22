@@ -35,13 +35,6 @@ const Posts = () => {
     let postsReverse = [...posts].reverse();
     let slicedPostsReverse = postsReverse.slice(0,20);
 
-    const formatDate=(date: string)=>{
-        const postDate = parseISO(date)
-        const formatted = formatDistanceToNowStrict(postDate)
-        return(
-            {formatted}
-        )
-    }
     useEffect(() => {
         dispatch(fetchPosts());
       }, []);

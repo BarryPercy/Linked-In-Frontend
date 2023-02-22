@@ -1,5 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import TopNav from "../TopNav";
+import FeedCompanyDetails from "./FeedCompanyDetails";
 import LinkedInNews from "./LinkedInNews";
 import Posts from "./Posts";
 import StartAPost from "./StartAPost";
@@ -8,23 +9,16 @@ const MainFeed = () => {
   return (
     <>
       <TopNav />
-      <Container className="d-flex flex-column">
-        <Row className="mt-5">
-          <Col className=" mt-5 col-2">
-            <div>
-              <h5>side bar</h5>
-            </div>
-          </Col>
-          <Col className="mt-5 col-6">
+      <Container className="d-flex">
+        <Row className="flex-col">
+          <Col className="mt-5">
             <StartAPost />
           </Col>
-          <Col className="mt-5 col-4">
-            <div>
-              <h5>side bar</h5>
-            </div>
+          <Col className="mt-5">
+            <Posts />
           </Col>
         </Row>
-        <Row className="mt-5">
+        <Row>
           <Col className="mt-5">
             <LinkedInNews />
           </Col>
