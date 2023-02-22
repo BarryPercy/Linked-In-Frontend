@@ -246,3 +246,50 @@ Posts Css Below Here
   margin-right:10px;
   border-radius: 50%;
 }
+
+.start-post{
+  width: 660px;
+  border-radius: 15px;
+  box-shadow: 0 0 2px 1px #cacaca;
+  margin-top:50px;
+}
+
+.linked-in-news{
+  width: 320px;
+  border-radius: 15px;
+  box-shadow: 0 0 2px 1px #cacaca;
+  margin-top:50px;
+}
+
+.linked-in-news{
+  padding-top:15px;
+}
+
+.text-button-start{
+  color: #a6a6a6;
+  font-weight: 500;
+  padding-left:17px;
+}
+
+.start-a-post-button{
+  background-color:white;
+}
+.start-a-post-button:hover{
+  background-color:#ebebeb;
+}
+
+.start-a-post-button:active{
+  background-color:#ebebeb !important;
+}
+
+.start-a-post-button:focus{
+  background-color:#ebebeb;
+}
+
+#start-a-post-lower{
+  margin-bottom:15px;
+}
+
+.post-modal{
+  width:60%
+}
