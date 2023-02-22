@@ -1,17 +1,17 @@
-import { GET_USER_EXPERIENCES, POST_USER_EXP } from "../actions";
-
 const initialState = {
   expList: [],
+  currentExp: {},
 };
 
-const experiencesRecuder = (state = initialState, action) => {
+const experiencesReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_USER_EXPERIENCES:
+    case "GET_USER_EXPERIENCES":
+      console.log(action.payload);
       return {
         ...state,
         expList: action.payload,
       };
-    case POST_USER_EXP:
+    case "POST_USER_EXP":
       return {
         ...state,
         expList: [...state.expList, action.payload],
@@ -21,4 +21,4 @@ const experiencesRecuder = (state = initialState, action) => {
   }
 };
 
-export default experiencesRecuder;
+export default experiencesReducer;

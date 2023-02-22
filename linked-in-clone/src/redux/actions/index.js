@@ -106,12 +106,11 @@ export const updateUser = (id, profile) => {
   };
 };
 
-export const fetchUserExps = async () => {
+export const fetchUserExps = () => {
   return async (dispatch) => {
-    const basepoint = "https://striveschool-api.herokuapp.com/api/profile/";
     try {
       const response = await fetch(
-        basepoint + "63f331b78381fc0013fffad0/experiences",
+        "https://striveschool-api.herokuapp.com/api/profile/5fc4bb8db708c200175de89c/experiences",
         {
           method: "GET",
           headers: {
@@ -135,12 +134,11 @@ export const fetchUserExps = async () => {
   };
 };
 
-export const postUserExp = async (experience) => {
+export const postUserExp = (experience) => {
   return async (dispatch) => {
     try {
-      const basepoint = "https://striveschool-api.herokuapp.com/api/profile/";
       const response = await fetch(
-        basepoint + "63f331b78381fc0013fffad0/experiences",
+        "https://striveschool-api.herokuapp.com/api/profile/5fc4bb8db708c200175de89c/experiences",
         {
           method: "POST",
           body: JSON.stringify(),

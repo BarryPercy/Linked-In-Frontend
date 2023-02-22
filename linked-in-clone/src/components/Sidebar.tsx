@@ -4,7 +4,6 @@ import { MdPersonAddAlt1 } from "react-icons/md";
 import { getUsers } from "../redux/actions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
 
 interface User {
   _id: string; // server generated
@@ -28,13 +27,12 @@ interface SideBarProps {
 
 const Sidebar = (props: SideBarProps) => {
   const dispatch = useAppDispatch();
-   const navigate = useNavigate();
   let users = useAppSelector((state) => state.users.userList);
   let fewUsers = users.slice(props.firstIndex, props.secondIndex);
+  
   useEffect(() => {
     dispatch(getUsers());
-    console.log("this is users", users);
-    }, []);
+  }, []);
 
   return (
     <div className="sidebar1 ">
