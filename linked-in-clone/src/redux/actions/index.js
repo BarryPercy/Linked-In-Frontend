@@ -303,7 +303,7 @@ export const postImage = (id, imageFile) => async (dispatch) => {
         body: formData,
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M5MzYxYWU3MzczODAwMTUzNzQzN2EiLCJpYXQiOjE2NzcxNTcwMTAsImV4cCI6MTY3ODM2NjYxMH0.yoBiPvaQO7HvWs852rXtNJq38xhN6P565Ve-zUjFoxo",
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0",
         },
       }
     );
