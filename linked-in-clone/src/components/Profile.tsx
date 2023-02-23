@@ -1,15 +1,100 @@
-import { Card, Image, Button, Col } from "react-bootstrap";
+import { Card, Image, Button, Col, Form } from "react-bootstrap";
 import { FaPuzzlePiece, FaDeviantart } from "react-icons/fa";
 import { AiFillCamera } from "react-icons/ai";
-import { useAppSelector } from "../redux/hooks";
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
+import { useState } from "react";
+import Modal from "react-bootstrap/Modal";
+import { updateUser } from "../redux/actions";
 // import { BsPencil } from "react-icons/bs";
 
 const Profile = () => {
   let currentUser = useAppSelector((state) => state.users.currentUser);
   let experiences = useAppSelector((state) => state.exps.expList);
+
+  let [show, setShow] = useState(false);
+  let handleClose = () => setShow(false);
+  let handleShow = () => setShow(true);
+  let dispatch = useAppDispatch();
+  const [editProfileObj, setEditProfileObj] = useState({
+    name: "",
+    surname: "",
+    area: "",
+    title: "",
+  });
+
+  const handleSubmit = () => {
+    dispatch(updateUser(editProfileObj));
+    handleClose();
+  };
+
   return (
     <Col className="main px-0">
       <div className="my-3">
+        <Modal show={show} onHide={handleClose} size="lg">
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Profile</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="First name"
+                value={editProfileObj.name}
+                onChange={(e) => {
+                  setEditProfileObj({
+                    ...editProfileObj,
+                    name: e.target.value,
+                  });
+                }}
+              />
+              <Form.Label>Surname</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Surname"
+                value={editProfileObj.surname}
+                onChange={(e) => {
+                  setEditProfileObj({
+                    ...editProfileObj,
+                    surname: e.target.value,
+                  });
+                }}
+              />
+              <Form.Label>Location</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Your current Location"
+                value={editProfileObj.area}
+                onChange={(e) => {
+                  setEditProfileObj({
+                    ...editProfileObj,
+                    area: e.target.value,
+                  });
+                }}
+              />
+              <Form.Label>Title</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Your current Title"
+                value={editProfileObj.title}
+                onChange={(e) => {
+                  setEditProfileObj({
+                    ...editProfileObj,
+                    title: e.target.value,
+                  });
+                }}
+              />
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleSubmit}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <div className="profile-icon">
           <Image
             src="https://media.licdn.com/dms/image/D4E03AQFBRCddXjTZ3w/profile-displayphoto-shrink_800_800/0/1669330248977?e=1682553600&v=beta&t=u1MdICh1S9B2m1w-JCGExm0Rpa8wYAIdtdioe_DLjqw"
@@ -25,13 +110,16 @@ const Profile = () => {
           <Card className="left-info">
             <Card.Body className="profile-info-area">
               <Card.Title>
-                <b>{currentUser.name} {currentUser.surname}</b>
+                <b>
+                  {currentUser.name} {currentUser.surname}
+                </b>
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
-                {currentUser.bio}
+                {currentUser.title}
               </Card.Subtitle>
               <Card.Text>
-                {currentUser.area}<Card.Link href="#"> Contact Info</Card.Link>
+                {currentUser.area}
+                <Card.Link href="#"> Contact Info</Card.Link>
               </Card.Text>
               <Card.Link className="mt-0">89 connections</Card.Link>
             </Card.Body>
@@ -52,7 +140,11 @@ const Profile = () => {
           <Button className="px-3 open-btn" variant="primary">
             Open to
           </Button>{" "}
-          <Button className="add-btn" variant="outline-primary">
+          <Button
+            className="add-btn"
+            variant="outline-primary"
+            onClick={handleShow}
+          >
             Add profile section
           </Button>{" "}
           <Button className="more-btn" variant="outline-secondary">

@@ -89,28 +89,24 @@ export const getSpecificUser = (id) => {
   };
 };
 
-export const updateUser = (id, profile) => {
-  return async (user) => {
+export const updateUser = (editProfileObj) => {
+  return async (dispatch) => {
     try {
       let response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/comments/`,
+        `https://striveschool-api.herokuapp.com/api/profile/`,
         {
           method: "PUT",
-          body: JSON.stringify(user),
+          body: JSON.stringify(editProfileObj),
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0",
+              "BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0",
           },
         }
       );
       if (response.ok) {
         console.log("user edited");
         // eslint-disable-next-line no-undef
-        dispatch({
-          type: UPDATE_USER,
-          payload: profile,
-        });
       } else {
         console.log("Uh oh!");
       }

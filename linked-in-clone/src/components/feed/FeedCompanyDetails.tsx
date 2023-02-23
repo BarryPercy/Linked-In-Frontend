@@ -25,7 +25,7 @@ const FeedCompanyDetails = () => {
                   </b>
                 </Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">
-                  {currentUser.bio}
+                  {currentUser.title}
                 </Card.Subtitle>
               </Card.Body>
               <hr className="mb-0" />
