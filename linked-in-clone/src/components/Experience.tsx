@@ -32,6 +32,7 @@ const Experience = () => {
   const [expId, setExpId] = useState("");
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
+  let currentToken = useAppSelector((state) => state.users.currentToken);
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setNewExp({
@@ -66,7 +67,7 @@ const Experience = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchUserExps());
+    dispatch(fetchUserExps(currentToken));
   }, []);
 
   const handleShow2 = (id: string) => {
@@ -75,8 +76,7 @@ const Experience = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(postUserExp(newExp));
-    window.location.reload();
+    dispatch(postUserExp(newExp, currentToken));
     handleClose();
   };
   const handleClose2 = () => setShow2(false);
@@ -93,7 +93,7 @@ const Experience = () => {
 
     console.log("editing->", newExp, "id->", expId);
     console.log("updating expirience");
-    dispatch(editUserExp(editedExp, expId));
+    dispatch(editUserExp(editedExp, expId, currentToken));
     handleClose2();
   };
 
@@ -181,10 +181,6 @@ const Experience = () => {
                   });
                 }}
               />
-              <Form.Label>
-                Skills &#40;We recommend adding your top 5 used in this role.
-                They'll also appear in your Skills section.&#41;
-              </Form.Label>
             </Form>
           </Modal.Body>
           <Modal.Footer>
@@ -340,8 +336,7 @@ const Experience = () => {
                       <Button
                         variant="secondary"
                         onClick={() => {
-                          dispatch(deleteUserExp(experience._id));
-                          window.location.reload();
+                          dispatch(deleteUserExp(experience._id, currentToken));
                           handleClose2();
                         }}
                       >

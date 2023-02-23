@@ -1,6 +1,7 @@
 const initialState = {
   userList: [],
   currentUser: {},
+  currentToken:{},
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -19,6 +20,11 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
       };
+    case "SET_CURRENT_TOKEN":
+        return{
+            ...state,
+            currentToken:action.payload,
+        }
     default:
       return state;
   }

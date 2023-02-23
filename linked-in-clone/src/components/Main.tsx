@@ -11,11 +11,12 @@ import { EditProfile } from "./EditProfile";
 import { getMyUser } from "../redux/actions";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { setToken } from "../redux/actions";
 
 const Main = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getMyUser());
+    dispatch(setToken("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0"));
   }, []);
 
   return (

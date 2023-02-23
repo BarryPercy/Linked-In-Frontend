@@ -36,13 +36,14 @@ interface User {
 const Posts = () => {
     const dispatch = useAppDispatch();
     let posts = useAppSelector((state) => state.posts.postList);
+    let currentToken = useAppSelector((state) => state.users.currentToken);
     let postsReverse = [...posts].reverse();
     let slicedPostsReverse = postsReverse.slice(0,20);
 
     
 
     useEffect(() => {
-        dispatch(fetchPosts());
+        dispatch(fetchPosts(currentToken));
         console.log(slicedPostsReverse)
       }, []);
     return (

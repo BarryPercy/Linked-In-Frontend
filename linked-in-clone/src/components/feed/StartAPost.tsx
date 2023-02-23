@@ -11,7 +11,7 @@ import { RxDividerVertical } from "react-icons/rx";
 import { Card, Image, Button, Modal } from "react-bootstrap";
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { postPost } from "../../redux/actions";
 import {} from "react-icons/bs";
 
@@ -22,12 +22,13 @@ export default function StartAPost() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const dispatch = useAppDispatch();
+  let currentToken = useAppSelector((state) => state.users.currentToken);
   const handleSubmit = () => {
     const object = {
       text: "",
     };
     object.text += post;
-    dispatch(postPost(object));
+    dispatch(postPost(object, currentToken));
     handleClose();
   };
 
