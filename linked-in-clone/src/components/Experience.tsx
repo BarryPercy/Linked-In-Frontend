@@ -58,6 +58,7 @@ const Experience = () => {
     // console.log("id is here>>>>> ", id);
     let selectedExp = experiences.find((s: Experiences) => s._id === id);
     setNewExp(selectedExp);
+    console.log("in the edit, here's id->", id)
     setExpId(id);
   };
 
@@ -71,6 +72,7 @@ const Experience = () => {
   };
 
   const handleSubmit = () => {
+    console.log("posting->",newExp)
     dispatch(postUserExp(newExp));
 
     handleClose();
@@ -78,13 +80,15 @@ const Experience = () => {
   const handleClose2 = () => setShow2(false);
 
   const handleSubmit2 = () => {
+    console.log("editing->", newExp,"id->",expId)
     dispatch(editUserExp(newExp, expId));
+    handleClose2();
   };
 
   return (
     <Col className="main-exp ">
       <div className="my-3">
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} size="lg">
           <Modal.Header closeButton>
             <Modal.Title>Add experience</Modal.Title>
           </Modal.Header>
@@ -237,7 +241,7 @@ const Experience = () => {
                       handleShow2(experience._id);
                     }}
                   />
-                  <Modal show={show2} onHide={handleClose2}>
+                  <Modal show={show2} onHide={handleClose2} size="lg">
                     <Modal.Header closeButton>
                       <Modal.Title>Edit Experience</Modal.Title>
                     </Modal.Header>
@@ -318,11 +322,6 @@ const Experience = () => {
                             });
                           }}
                         />
-                        <Form.Label>
-                          Skills &#40;We recommend adding your top 5 used in
-                          this role. They'll also appear in your Skills
-                          section.&#41;
-                        </Form.Label>
                       </Form>
                     </Modal.Body>
                     <Modal.Footer>
