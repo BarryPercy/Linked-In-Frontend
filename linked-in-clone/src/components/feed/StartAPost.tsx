@@ -8,14 +8,6 @@ import {
   BsThreeDots,
 } from "react-icons/bs";
 import { RxDividerVertical } from "react-icons/rx";
-import {
-  BsFillPlayBtnFill,
-  BsBriefcaseFill,
-  BsEmojiSmile,
-  BsFillFileEarmarkTextFill,
-  BsThreeDots,
-} from "react-icons/bs";
-import { RxDividerVertical } from "react-icons/rx";
 import { Card, Image, Button, Modal } from "react-bootstrap";
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
