@@ -1,8 +1,10 @@
 import { Image, Card } from "react-bootstrap";
 import { MdTry } from "react-icons/md";
 import { BsFillBookmarkFill } from "react-icons/bs";
+import { useAppSelector } from "../../redux/hooks";
 
 const FeedCompanyDetails = () => {
+  let currentUser = useAppSelector((state) => state.users.currentUser);
   return (
     <>
       <Card className="start-post">
@@ -18,10 +20,12 @@ const FeedCompanyDetails = () => {
             <Card>
               <Card.Body className="profile-info-area text-center">
                 <Card.Title>
-                  <b>Jovellyn Quiapos</b>
+                  <b>
+                    {currentUser.name} {currentUser.surname}
+                  </b>
                 </Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">
-                  Jr Full Developer
+                  {currentUser.bio}
                 </Card.Subtitle>
               </Card.Body>
               <hr className="mb-0" />
