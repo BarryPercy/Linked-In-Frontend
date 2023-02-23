@@ -1,6 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import TopNav from "../TopNav";
 import FeedCompanyDetails from "./FeedCompanyDetails";
+import FeedFooter from "./FeedFooter";
 import LinkedInNews from "./LinkedInNews";
 import Posts from "./Posts";
 import StartAPost from "./StartAPost";
@@ -24,6 +25,7 @@ const MainFeed = () => {
           {/* this is right sidebar */}
           <Col className="col-lg-3">
             <LinkedInNews />
+            <FeedFooter />
           </Col>
         </Row>
       </Container>
