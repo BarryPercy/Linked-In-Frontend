@@ -46,7 +46,7 @@ const Sidebar = (props: SideBarProps) => {
                 <Image
                   className="side-pro-icon"
                   roundedCircle
-                  src="https://pbs.twimg.com/profile_images/1485050791488483328/UNJ05AV8_400x400.jpg"
+                  src={user.image}
                 />
                 <Card.Body className="ml-2">
                   <Card.Title>
