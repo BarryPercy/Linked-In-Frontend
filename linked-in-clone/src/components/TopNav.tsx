@@ -16,6 +16,7 @@ import { RxMagnifyingGlass } from "react-icons/rx";
 import { FaBell } from "react-icons/fa";
 import userPic from "../images/jovelynn.png";
 import { Link, useLocation } from "react-router-dom";
+import { useAppSelector } from "../redux/hooks";
 
 const TopNav = () => {
   const location = useLocation();
