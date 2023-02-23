@@ -54,7 +54,7 @@ export const getMyUser = () => {
       );
       if (response.ok) {
         const user = await response.json();
-        console.log(user)
+        console.log(user);
         dispatch({
           type: GET_MY_USER,
           payload: user,
@@ -205,26 +205,16 @@ export const deleteUserExp = (expId) => {
   };
 };
 
-export const editUserExp = (newExp, id) => {
-  console.log(newExp);
-  console.log(id);
-  // console.log("json new exp ==>", JSON.stringify(newExp));
-  // let newExpFilter = {
-  //   role: newExp.role,
-  //   company: newExp.company,
-  //   startDate: newExp.startDate,
-  //   endDate: newExp.endDate,
-  //   description: newExp.description,
-  //   area: newExp.area,
-  // };
+export const editUserExp = (editedExp, expId) => {
+  console.log(editedExp, expId);
   return async (dispatch) => {
     try {
       let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/profile/63f331b78381fc0013fffad0/experiences/" +
-          id,
+          expId,
         {
           method: "PUT",
-          body: JSON.stringify(newExp),
+          body: JSON.stringify(editedExp),
           headers: {
             Authorization:
               "BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0",
@@ -232,7 +222,8 @@ export const editUserExp = (newExp, id) => {
         }
       );
       if (response.ok) {
-        dispatch(fetchUserExps);
+        console.log("updated! ");
+        dispatch(fetchUserExps());
       } else {
         alert("Failed to edit!");
       }
