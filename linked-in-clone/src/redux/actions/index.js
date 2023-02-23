@@ -171,7 +171,7 @@ export const postUserExp = (newExp) => {
 };
 
 export const deleteUserExp = (expId) => {
-  console.log(expId)
+  console.log(expId);
   return async (dispatch) => {
     try {
       let response = await fetch(
@@ -186,7 +186,8 @@ export const deleteUserExp = (expId) => {
         }
       );
       if (response.ok) {
-        dispatch(fetchUserExps)
+        console.log("deleted exp");
+        dispatch(fetchUserExps);
       } else {
         console.log("try again!");
       }
@@ -197,7 +198,17 @@ export const deleteUserExp = (expId) => {
 };
 
 export const editUserExp = (newExp, id) => {
-  console.log(newExp)
+  console.log(newExp);
+  console.log(id);
+  // console.log("json new exp ==>", JSON.stringify(newExp));
+  // let newExpFilter = {
+  //   role: newExp.role,
+  //   company: newExp.company,
+  //   startDate: newExp.startDate,
+  //   endDate: newExp.endDate,
+  //   description: newExp.description,
+  //   area: newExp.area,
+  // };
   return async (dispatch) => {
     try {
       let response = await fetch(
@@ -213,9 +224,9 @@ export const editUserExp = (newExp, id) => {
         }
       );
       if (response.ok) {
-        dispatch(fetchUserExps)
+        dispatch(fetchUserExps);
       } else {
-        alert("Error");
+        alert("Failed to edit!");
       }
     } catch (error) {
       console.log(error);

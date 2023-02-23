@@ -29,6 +29,7 @@ interface Experiences {
 const Experience = () => {
   const dispatch = useAppDispatch();
   let experiences = useAppSelector((state) => state.exps.expList);
+  const [expId, setExpId] = useState("");
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const handleClose = () => setShow(false);
@@ -54,8 +55,10 @@ const Experience = () => {
   });
 
   const editExp = async (id: string) => {
-    let selectedExpId = experiences.find((s: Experiences) => s._id === id);
-    setNewExp(selectedExpId);
+    // console.log("id is here>>>>> ", id);
+    let selectedExp = experiences.find((s: Experiences) => s._id === id);
+    setNewExp(selectedExp);
+    setExpId(id);
   };
 
   useEffect(() => {
@@ -75,7 +78,7 @@ const Experience = () => {
   const handleClose2 = () => setShow2(false);
 
   const handleSubmit2 = () => {
-    dispatch(editUserExp(newExp, editExp));
+    dispatch(editUserExp(newExp, expId));
   };
 
   return (
