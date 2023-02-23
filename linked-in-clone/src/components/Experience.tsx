@@ -4,6 +4,7 @@ import {
   postUserExp,
   deleteUserExp,
   editUserExp,
+  postUserImageExp,
 } from "../redux/actions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { useEffect, useState } from "react";
@@ -32,6 +33,7 @@ const Experience = () => {
   const [expId, setExpId] = useState("");
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setNewExp({
@@ -41,6 +43,7 @@ const Experience = () => {
       endDate: "",
       description: "",
       area: "",
+      image: "",
     });
     setShow(true);
   };
@@ -52,6 +55,7 @@ const Experience = () => {
     endDate: "",
     description: "",
     area: "",
+    image: "",
   });
 
   const selectEditedExp = async (id: string) => {
@@ -65,8 +69,24 @@ const Experience = () => {
     }
   };
 
+  const handleFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: string
+  ) => {
+    console.log(e);
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      setFile(files[0]);
+    } else {
+      setFile(null);
+    }
+  };
+
   useEffect(() => {
     dispatch(fetchUserExps());
+    if (file) {
+      dispatch(postUserImageExp(file));
+    }
   }, []);
 
   const handleShow2 = (id: string) => {
@@ -74,8 +94,10 @@ const Experience = () => {
     selectEditedExp(id);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     dispatch(postUserExp(newExp));
+
     window.location.reload();
     handleClose();
   };
@@ -89,12 +111,40 @@ const Experience = () => {
       endDate: newExp.endDate,
       description: newExp.description,
       area: newExp.area,
+      image: newExp.image,
     };
 
     console.log("editing->", newExp, "id->", expId);
     console.log("updating expirience");
     dispatch(editUserExp(editedExp, expId));
     handleClose2();
+  };
+
+  const postUserImageExp = async (file: any) => {
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+      console.log(formData);
+      let response = await fetch(
+        `https://striveschool-api.herokuapp.com/api/profile/63f331b78381fc0013fffad0/experiences/${expId}/picture`,
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Content-type": "application/json",
+            Authorization:
+              "BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0",
+          },
+        }
+      );
+      if (response.ok) {
+        console.log("experience image uploaded");
+      } else {
+        console.log("fail image upload");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -181,17 +231,31 @@ const Experience = () => {
                   });
                 }}
               />
-              <Form.Label>
+
+              <Form.File
+                id="imageFile"
+                label="Upload an Image"
+                onChange={(e: any) => {
+                  handleFileChange(e, expId);
+                }}
+              />
+
+              {/* <Form.Label>
                 Skills &#40;We recommend adding your top 5 used in this role.
                 They'll also appear in your Skills section.&#41;
-              </Form.Label>
+              </Form.Label> */}
             </Form>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleSubmit}>
+            <Button
+              variant="primary"
+              onClick={(e: any) => {
+                handleSubmit(e);
+              }}
+            >
               Save Changes
             </Button>
           </Modal.Footer>
@@ -218,9 +282,10 @@ const Experience = () => {
             {experiences.map((experience: Experiences) => {
               return (
                 <div key={experience._id} className="d-flex">
-                  <Image
-                    src="https://coursereport-s3-production.global.ssl.fastly.net/uploads/school/logo/1045/original/EPICODE-pitto-color.png"
+                  <img
+                    src={experience.image}
                     className="align-self-start exp-img mr-3"
+                    alt=""
                   />
                   <div className="d-flex flex-column">
                     <h5>{experience.role}</h5>
@@ -335,6 +400,13 @@ const Experience = () => {
                           }}
                         />
                       </Form>
+                      <Form.File
+                        id="imageFile"
+                        label="Upload an Image"
+                        onChange={(e: any) => {
+                          handleFileChange(e, expId);
+                        }}
+                      />
                     </Modal.Body>
                     <Modal.Footer>
                       <Button

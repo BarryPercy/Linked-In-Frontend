@@ -54,7 +54,7 @@ export const getMyUser = () => {
       );
       if (response.ok) {
         const user = await response.json();
-        console.log(user);
+
         dispatch({
           type: GET_MY_USER,
           payload: user,
@@ -167,6 +167,35 @@ export const postUserExp = (newExp) => {
         console.log("new experience added!");
       } else {
         alert("failure to add new experience!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const postUserImageExp = (file, fileId) => {
+  return async (dispatch) => {
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+      let response = await fetch(
+        `https://striveschool-api.herokuapp.com/api/profile/63f331b78381fc0013fffad0/experiences/${fileId}/picture`,
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Content-type": "application/json",
+            Authorization:
+              "BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0",
+          },
+        }
+      );
+      if (response.ok) {
+        dispatch();
+        console.log("experience image uploaded");
+      } else {
+        console.log("fail image upload");
       }
     } catch (error) {
       console.log(error);
