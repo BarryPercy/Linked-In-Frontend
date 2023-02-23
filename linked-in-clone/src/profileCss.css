@@ -377,6 +377,64 @@ Posts Css Below Here
   width: 60%;
 }
 
+.post-area {
+  border: none;
+}
+.form-control.post-area:focus {
+  color: #495057;
+  background-color: #fff;
+  outline: 0;
+}
+
+.icon-posts {
+  color: #495057;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.icon-posts:hover {
+  border-radius: 100%;
+  background-color: #e6e6e6a4;
+}
+
+.img-icon-btn {
+  color: #495057;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  border: none;
+  border-radius: 100%;
+}
+
+.img-icon-btn:hover {
+  color: #495057;
+  background-color: #e6e6e6a4;
+  border: none;
+  border-radius: 100%;
+}
+
+.img-icon-btn:active {
+  color: #495057;
+  background-color: #e6e6e6a4;
+  border: none;
+  border-radius: 100%;
+}
+
+.img-icon-btn:focus {
+  color: #495057;
+  background-color: #e6e6e6a4;
+  border: none;
+  border-radius: 100%;
+}
+
 /* Upload image css from feed */
 
 .start-a-picture-button {
