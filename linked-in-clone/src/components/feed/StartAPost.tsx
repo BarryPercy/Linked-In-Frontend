@@ -12,10 +12,10 @@ import { Card, Image, Button, Modal } from "react-bootstrap";
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useAppDispatch } from "../../redux/hooks";
-import { postPost } from "../../redux/actions";
-import {} from "react-icons/bs";
+import { postImage, postPost } from "../../redux/actions";
 
 export default function StartAPost() {
+  const [image, setImage] =useState<File | null>(null);
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const [post, setPost] = useState("");
@@ -26,8 +26,15 @@ export default function StartAPost() {
     const object = {
       text: "",
     };
+
+    const object2 = {
+      post: image
+    };
     object.text += post;
+    console.log(object)
+    console.log(object2)
     dispatch(postPost(object));
+    dispatch(postImage(object2))
     handleClose();
   };
 
@@ -72,7 +79,6 @@ export default function StartAPost() {
                     <h5 className="align-self-center">Jovellyn Quiapos</h5>
                   </div>
                   <Form.Control
-                    className="post-area"
                     as="textarea"
                     placeholder="What do you want to talk about?"
                     style={{ height: "150px" }}
@@ -82,39 +88,11 @@ export default function StartAPost() {
                     value={post}
                   />
                 </Modal.Body>
-                <div className="ml-3 mb-3 icon-posts">
-                  <BsEmojiSmile style={{ fontSize: "25px" }} />
-                </div>
-                <div className="d-flex">
-                  <div className="d-flex side-post-icons">
-                    <Button
-                      className="img-icon-btn ml-3 mb-2"
-                      onClick={() => {
-                        handleClose();
-                        handleShow2();
-                      }}
-                    >
-                      <div>
-                        <MdPhotoSizeSelectActual style={{ fontSize: "25px" }} />
-                      </div>
-                    </Button>
-
-                    <div className=" mb-2 icon-posts">
-                      <BsFillPlayBtnFill style={{ fontSize: "25px" }} />
-                    </div>
-                    <div className=" mb-2 icon-posts">
-                      <BsFillFileEarmarkTextFill style={{ fontSize: "25px" }} />
-                    </div>
-                    <div className=" mb-2 icon-posts">
-                      <BsThreeDots style={{ fontSize: "25px" }} />
-                    </div>
-                  </div>
-                  <div className="right-side-icon ml-auto mr-3">
-                    <Button variant="primary" onClick={handleSubmit}>
-                      Post
-                    </Button>
-                  </div>
-                </div>
+                <Modal.Footer>
+                  <Button variant="primary" onClick={handleSubmit}>
+                    Post
+                  </Button>
+                </Modal.Footer>
               </Modal>
             </div>
           </div>

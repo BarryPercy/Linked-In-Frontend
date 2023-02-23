@@ -8,7 +8,10 @@ export const GET_POSTS = "GET_POSTS";
 export const GET_POST = "GET_POST";
 export const POST_POST = "POST_POST";
 export const EDIT_POST = "EDIT_POSTS";
-export const DELETE_POST = "DELETE_POSTS";
+export const DELETE_POST = "DELETE_POSTS"
+export const POST_IMAGE_SUCCESS = "POST_IMAGE_SUCCESS"
+export const POST_IMAGE_FAILURE = "POST_IMAGE_FAILURE"
+
 
 export const getUsers = () => {
   return async (dispatch) => {
@@ -295,3 +298,46 @@ export const postPost = (post) => {
     }
   };
 };
+
+export const postImage = (id, imageFile) => async (dispatch) => {
+  try {
+    const formData = new FormData();
+    formData.append('post', imageFile);
+
+    const response = await fetch(
+      `https://striveschool-api.herokuapp.com/api/posts/${id}`,
+      {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2M5MzYxYWU3MzczODAwMTUzNzQzN2EiLCJpYXQiOjE2NzcxNTcwMTAsImV4cCI6MTY3ODM2NjYxMH0.yoBiPvaQO7HvWs852rXtNJq38xhN6P565Ve-zUjFoxo",
+        },
+      }
+    );
+    if (!response.ok) {
+      throw new Error('Failed to upload image');
+    }
+
+    const data = await response.json();
+    console.log(data)
+
+    dispatch({
+      type: POST_IMAGE_SUCCESS,
+      payload: {
+        id,
+        image: data,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: POST_IMAGE_FAILURE,
+      payload: {
+        id,
+        error: error.message,
+      },
+    });
+  }
+};
+
+
