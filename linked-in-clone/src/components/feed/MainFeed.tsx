@@ -4,6 +4,7 @@ import FeedCompanyDetails from "./FeedCompanyDetails";
 import FeedFooter from "./FeedFooter";
 import LinkedInNews from "./LinkedInNews";
 import Posts from "./Posts";
+import RecentHastags from "./RecentHashtags";
 import StartAPost from "./StartAPost";
 
 const MainFeed = () => {
@@ -13,8 +14,9 @@ const MainFeed = () => {
       <Container className="d-flex mt-5">
         <Row>
           {/* at a certain width this area disappears , this is left sidebard*/}
-          <Col className="col-lg-3">
+          <Col className="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <FeedCompanyDetails />
+            <RecentHastags />
             {/* replace area below for specific components */}
           </Col>
           {/* this is center area */}
