@@ -1,23 +1,79 @@
-import { Row, Col, Card, Button } from "react-bootstrap";
+import { Row, Col, Card, Button, Form } from "react-bootstrap";
 import { BsPencil } from "react-icons/bs";
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
+import { useState } from "react";
+import Modal from "react-bootstrap/Modal";
+import { updateUser } from "../redux/actions";
+import { cursorTo } from "readline";
 
 const About = () => {
+  let currentUser = useAppSelector((state) => state.users.currentUser);
+  let [show, setShow] = useState(false);
+  let handleClose = () => setShow(false);
+  let handleShow = () => setShow(true);
+  let dispatch = useAppDispatch();
+  const [editAbout, setEditAbout] = useState({
+    bio: "",
+  });
+
+  const handleSubmit = () => {
+    dispatch(updateUser(editAbout));
+    handleClose();
+    window.location.reload();
+  };
+
   return (
     <Col className="main">
       <div className="my-3">
+        <Modal show={show} onHide={handleClose} size="lg">
+          <Modal.Header closeButton>
+            <Modal.Title>Edit About section!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Label>About</Form.Label>
+              <Form.Control
+                className="post-area"
+                as="textarea"
+                placeholder="Tell us about yourself!"
+                style={{ height: "150px" }}
+                onChange={(e) => {
+                  setEditAbout({
+                    ...editAbout,
+                    bio: e.target.value,
+                  });
+                }}
+                value={editAbout.bio}
+              />
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleSubmit}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <Card>
           <Card.Body>
             <div
               className="edit-main mr-4
               "
             >
-              <BsPencil className="pencil-icon" />
+              <BsPencil
+                style={{ cursor: "pointer" }}
+                className="pencil-icon"
+                onClick={handleShow}
+              />
             </div>
             <Card.Title>
               <h4>About</h4>
             </Card.Title>
             <Card.Text>
-              🖥 Currently in education, studying, to become a full-stack
+              {currentUser.bio}
+              {/* 🖥 Currently in education, studying, to become a full-stack
               developer.
               <br></br>
               <br></br>
@@ -33,7 +89,7 @@ const About = () => {
               <br></br>
               <br></br>
               🏢Coding knowledge from going to the National College of Ireland
-              and doing the Computing and Business course.
+              and doing the Computing and Business course. */}
               {/* <Button className="see-more-btn mr-2" variant="outline-light">
                   ...see more
                 </Button>{" "} */}

@@ -25,6 +25,7 @@ const Profile = () => {
   const handleSubmit = () => {
     dispatch(updateUser(editProfileObj));
     handleClose();
+    window.location.reload();
   };
 
   return (
