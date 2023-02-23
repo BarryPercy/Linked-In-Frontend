@@ -8,14 +8,22 @@ import {
   BsThreeDots,
 } from "react-icons/bs";
 import { RxDividerVertical } from "react-icons/rx";
+import {
+  BsFillPlayBtnFill,
+  BsBriefcaseFill,
+  BsEmojiSmile,
+  BsFillFileEarmarkTextFill,
+  BsThreeDots,
+} from "react-icons/bs";
+import { RxDividerVertical } from "react-icons/rx";
 import { Card, Image, Button, Modal } from "react-bootstrap";
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useAppDispatch } from "../../redux/hooks";
-import { postImage, postPost } from "../../redux/actions";
+import { postPost } from "../../redux/actions";
+import {} from "react-icons/bs";
 
 export default function StartAPost() {
-  const [image, setImage] =useState<File | null>(null);
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const [post, setPost] = useState("");
@@ -26,15 +34,8 @@ export default function StartAPost() {
     const object = {
       text: "",
     };
-
-    const object2 = {
-      post: image
-    };
     object.text += post;
-    console.log(object)
-    console.log(object2)
     dispatch(postPost(object));
-    dispatch(postImage(object2))
     handleClose();
   };
 
