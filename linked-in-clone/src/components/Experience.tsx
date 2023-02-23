@@ -75,9 +75,8 @@ const Experience = () => {
   };
 
   const handleSubmit = () => {
-    console.log("posting->", newExp);
     dispatch(postUserExp(newExp));
-
+    window.location.reload();
     handleClose();
   };
   const handleClose2 = () => setShow2(false);
@@ -342,6 +341,7 @@ const Experience = () => {
                         variant="secondary"
                         onClick={() => {
                           dispatch(deleteUserExp(experience._id));
+                          window.location.reload();
                           handleClose2();
                         }}
                       >
