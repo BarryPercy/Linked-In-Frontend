@@ -4,19 +4,12 @@ body {
 }
 
 .main {
-  height: 600px;
   border-radius: 15px;
   background-color: white;
   box-shadow: 0 0 2px 1px #cacaca;
 }
 
 .main-exp {
-  border-radius: 15px;
-  background-color: white;
-  box-shadow: 0 0 2px 1px #cacaca;
-}
-
-.main-about {
   border-radius: 15px;
   background-color: white;
   box-shadow: 0 0 2px 1px #cacaca;
@@ -45,6 +38,10 @@ body {
 
 .card {
   border: none;
+}
+
+.profile-info-area {
+  padding-block: 10px;
 }
 
 .button-area button {
@@ -177,6 +174,8 @@ a.profile-text:hover {
   width: 100px;
 }
 
+/* Side feed bar css */
+
 /* start post css here */
 
 .outer-p-feed {
@@ -206,6 +205,10 @@ a.profile-text:hover {
     background-color: white;
     box-shadow: 0 0 2px 1px #cacaca;
   }
+  /* .footer-text {
+    display: flex;
+    justify-content: space-around;
+  } */
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -372,4 +375,106 @@ Posts Css Below Here
 
 .post-modal {
   width: 60%;
+}
+
+/* Upload image css from feed */
+
+.start-a-picture-button {
+  background-color: white;
+  color: #3b3b3b;
+  border: none;
+}
+
+.start-a-picture-button:hover {
+  background-color: #ffffff;
+  color: #007bff;
+}
+
+.start-a-picture-button:active {
+  background-color: #ffffff !important;
+  border: none;
+}
+
+.start-a-picture-button:focus {
+  background-color: #ebebeb;
+  border: none;
+}
+
+.upload-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+}
+
+.share-a-img-btn {
+  background-color: white;
+  color: #0154ad;
+  font-weight: 500;
+  border: none;
+}
+
+.share-a-img-btn:hover {
+  background-color: #cae3fd8f;
+  color: #0154ad;
+  font-weight: 500;
+  border: none;
+}
+
+.share-a-img-btn:active {
+  background-color: #cae3fd8f;
+  color: #0154ad;
+  font-weight: 500;
+  border: none;
+}
+
+.share-a-img-btn:focus {
+  background-color: #cae3fd8f;
+  color: #0154ad;
+  font-weight: 500;
+  border: none;
+}
+
+.cancel-img-btn {
+  background-color: white;
+  color: #0154ad;
+  border-radius: 50px;
+  padding-block: 4px;
+  font-weight: 500;
+}
+
+.cancel-img-btn:hover {
+  background-color: #cae3fd8f;
+  color: #0154ad;
+  border-radius: 50px;
+  padding-block: 4px;
+  border: 1.5px solid;
+  font-weight: 500;
+}
+
+.cancel-img-btn:active {
+  background-color: #cae3fd8f;
+  color: #0154ad;
+  border-radius: 50px;
+  padding-block: 4px;
+  border: 1.5px solid;
+  font-weight: 500;
+}
+
+.cancel-img-btn:focus {
+  background-color: #cae3fd8f;
+  color: #0154ad;
+  border-radius: 50px;
+  padding-block: 4px;
+  border: 1.5px solid;
+  font-weight: 500;
+}
+
+.upload-img-btn {
+  background-color: #e6e6e6a4;
+  color: #9b8f8f;
+  font-weight: 500;
+  padding-block: 4px;
+  border-radius: 50px;
+  border: solid #e6e6e6a4;
 }

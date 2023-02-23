@@ -82,7 +82,7 @@ const Experience = () => {
   };
 
   return (
-    <Col className="main-exp ">
+    <Col className="main ">
       <div className="my-3">
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>

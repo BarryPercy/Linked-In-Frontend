@@ -14,8 +14,8 @@ const MainFeed = () => {
         <Row>
           {/* at a certain width this area disappears , this is left sidebard*/}
           <Col className="col-lg-3">
+            <FeedCompanyDetails />
             {/* replace area below for specific components */}
-            <LinkedInNews />
           </Col>
           {/* this is center area */}
           <Col className="col-lg-6">
@@ -23,7 +23,8 @@ const MainFeed = () => {
             <Posts />
           </Col>
           {/* this is right sidebar */}
-          <Col className="col-lg-3">
+          <Col className="col-lg-3 col-sm-12">
+            {" "}
             <LinkedInNews />
             <FeedFooter />
           </Col>

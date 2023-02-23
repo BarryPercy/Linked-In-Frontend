@@ -20,7 +20,7 @@ const Profile = () => {
         </div>
         <div className="d-flex mt-5 pt-2">
           <Card className="left-info">
-            <Card.Body>
+            <Card.Body className="profile-info-area">
               <Card.Title>
                 <b>Jovellyn Quiapos</b>
               </Card.Title>
@@ -45,7 +45,7 @@ const Profile = () => {
           </Card>
         </div>
 
-        <div className="ml-3 button-area">
+        <div className="ml-3 button-area pb-3">
           <Button className="px-3 open-btn" variant="primary">
             Open to
           </Button>{" "}

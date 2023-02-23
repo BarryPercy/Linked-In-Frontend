@@ -3,7 +3,7 @@ import { BsPencil } from "react-icons/bs";
 
 const About = () => {
   return (
-    <Col className="main-about">
+    <Col className="main">
       <div className="my-3">
         <Card>
           <Card.Body>

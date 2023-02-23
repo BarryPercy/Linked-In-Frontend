@@ -2,19 +2,19 @@ import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { BsQuestionCircleFill } from "react-icons/bs";
 import { RiSettings3Fill } from "react-icons/ri";
-import LinkedinLogo from '../assets/LinkedIn-logo.png' 
+import LinkedinLogo from "../assets/LinkedIn-logo.png";
 
 function LargeFooter() {
   return (
     <>
       <Container className="mt-5 mb-5">
         <Row>
-          <Col lg={12}>
+          <Col lg={12} sm={12}>
             <div className="li-logo-container">
               <Image src={LinkedinLogo} className="li-logo" />
             </div>
           </Col>
-          <Col lg={2}>
+          <Col lg={2} sm={12}>
             <div>
               <ul className="footer-text">
                 <li>About</li>
@@ -85,4 +85,4 @@ function LargeFooter() {
   );
 }
 
-export default LargeFooter
+export default LargeFooter;
