@@ -16,6 +16,10 @@ body {
   box-shadow: 0 0 2px 1px #cacaca;
 }
 
+.profile-container{
+  min-width:1350px;
+}
+
 .main-about {
   border-radius: 15px;
   background-color: white;
@@ -115,7 +119,6 @@ a.profile-text:hover {
 }
 
 .sidebar1 {
-  width:340px;
   margin-top: 8px;
   background-color: white;
   border-radius: 15px;
@@ -202,6 +205,10 @@ a.profile-text:hover {
     border: 5px solid white;
   }
 
+  .profile-container{
+    min-width:unset;
+  }
+
   .main-about {
     border-radius: 15px;
     background-color: white;
@@ -241,6 +248,16 @@ a.profile-text:hover {
     height: 50px;
     border-radius: 50px;
     font-size: 15px;
+  }
+
+  .profile-container{
+    min-width:unset;
+  }
+}
+
+@media only screen and (min-width: 0px) {
+  .profile-container{
+    min-width:unset;
   }
 }
 
@@ -374,3 +391,5 @@ Posts Css Below Here
 .post-modal {
   width: 60%;
 }
+
+

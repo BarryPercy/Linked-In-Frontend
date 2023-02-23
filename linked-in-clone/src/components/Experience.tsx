@@ -241,7 +241,7 @@ const Experience = () => {
                       handleShow2(experience._id);
                     }}
                   />
-                  <Modal show={show2} onHide={handleClose2} size="lg">
+                  <Modal show={show2} onHide={handleClose2} size="lg" >
                     <Modal.Header closeButton>
                       <Modal.Title>Edit Experience</Modal.Title>
                     </Modal.Header>

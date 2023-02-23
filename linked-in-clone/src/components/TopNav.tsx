@@ -41,25 +41,27 @@ const TopNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-end">
+            <Link to="/feed/">
+              <Nav.Link href="#home">
+                <div className="d-flex flex-column align-items-center nav-options">
+                  <AiFillHome size="2em" />
+                  <span className="nav-text">Home</span>
+                </div>
+              </Nav.Link>
+            </Link>
             <Nav.Link>
-              <div className="d-flex flex-column align-items-center nav-options">
-                <AiFillHome size="2em" />
-                <span className="nav-text">Home</span>
-              </div>
-            </Nav.Link>
-            <Nav.Link href="#my-net">
               <div className="d-flex flex-column align-items-center nav-options">
                 <BsFillPeopleFill size="2em" />
                 <span className="nav-text">My Network</span>
               </div>
             </Nav.Link>
-            <Nav.Link href="#jobs">
+            <Nav.Link>
               <div className="d-flex flex-column align-items-center nav-options">
                 <BsFillBriefcaseFill size="2em" />
                 <span className="nav-text">Jobs</span>
               </div>
             </Nav.Link>
-            <Nav.Link href="#messaging">
+            <Nav.Link>
               <div className="d-flex flex-column align-items-center nav-options">
                 <AiFillMessage size="2em" />
                 <span className="nav-text">Messaging</span>

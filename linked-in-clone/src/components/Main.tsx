@@ -21,9 +21,9 @@ const Main = () => {
   return (
     <>
       <TopNav />
-      <Container className="my-5 pt-3">
+      <Container className="my-5 pt-3 profile-container">
         <Row className="d-flex ">
-          <Col className=" col-lg-8 col-md-12 col-sm-12  mr-3">
+          <Col className="col-lg-8 col-md-12 col-sm-12  mr-3">
             <Profile />
             <About />
             <Education />
