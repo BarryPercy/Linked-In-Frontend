@@ -23,6 +23,7 @@ export default function StartAPost() {
   const handleShow = () => setShow(true);
   const dispatch = useAppDispatch();
   let currentToken = useAppSelector((state) => state.users.currentToken);
+  let currentUser = useAppSelector((state)=>state.users.currentUser);
   const handleSubmit = () => {
     const object = {
       text: "",
@@ -49,7 +50,7 @@ export default function StartAPost() {
             >
               <Image
                 className="avatar"
-                src="./images/jovelynn.png "
+                src={currentUser.image}
                 alt="Avatar"
                 style={{ height: "100%" }}
               />
@@ -69,8 +70,8 @@ export default function StartAPost() {
                 </Modal.Header>
                 <Modal.Body>
                   <div className="d-flex my-2">
-                    <Image className="avatar" src="./images/jovelynn.png" />
-                    <h5 className="align-self-center">Jovellyn Quiapos</h5>
+                    <Image className="avatar" src={currentUser.image} />
+                    <h5 className="align-self-center">{currentUser.name} {currentUser.surname}</h5>
                   </div>
                   <Form.Control
                     as="textarea"

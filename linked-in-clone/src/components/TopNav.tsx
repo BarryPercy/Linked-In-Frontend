@@ -14,6 +14,7 @@ import {
   BsLinkedin,
   BsFillPeopleFill,
   BsFillBriefcaseFill,
+  BsFillFilePersonFill,
 } from "react-icons/bs";
 import { AiFillHome, AiFillMessage } from "react-icons/ai";
 import { RxMagnifyingGlass } from "react-icons/rx";
@@ -26,9 +27,9 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 const TopNav = () => {
   const location = useLocation();
+  let currentUser = useAppSelector((state) => state.users.currentUser);
   const dispatch = useAppDispatch();
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
@@ -105,11 +106,17 @@ const TopNav = () => {
               </div>
             </Nav.Link>
             <Link className="profile-text" to="/profile/">
-              <div className="d-flex flex-column align-items-center nav-options mt-1 profile-text" onClick={handleShow}>
-                <Image src={userPic} className="user-image" />
+              <div className="d-flex flex-column align-items-center nav-options mt-1 profile-text">
+                <Image src={currentUser.image} className="user-image" />
                 Me
               </div>
             </Link>
+            <Nav.Link>
+              <div className="d-flex flex-column align-items-center nav-options" onClick={handleShow}>
+                <BsFillFilePersonFill size="2em" />
+                <span className="nav-text">Change Profile</span>
+              </div>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
