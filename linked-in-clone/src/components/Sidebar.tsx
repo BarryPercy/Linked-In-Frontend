@@ -37,9 +37,9 @@ const Sidebar = (props: SideBarProps) => {
 
   return (
     <>
-      <div className="sidebar1 ">
+      <div className="sidebar1 mb-3">
         <h4 className="ml-3 pt-3">People also viewed</h4>
-        {fewUsers.map((user: User) => {
+        {fewUsers.map((user: User, index: number) => {
           return (
             <Card key={user._id}>
               <div className="side-card d-flex mx-3">
@@ -59,10 +59,11 @@ const Sidebar = (props: SideBarProps) => {
                   </Button>
                 </Card.Body>
               </div>
-              <hr className="line-1" />
+              {index!==fewUsers.length-1&&<hr className="line-1" />}
             </Card>
           );
         })}
+        <div className="mb-3"></div>
       </div>
     </>
   );

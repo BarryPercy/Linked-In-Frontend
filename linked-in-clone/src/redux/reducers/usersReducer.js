@@ -12,16 +12,12 @@ const usersReducer = (state = initialState, action) => {
       };
     case "GET_MY_USER":
       return {
-        ...state.currentUser,
+        ...state,
+        currentUser: action.payload,
       };
     case "GET_SPECIFIC_USER":
       return {
-        ...state.userList.find((user) => user._id === action.payload),
-      };
-    case "UPDATE_USER":
-      return {
         ...state,
-        currentSong: action.payload,
       };
     default:
       return state;

@@ -8,8 +8,16 @@ import Skills from "./Skills";
 import TopNav from "./TopNav";
 import Education from "./Education";
 import { EditProfile } from "./EditProfile";
+import { getMyUser } from "../redux/actions";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 const Main = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getMyUser());
+  }, []);
+
   return (
     <>
       <TopNav />

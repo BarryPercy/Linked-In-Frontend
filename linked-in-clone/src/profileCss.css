@@ -115,6 +115,7 @@ a.profile-text:hover {
 }
 
 .sidebar1 {
+  width:340px;
   margin-top: 8px;
   background-color: white;
   border-radius: 15px;

@@ -1,9 +1,12 @@
 import { Card, Image, Button, Col } from "react-bootstrap";
 import { FaPuzzlePiece, FaDeviantart } from "react-icons/fa";
 import { AiFillCamera } from "react-icons/ai";
+import { useAppSelector } from "../redux/hooks";
 // import { BsPencil } from "react-icons/bs";
 
 const Profile = () => {
+  let currentUser = useAppSelector((state) => state.users.currentUser);
+  let experiences = useAppSelector((state) => state.exps.expList);
   return (
     <Col className="main px-0">
       <div className="my-3">
@@ -22,13 +25,13 @@ const Profile = () => {
           <Card className="left-info">
             <Card.Body>
               <Card.Title>
-                <b>Jovellyn Quiapos</b>
+                <b>{currentUser.name} {currentUser.surname}</b>
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
-                Jr Full Developer
+                {currentUser.bio}
               </Card.Subtitle>
               <Card.Text>
-                Dublin, Ireland <Card.Link href="#"> Contact Info</Card.Link>
+                {currentUser.area}<Card.Link href="#"> Contact Info</Card.Link>
               </Card.Text>
               <Card.Link className="mt-0">89 connections</Card.Link>
             </Card.Body>
@@ -36,10 +39,10 @@ const Profile = () => {
           <Card className="right-info ml-auto mr-5 pr-3">
             <Card.Body>
               <Card.Subtitle className="mb-2 text-muted">
-                <FaPuzzlePiece /> EPICODE
+                <FaPuzzlePiece /> {experiences[0].role}
               </Card.Subtitle>
               <Card.Subtitle className="mb-2 text-muted">
-                <FaDeviantart /> JAnne Studios
+                <FaDeviantart /> {experiences[0].company}
               </Card.Subtitle>
             </Card.Body>
           </Card>
