@@ -54,12 +54,15 @@ const Experience = () => {
     area: "",
   });
 
-  const editExp = async (id: string) => {
+  const selectEditedExp = async (id: string) => {
     // console.log("id is here>>>>> ", id);
     let selectedExp = experiences.find((s: Experiences) => s._id === id);
-    setNewExp(selectedExp);
-    console.log("in the edit, here's id->", id)
-    setExpId(id);
+    if (selectedExp) {
+      // check if selectedExp is not undefined
+      setNewExp(selectedExp);
+      console.log(newExp);
+      setExpId(id);
+    }
   };
 
   useEffect(() => {
@@ -68,11 +71,11 @@ const Experience = () => {
 
   const handleShow2 = (id: string) => {
     setShow2(true);
-    editExp(id);
+    selectEditedExp(id);
   };
 
   const handleSubmit = () => {
-    console.log("posting->",newExp)
+    console.log("posting->", newExp);
     dispatch(postUserExp(newExp));
 
     handleClose();
@@ -80,8 +83,18 @@ const Experience = () => {
   const handleClose2 = () => setShow2(false);
 
   const handleSubmit2 = () => {
-    console.log("editing->", newExp,"id->",expId)
-    dispatch(editUserExp(newExp, expId));
+    const editedExp = {
+      role: newExp.role,
+      company: newExp.company,
+      startDate: newExp.startDate,
+      endDate: newExp.endDate,
+      description: newExp.description,
+      area: newExp.area,
+    };
+
+    console.log("editing->", newExp, "id->", expId);
+    console.log("updating expirience");
+    dispatch(editUserExp(editedExp, expId));
     handleClose2();
   };
 
@@ -241,7 +254,7 @@ const Experience = () => {
                       handleShow2(experience._id);
                     }}
                   />
-                  <Modal show={show2} onHide={handleClose2} size="lg" >
+                  <Modal show={show2} onHide={handleClose2} size="lg">
                     <Modal.Header closeButton>
                       <Modal.Title>Edit Experience</Modal.Title>
                     </Modal.Header>

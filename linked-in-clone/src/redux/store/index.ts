@@ -23,7 +23,7 @@ const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware({
-      immutableCheck: false,
+      // immutableCheck: false,
       serializableCheck: false,
     });
   },
