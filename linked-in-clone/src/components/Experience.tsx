@@ -4,13 +4,14 @@ import {
   postUserExp,
   deleteUserExp,
   editUserExp,
+  postUserImageExp,
 } from "../redux/actions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { useEffect, useState } from "react";
-import { BsPencil, BsPlusLg, BsFillTrashFill } from "react-icons/bs";
+import { BsPencil, BsPlusLg } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { parseISO, format } from "date-fns";
+// import { parseISO, format } from "date-fns";
 
 interface Experiences {
   _id: string;
@@ -32,6 +33,7 @@ const Experience = () => {
   const [expId, setExpId] = useState("");
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
   let currentToken = useAppSelector((state) => state.users.currentToken);
   const handleClose = () => setShow(false);
   const handleShow = () => {
@@ -42,6 +44,7 @@ const Experience = () => {
       endDate: "",
       description: "",
       area: "",
+      image: "",
     });
     setShow(true);
   };
@@ -53,6 +56,7 @@ const Experience = () => {
     endDate: "",
     description: "",
     area: "",
+    image: "",
   });
 
   const selectEditedExp = async (id: string) => {
@@ -61,8 +65,21 @@ const Experience = () => {
     if (selectedExp) {
       // check if selectedExp is not undefined
       setNewExp(selectedExp);
-      console.log(newExp);
       setExpId(id);
+      console.log(newExp);
+    }
+  };
+
+  const handleFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: string
+  ) => {
+    console.log(e);
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      setFile(files[0]);
+    } else {
+      setFile(null);
     }
   };
 
@@ -75,13 +92,16 @@ const Experience = () => {
     selectEditedExp(id);
   };
 
-  const handleSubmit = () => {
-    dispatch(postUserExp(newExp, currentToken));
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // dispatch(postUserExp(newExp));
+    // dispatch(postUserImageExp(image, expId, currentToken));
+    dispatch(postUserExp(newExp, currentToken, file));
     handleClose();
   };
   const handleClose2 = () => setShow2(false);
 
-  const handleSubmit2 = () => {
+  const handleSubmit2 = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     const editedExp = {
       role: newExp.role,
       company: newExp.company,
@@ -91,9 +111,8 @@ const Experience = () => {
       area: newExp.area,
     };
 
-    console.log("editing->", editedExp, "id->", expId);
     console.log("updating expirience");
-    dispatch(editUserExp(editedExp, expId, currentToken));
+    dispatch(editUserExp(editedExp, expId, currentToken, file));
     handleClose2();
   };
 
@@ -181,13 +200,31 @@ const Experience = () => {
                   });
                 }}
               />
+
+              <Form.File
+                id="imageFile"
+                label="Upload an Image"
+                onChange={(e: any) => {
+                  handleFileChange(e, expId);
+                }}
+              />
+
+              {/* <Form.Label>
+                Skills &#40;We recommend adding your top 5 used in this role.
+                They'll also appear in your Skills section.&#41;
+              </Form.Label> */}
             </Form>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleSubmit}>
+            <Button
+              variant="primary"
+              onClick={(e: any) => {
+                handleSubmit(e);
+              }}
+            >
               Save Changes
             </Button>
           </Modal.Footer>
@@ -214,29 +251,33 @@ const Experience = () => {
             {experiences.map((experience: Experiences) => {
               return (
                 <div key={experience._id} className="d-flex">
-                  <Image
-                    src="https://coursereport-s3-production.global.ssl.fastly.net/uploads/school/logo/1045/original/EPICODE-pitto-color.png"
+                  <img
+                    src={experience.image}
                     className="align-self-start exp-img mr-3"
+                    alt=""
                   />
                   <div className="d-flex flex-column">
                     <h5>{experience.role}</h5>
                     <h6>{experience.company}</h6>
                     <h6 className="grey-text">
                       {/* {experience.startDate} - {experience.endDate} */}
-                      {/* {new Date(experience.startDate).toLocaleDateString(
-                      "en-GB",
-                      { day: "2-digit", month: "2-digit", year: "numeric" }
-                    )}
-                    -{" "}
-                    {new Date(experience.endDate).toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "2-digit",
-                      year: "numeric",
-                    })} */}
-                      {format(parseISO(experience.startDate), "MMMM, yyyy")} -{" "}
+                      {new Date(experience.startDate).toLocaleDateString(
+                        "en-US",
+                        { year: "numeric", month: "2-digit", day: "2-digit" }
+                      )}
+                      -{" "}
+                      {new Date(experience.endDate).toLocaleDateString(
+                        "en-US",
+                        {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                        }
+                      )}
+                      {/* {format(parseISO(experience.startDate), "MMMM, yyyy")} -{" "}
                       {experience.endDate === null
                         ? "Present"
-                        : format(parseISO(experience.endDate), "MMMM, yyyy")}
+                        : format(parseISO(experience.endDate), "MMMM, yyyy")} */}
                     </h6>
                     <h6 className="grey-text">{experience.area}</h6>
                     <h6>{experience.description}</h6>
@@ -331,13 +372,21 @@ const Experience = () => {
                           }}
                         />
                       </Form>
+                      <Form.File
+                        id="imageFile"
+                        label="Upload an Image"
+                        accept="image/*"
+                        onChange={(e: any) => {
+                          handleFileChange(e, expId);
+                        }}
+                      />
                     </Modal.Body>
                     <Modal.Footer>
                       <Button
                         variant="secondary"
                         onClick={() => {
-                          dispatch(deleteUserExp(experience._id));
-                          
+                          dispatch(deleteUserExp(experience._id, currentToken));
+
                           handleClose2();
                         }}
                       >

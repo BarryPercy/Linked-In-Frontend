@@ -12,20 +12,22 @@ const Profile = () => {
   let experiences = useAppSelector((state) => state.exps.expList);
   let currentToken = useAppSelector((state) => state.users.currentToken);
   let [show, setShow] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
   let handleClose = () => setShow(false);
   let handleShow = () => setShow(true);
   let dispatch = useAppDispatch();
+  const [image, setImage] = useState<File | null | undefined>(null);
   const [editProfileObj, setEditProfileObj] = useState({
     name: "",
     surname: "",
     area: "",
     title: "",
+    image: "",
   });
 
   const handleSubmit = () => {
-    dispatch(updateUser(editProfileObj, dispatch));
+    dispatch(updateUser(editProfileObj, currentToken, currentUser,image));
     handleClose();
-    window.location.reload();
   };
 
   return (
@@ -33,7 +35,7 @@ const Profile = () => {
       <div className="my-3">
         <Modal show={show} onHide={handleClose} size="lg">
           <Modal.Header closeButton>
-            <Modal.Title>Edit Profile</Modal.Title>
+            <Modal.Title>Edit {currentUser.name}'s Profile</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -85,6 +87,14 @@ const Profile = () => {
                   });
                 }}
               />
+              <Form.File
+                id="imageFile"
+                label="Upload an Image"
+                accept="image/*"
+                onChange={(e:any) =>
+                  setImage((e.target as HTMLInputElement)?.files?.[0])
+                }
+              />
             </Form>
           </Modal.Body>
           <Modal.Footer>
@@ -97,10 +107,7 @@ const Profile = () => {
           </Modal.Footer>
         </Modal>
         <div className="profile-icon">
-          <Image
-            src={currentUser.image}
-            roundedCircle
-          />
+          <Image src={currentUser.image} roundedCircle />
         </div>
         <div className="img-area">
           <div className="camera-btn mr-3 d-flex justify-content-center align-items-center">
@@ -146,7 +153,7 @@ const Profile = () => {
             variant="outline-primary"
             onClick={handleShow}
           >
-            Add profile section
+            Edit Profile
           </Button>{" "}
           <Button className="more-btn" variant="outline-secondary">
             More

@@ -309,7 +309,14 @@ a.profile-text:hover {
     border: 2px solid white;
   }
 }
-
+@media only screen and (max-width: 991px) {
+  .sidebar1{
+    display:none;
+  }
+  .edit-area{
+    display:none;
+  }
+}
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
   .profile-icon img {
@@ -696,3 +703,24 @@ Posts Css Below Here
 
 
 
+
+
+.home-text a:hover{
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  text-decoration-color: transparent;
+}
+.home-text{
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  text-decoration-color: transparent;
+}
+
+.user-image{
+  width:30px;
+}
+
+.post-image-changes{
+  height:300px;
+  object-fit: cover;
+}
