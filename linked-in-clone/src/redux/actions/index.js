@@ -172,7 +172,7 @@ export const fetchUserExps = (currentToken) => {
   };
 };
 
-export const postUserExp = (newExp, currentToken) => {
+export const postUserExp = (newExp, currentToken, image) => {
   return async (dispatch) => {
     let userId = "";
     if (
@@ -205,10 +205,12 @@ export const postUserExp = (newExp, currentToken) => {
         }
       );
       if (response.ok) {
+        let data = await response.json();
         dispatch({
           type: POST_USER_EXP,
           payload: newExp,
         });
+        dispatch(postUserImageExp(image, data._id, currentToken));
       } else {
         alert("failure to add new experience!");
       }
@@ -218,7 +220,7 @@ export const postUserExp = (newExp, currentToken) => {
   };
 };
 
-export const postUserImageExp = async (file, expId, currentToken) => {
+export const postUserImageExp = (file, expId, currentToken) => {
   return async (dispatch) => {
     let userId = "";
     if (
@@ -234,8 +236,8 @@ export const postUserImageExp = async (file, expId, currentToken) => {
     }
     try {
       const formData = new FormData();
-      formData.append("image", file);
-      console.log(file);
+      formData.append("experience", file);
+      console.log("formData >>>>>>", formData);
       let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/profile/" +
           userId +
@@ -254,9 +256,10 @@ export const postUserImageExp = async (file, expId, currentToken) => {
       );
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
         dispatch({
           type: POST_IMAGE_EXP_SUCCESS,
-          payload: file,
+          expId,
           image: data,
         });
         console.log("experience image uploaded");

@@ -33,7 +33,8 @@ const Experience = () => {
   const [expId, setExpId] = useState("");
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
-  const [image, setImage] = useState<File | null>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [fileId, setFileId] = useState("");
   let currentToken = useAppSelector((state) => state.users.currentToken);
   const handleClose = () => setShow(false);
   const handleShow = () => {
@@ -59,15 +60,15 @@ const Experience = () => {
     image: "",
   });
 
-  // const selectEditedExp = async (id: string) => {
-  //   // console.log("id is here>>>>> ", id);
-  //   let selectedExp = experiences.find((s: Experiences) => s._id === id);
-  //   if (selectedExp) {
-  //     // check if selectedExp is not undefined
-  //     setNewExp(selectedExp);
-  //     console.log(newExp);
-  //   }
-  // };
+  const selectEditedExp = async (id: string) => {
+    // console.log("id is here>>>>> ", id);
+    let selectedExp = experiences.find((s: Experiences) => s._id === id);
+    if (selectedExp) {
+      // check if selectedExp is not undefined
+      setNewExp(selectedExp);
+      console.log(newExp);
+    }
+  };
 
   const handleFileChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -76,9 +77,9 @@ const Experience = () => {
     console.log(e);
     const files = e.target.files;
     if (files && files.length > 0) {
-      setImage(files[0]);
+      setFile(files[0]);
     } else {
-      setImage(null);
+      setFile(null);
     }
   };
 
@@ -95,7 +96,7 @@ const Experience = () => {
     e.preventDefault();
     // dispatch(postUserExp(newExp));
     // dispatch(postUserImageExp(image, expId, currentToken));
-    dispatch(postUserExp(newExp, currentToken));
+    dispatch(postUserExp(newExp, currentToken, file));
     handleClose();
   };
   const handleClose2 = () => setShow2(false);
@@ -377,6 +378,7 @@ const Experience = () => {
                       <Form.File
                         id="imageFile"
                         label="Upload an Image"
+                        accept="image/*"
                         onChange={(e: any) => {
                           handleFileChange(e, expId);
                         }}
