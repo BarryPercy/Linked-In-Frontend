@@ -20,6 +20,7 @@ interface PostInterface {
   createdAt: string;
   updatedAt: string;
   __v: number;
+  image: string;
 }
 
 interface User {
@@ -140,6 +141,7 @@ const Posts = () => {
                   <div className="d-flex">
                     <Card.Title>
                       <>
+                        <Image src={post.image} />
                         <h6>
                           {post.user.name} {post.user.surname}
                         </h6>

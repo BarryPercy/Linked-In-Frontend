@@ -235,7 +235,7 @@ export const postUserImageExp = async (file, expId, currentToken) => {
     try {
       const formData = new FormData();
       formData.append("image", file);
-      console.log(formData);
+      console.log(file);
       let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/profile/" +
           userId +
@@ -253,6 +253,12 @@ export const postUserImageExp = async (file, expId, currentToken) => {
         }
       );
       if (response.ok) {
+        const data = await response.json();
+        dispatch({
+          type: POST_IMAGE_EXP_SUCCESS,
+          payload: file,
+          image: data,
+        });
         console.log("experience image uploaded");
       } else {
         console.log("fail image upload");
@@ -389,12 +395,14 @@ export const postPost = (post, currentToken, image) => {
           body: JSON.stringify(post),
           headers: {
             "Content-type": "application/json",
-            currentToken,
+            Authorization: currentToken,
           },
         }
       );
       if (response.ok) {
-        response = await response.json();
+        let data = await response.json();
+        console.log(data);
+        dispatch(postImage(data._id, image, currentToken));
         dispatch(fetchPosts(currentToken));
       } else {
         alert("Fetching went wrong!!!!");
@@ -457,6 +465,7 @@ export const editPost = (post, id, currentToken) => {
 
 export const postImage = (id, imageFile, currentToken) => {
   return async (dispatch) => {
+    console.log(" postImage >>>>> ", imageFile, id, currentToken);
     try {
       const formData = new FormData();
       formData.append("post", imageFile);
@@ -465,7 +474,7 @@ export const postImage = (id, imageFile, currentToken) => {
         "https://striveschool-api.herokuapp.com/api/posts/" + id,
         {
           method: "POST",
-          body: formData,
+          body: FormData,
           headers: {
             "Content-type": "application/json",
             Authorization: currentToken,

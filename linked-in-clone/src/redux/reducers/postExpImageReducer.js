@@ -7,7 +7,7 @@ const postExpImageReducer = (state = initialState, action) => {
     case "POST_IMAGE_EXP_SUCCESS":
       return {
         ...state,
-        imageFile: [...state.imageFile, action.payload],
+        [action.payload.expId]: action.payload.image,
       };
     case "POST_IMAGE_FAILURE":
       return {
@@ -19,3 +19,5 @@ const postExpImageReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default postExpImageReducer;

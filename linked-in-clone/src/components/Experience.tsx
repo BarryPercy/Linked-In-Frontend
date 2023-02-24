@@ -94,7 +94,7 @@ const Experience = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // dispatch(postUserExp(newExp));
-    dispatch(postUserImageExp(image, expId, currentToken));
+    // dispatch(postUserImageExp(image, expId, currentToken));
     dispatch(postUserExp(newExp, currentToken));
     handleClose();
   };
