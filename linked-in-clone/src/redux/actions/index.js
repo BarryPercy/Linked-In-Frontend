@@ -374,29 +374,27 @@ export const editPost = (post,id,currentToken) => {
   };
 };
 
-export const postImage = (id, imageFile, currentToken) => async (dispatch) => {
+export const postImage = (id, imageFile, currentToken) => {
+  return async (dispatch) => {
   try {
     const formData = new FormData();
     formData.append('post', imageFile);
 
     const response = await fetch(
-      `https://striveschool-api.herokuapp.com/api/posts/${id}`,
+      "https://striveschool-api.herokuapp.com/api/posts/"+id,
       {
         method: "POST",
         body: formData,
         headers: {
+          "Content-type": "application/json",
           Authorization:
             currentToken,
         },
       }
     );
-    if (!response.ok) {
-      throw new Error('Failed to upload image');
-    }
-
-    const data = await response.json();
+    if (response.ok) {
+      const data = await response.json();
     console.log(data)
-
     dispatch({
       type: POST_IMAGE_SUCCESS,
       payload: {
@@ -404,6 +402,9 @@ export const postImage = (id, imageFile, currentToken) => async (dispatch) => {
         image: data,
       },
     });
+    }else{
+      throw new Error('Failed to upload image');
+    } 
   } catch (error) {
     dispatch({
       type: POST_IMAGE_FAILURE,
@@ -412,7 +413,7 @@ export const postImage = (id, imageFile, currentToken) => async (dispatch) => {
         error: error.message,
       },
     });
-  }
+  }}
 };
 
 
