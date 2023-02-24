@@ -109,11 +109,10 @@ const Experience = () => {
       endDate: newExp.endDate,
       description: newExp.description,
       area: newExp.area,
-      image: newExp.image,
     };
 
     console.log("updating expirience");
-    dispatch(editUserExp(editedExp, expId, currentToken));
+    dispatch(editUserExp(editedExp, expId, currentToken, file));
     handleClose2();
   };
 
@@ -376,7 +375,6 @@ const Experience = () => {
                       <Form.File
                         id="imageFile"
                         label="Upload an Image"
-                        value={newExp.image}
                         accept="image/*"
                         onChange={(e: any) => {
                           handleFileChange(e, expId);
