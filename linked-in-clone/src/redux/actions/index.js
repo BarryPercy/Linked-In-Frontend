@@ -12,6 +12,7 @@ export const DELETE_POST = "DELETE_POSTS";
 export const POST_IMAGE_SUCCESS = "POST_IMAGE_SUCCESS";
 export const POST_IMAGE_FAILURE = "POST_IMAGE_FAILURE";
 export const SET_CURRENT_TOKEN = "SET_CURRENT_TOKEN";
+export const POST_IMAGE_EXP_SUCCESS = "POST_IMAGE_EXP_SUCCESS";
 
 export const getUsers = (currentToken) => {
   return async (dispatch) => {
@@ -218,13 +219,30 @@ export const postUserExp = (newExp, currentToken) => {
   };
 };
 
-export const postUserImageExp = (file, fileId) => {
+export const postUserImageExp = async (file, expId, currentToken) => {
   return async (dispatch) => {
+    let userId = "";
+    if (
+      currentToken ===
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0"
+    ) {
+      userId = "63f331b78381fc0013fffad0";
+    } else if (
+      currentToken ===
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzc1YzgzODFmYzAwMTNmZmZhZDIiLCJpYXQiOjE2NzY4ODM4MDQsImV4cCI6MTY3ODA5MzQwNH0.xJ1_0xYnhu_VGi6iYMgPnmR9ZhWHNeBV0yjk_d6eSfo"
+    ) {
+      userId = "63f3375c8381fc0013fffad2";
+    }
     try {
       const formData = new FormData();
       formData.append("image", file);
+      console.log(formData);
       let response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/profile/63f331b78381fc0013fffad0/experiences/${fileId}/picture`,
+        "https://striveschool-api.herokuapp.com/api/profile/" +
+          userId +
+          "/experiences/" +
+          expId +
+          "/picture",
         {
           method: "POST",
           body: formData,
@@ -236,7 +254,6 @@ export const postUserImageExp = (file, fileId) => {
         }
       );
       if (response.ok) {
-        dispatch();
         console.log("experience image uploaded");
       } else {
         console.log("fail image upload");
@@ -270,6 +287,7 @@ export const deleteUserExp = (expId, currentToken) => {
         {
           method: "DELETE",
           headers: {
+            "Content-type": "application/json",
             Authorization: currentToken,
           },
         }
@@ -316,6 +334,7 @@ export const editUserExp = (editedExp, expId, currentToken) => {
           method: "PUT",
           body: JSON.stringify(editedExp),
           headers: {
+            "Content-type": "application/json",
             Authorization: currentToken,
           },
         }
@@ -444,6 +463,7 @@ export const postImage = (id, imageFile, currentToken) => async (dispatch) => {
         method: "POST",
         body: formData,
         headers: {
+          "Content-type": "application/json",
           Authorization: currentToken,
         },
       }

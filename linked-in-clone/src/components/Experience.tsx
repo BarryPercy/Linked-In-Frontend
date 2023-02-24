@@ -8,10 +8,10 @@ import {
 } from "../redux/actions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { useEffect, useState } from "react";
-import { BsPencil, BsPlusLg, BsFillTrashFill } from "react-icons/bs";
+import { BsPencil, BsPlusLg } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { parseISO, format } from "date-fns";
+// import { parseISO, format } from "date-fns";
 
 interface Experiences {
   _id: string;
@@ -59,16 +59,15 @@ const Experience = () => {
     image: "",
   });
 
-  const selectEditedExp = async (id: string) => {
-    // console.log("id is here>>>>> ", id);
-    let selectedExp = experiences.find((s: Experiences) => s._id === id);
-    if (selectedExp) {
-      // check if selectedExp is not undefined
-      setNewExp(selectedExp);
-      console.log(newExp);
-      setExpId(id);
-    }
-  };
+  // const selectEditedExp = async (id: string) => {
+  //   // console.log("id is here>>>>> ", id);
+  //   let selectedExp = experiences.find((s: Experiences) => s._id === id);
+  //   if (selectedExp) {
+  //     // check if selectedExp is not undefined
+  //     setNewExp(selectedExp);
+  //     console.log(newExp);
+  //   }
+  // };
 
   const handleFileChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -89,19 +88,19 @@ const Experience = () => {
 
   const handleShow2 = (id: string) => {
     setShow2(true);
-    selectEditedExp(id);
+    setExpId(id);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(postUserExp(newExp));
-
+    // dispatch(postUserExp(newExp));
+    dispatch(postUserImageExp(file, expId, currentToken));
     dispatch(postUserExp(newExp, currentToken));
     handleClose();
   };
   const handleClose2 = () => setShow2(false);
 
-  const handleSubmit2 = () => {
+  const handleSubmit2 = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     const editedExp = {
       role: newExp.role,
       company: newExp.company,
@@ -115,34 +114,8 @@ const Experience = () => {
     console.log("editing->", editedExp, "id->", expId);
     console.log("updating expirience");
     dispatch(editUserExp(editedExp, expId, currentToken));
-    handleClose2();
-  };
 
-  const postUserImageExp = async (file: any) => {
-    try {
-      const formData = new FormData();
-      formData.append("image", file);
-      console.log(formData);
-      let response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/profile/63f331b78381fc0013fffad0/experiences/${expId}/picture`,
-        {
-          method: "POST",
-          body: formData,
-          headers: {
-            "Content-type": "application/json",
-            Authorization:
-              "BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0",
-          },
-        }
-      );
-      if (response.ok) {
-        console.log("experience image uploaded");
-      } else {
-        console.log("fail image upload");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    handleClose2();
   };
 
   return (
@@ -290,20 +263,23 @@ const Experience = () => {
                     <h6>{experience.company}</h6>
                     <h6 className="grey-text">
                       {/* {experience.startDate} - {experience.endDate} */}
-                      {/* {new Date(experience.startDate).toLocaleDateString(
-                      "en-GB",
-                      { day: "2-digit", month: "2-digit", year: "numeric" }
-                    )}
-                    -{" "}
-                    {new Date(experience.endDate).toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "2-digit",
-                      year: "numeric",
-                    })} */}
-                      {format(parseISO(experience.startDate), "MMMM, yyyy")} -{" "}
+                      {new Date(experience.startDate).toLocaleDateString(
+                        "en-US",
+                        { year: "numeric", month: "2-digit", day: "2-digit" }
+                      )}
+                      -{" "}
+                      {new Date(experience.endDate).toLocaleDateString(
+                        "en-US",
+                        {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                        }
+                      )}
+                      {/* {format(parseISO(experience.startDate), "MMMM, yyyy")} -{" "}
                       {experience.endDate === null
                         ? "Present"
-                        : format(parseISO(experience.endDate), "MMMM, yyyy")}
+                        : format(parseISO(experience.endDate), "MMMM, yyyy")} */}
                     </h6>
                     <h6 className="grey-text">{experience.area}</h6>
                     <h6>{experience.description}</h6>
@@ -410,7 +386,7 @@ const Experience = () => {
                       <Button
                         variant="secondary"
                         onClick={() => {
-                          dispatch(deleteUserExp(experience._id));
+                          dispatch(deleteUserExp(experience._id, currentToken));
 
                           handleClose2();
                         }}
