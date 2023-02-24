@@ -12,6 +12,8 @@ import { getMyUser } from "../redux/actions";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setToken } from "../redux/actions";
+import SecondNav from "./SecondNav";
+
 
 const Main = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +23,7 @@ const Main = () => {
 
   return (
     <>
-      <TopNav />
+      <SecondNav />
       <Container className="my-5 pt-3 profile-container">
         <Row className="d-flex ">
           <Col className="col-lg-8 col-md-12 col-sm-12  mr-3">
