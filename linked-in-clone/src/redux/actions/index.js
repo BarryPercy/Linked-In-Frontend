@@ -311,7 +311,7 @@ export const deleteUserExp = (expId, currentToken) => {
   };
 };
 
-export const editUserExp = (editedExp, expId, currentToken) => {
+export const editUserExp = (editedExp, expId, currentToken, image) => {
   return async (dispatch) => {
     let userId = "";
     if (
@@ -349,6 +349,8 @@ export const editUserExp = (editedExp, expId, currentToken) => {
       );
       if (response.ok) {
         console.log("updated! ");
+        let data = await response.json();
+        dispatch(postUserImageExp(image, data._id, currentToken));
         dispatch(fetchUserExps(currentToken));
       } else {
         alert("Failed to edit!");

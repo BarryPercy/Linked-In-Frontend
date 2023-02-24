@@ -34,7 +34,6 @@ const Experience = () => {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const [file, setFile] = useState<File | null>(null);
-  const [fileId, setFileId] = useState("");
   let currentToken = useAppSelector((state) => state.users.currentToken);
   const handleClose = () => setShow(false);
   const handleShow = () => {
@@ -112,7 +111,6 @@ const Experience = () => {
       image: newExp.image,
     };
 
-    console.log("editing->", editedExp, "id->", expId);
     console.log("updating expirience");
     dispatch(editUserExp(editedExp, expId, currentToken));
 
