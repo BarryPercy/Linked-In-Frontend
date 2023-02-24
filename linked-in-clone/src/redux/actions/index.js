@@ -477,9 +477,8 @@ export const postImage = (id, imageFile, currentToken) => {
         "https://striveschool-api.herokuapp.com/api/posts/" + id,
         {
           method: "POST",
-          body: FormData,
+          body: formData,
           headers: {
-            "Content-type": "application/json",
             Authorization: currentToken,
           },
         }
