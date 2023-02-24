@@ -429,8 +429,10 @@ Posts Css Below Here
 
 .avatar {
   width: 60px;
+  height:60px;
   margin-right: 10px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .start-post {
@@ -665,4 +667,14 @@ Posts Css Below Here
 .my-items-area:hover {
   background-color: #c4beb89a;
   cursor: pointer;
+}
+
+.comment-icon{
+  cursor: pointer;
+}
+
+.pencil-post{
+  position:absolute;
+  right:10px;
+  top:10px;
 }

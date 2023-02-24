@@ -11,7 +11,7 @@ const FeedCompanyDetails = () => {
         <div className="">
           <div className="profile-icon-feed">
             <Image
-              src="https://media.licdn.com/dms/image/D4E03AQFBRCddXjTZ3w/profile-displayphoto-shrink_800_800/0/1669330248977?e=1682553600&v=beta&t=u1MdICh1S9B2m1w-JCGExm0Rpa8wYAIdtdioe_DLjqw"
+              src={currentUser.image}
               roundedCircle
             />
           </div>

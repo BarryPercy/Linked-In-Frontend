@@ -34,6 +34,7 @@ const Experience = () => {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const [file, setFile] = useState<File | null>(null);
+  let currentToken = useAppSelector((state) => state.users.currentToken);
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setNewExp({
@@ -83,10 +84,7 @@ const Experience = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchUserExps());
-    if (file) {
-      dispatch(postUserImageExp(file));
-    }
+    dispatch(fetchUserExps(currentToken));
   }, []);
 
   const handleShow2 = (id: string) => {
@@ -98,7 +96,7 @@ const Experience = () => {
     e.preventDefault();
     dispatch(postUserExp(newExp));
 
-    window.location.reload();
+    dispatch(postUserExp(newExp, currentToken));
     handleClose();
   };
   const handleClose2 = () => setShow2(false);
@@ -114,9 +112,9 @@ const Experience = () => {
       image: newExp.image,
     };
 
-    console.log("editing->", newExp, "id->", expId);
+    console.log("editing->", editedExp, "id->", expId);
     console.log("updating expirience");
-    dispatch(editUserExp(editedExp, expId));
+    dispatch(editUserExp(editedExp, expId, currentToken));
     handleClose2();
   };
 
@@ -413,7 +411,7 @@ const Experience = () => {
                         variant="secondary"
                         onClick={() => {
                           dispatch(deleteUserExp(experience._id));
-                          window.location.reload();
+
                           handleClose2();
                         }}
                       >

@@ -29,10 +29,12 @@ interface SideBarProps {
 const Sidebar = (props: SideBarProps) => {
   const dispatch = useAppDispatch();
   let users = useAppSelector((state) => state.users.userList);
-  let fewUsers = users.slice(props.firstIndex, props.secondIndex);
+  let reverseUsers = [...users].reverse();
+  let fewUsers = reverseUsers.slice(props.firstIndex, props.secondIndex);
+  let currentToken = useAppSelector((state) => state.users.currentToken);
 
   useEffect(() => {
-    dispatch(getUsers());
+    dispatch(getUsers(currentToken));
   }, []);
 
   return (
@@ -46,7 +48,7 @@ const Sidebar = (props: SideBarProps) => {
                 <Image
                   className="side-pro-icon"
                   roundedCircle
-                  src="https://pbs.twimg.com/profile_images/1485050791488483328/UNJ05AV8_400x400.jpg"
+                  src={user.image}
                 />
                 <Card.Body className="ml-2">
                   <Card.Title>

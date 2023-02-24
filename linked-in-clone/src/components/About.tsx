@@ -12,12 +12,13 @@ const About = () => {
   let handleClose = () => setShow(false);
   let handleShow = () => setShow(true);
   let dispatch = useAppDispatch();
+  let currentToken = useAppSelector((state) => state.users.currentToken);
   const [editAbout, setEditAbout] = useState({
     bio: "",
   });
 
   const handleSubmit = () => {
-    dispatch(updateUser(editAbout));
+    dispatch(updateUser(editAbout, currentToken));
     handleClose();
     window.location.reload();
   };

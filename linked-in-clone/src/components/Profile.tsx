@@ -10,7 +10,7 @@ import { updateUser } from "../redux/actions";
 const Profile = () => {
   let currentUser = useAppSelector((state) => state.users.currentUser);
   let experiences = useAppSelector((state) => state.exps.expList);
-
+  let currentToken = useAppSelector((state) => state.users.currentToken);
   let [show, setShow] = useState(false);
   let handleClose = () => setShow(false);
   let handleShow = () => setShow(true);
@@ -23,7 +23,7 @@ const Profile = () => {
   });
 
   const handleSubmit = () => {
-    dispatch(updateUser(editProfileObj));
+    dispatch(updateUser(editProfileObj, dispatch));
     handleClose();
     window.location.reload();
   };
@@ -98,7 +98,7 @@ const Profile = () => {
         </Modal>
         <div className="profile-icon">
           <Image
-            src="https://media.licdn.com/dms/image/D4E03AQFBRCddXjTZ3w/profile-displayphoto-shrink_800_800/0/1669330248977?e=1682553600&v=beta&t=u1MdICh1S9B2m1w-JCGExm0Rpa8wYAIdtdioe_DLjqw"
+            src={currentUser.image}
             roundedCircle
           />
         </div>
@@ -128,10 +128,10 @@ const Profile = () => {
           <Card className="right-info ml-auto mr-5 pr-3">
             <Card.Body>
               <Card.Subtitle className="mb-2 text-muted">
-                <FaPuzzlePiece /> {experiences[0].role}
+                <FaPuzzlePiece /> {experiences[0]?.role}
               </Card.Subtitle>
               <Card.Subtitle className="mb-2 text-muted">
-                <FaDeviantart /> {experiences[0].company}
+                <FaDeviantart /> {experiences[0]?.company}
               </Card.Subtitle>
             </Card.Body>
           </Card>

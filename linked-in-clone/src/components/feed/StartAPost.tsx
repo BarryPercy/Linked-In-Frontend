@@ -11,7 +11,7 @@ import { RxDividerVertical } from "react-icons/rx";
 import { Card, Image, Button, Modal } from "react-bootstrap";
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { postPost } from "../../redux/actions";
 import {} from "react-icons/bs";
 
@@ -22,12 +22,14 @@ export default function StartAPost() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const dispatch = useAppDispatch();
+  let currentToken = useAppSelector((state) => state.users.currentToken);
+  let currentUser = useAppSelector((state)=>state.users.currentUser);
   const handleSubmit = () => {
     const object = {
       text: "",
     };
     object.text += post;
-    dispatch(postPost(object));
+    dispatch(postPost(object, currentToken));
     handleClose();
   };
 
@@ -48,7 +50,7 @@ export default function StartAPost() {
             >
               <Image
                 className="avatar"
-                src="./images/jovelynn.png "
+                src={currentUser.image}
                 alt="Avatar"
                 style={{ height: "100%" }}
               />
@@ -68,11 +70,10 @@ export default function StartAPost() {
                 </Modal.Header>
                 <Modal.Body>
                   <div className="d-flex my-2">
-                    <Image className="avatar" src="./images/jovelynn.png" />
-                    <h5 className="align-self-center">Jovellyn Quiapos</h5>
+                    <Image className="avatar" src={currentUser.image} />
+                    <h5 className="align-self-center">{currentUser.name} {currentUser.surname}</h5>
                   </div>
                   <Form.Control
-                    className="post-area"
                     as="textarea"
                     placeholder="What do you want to talk about?"
                     style={{ height: "150px" }}
@@ -82,39 +83,11 @@ export default function StartAPost() {
                     value={post}
                   />
                 </Modal.Body>
-                <div className="ml-3 mb-3 icon-posts">
-                  <BsEmojiSmile style={{ fontSize: "25px" }} />
-                </div>
-                <div className="d-flex">
-                  <div className="d-flex side-post-icons">
-                    <Button
-                      className="img-icon-btn ml-3 mb-2"
-                      onClick={() => {
-                        handleClose();
-                        handleShow2();
-                      }}
-                    >
-                      <div>
-                        <MdPhotoSizeSelectActual style={{ fontSize: "25px" }} />
-                      </div>
-                    </Button>
-
-                    <div className=" mb-2 icon-posts">
-                      <BsFillPlayBtnFill style={{ fontSize: "25px" }} />
-                    </div>
-                    <div className=" mb-2 icon-posts">
-                      <BsFillFileEarmarkTextFill style={{ fontSize: "25px" }} />
-                    </div>
-                    <div className=" mb-2 icon-posts">
-                      <BsThreeDots style={{ fontSize: "25px" }} />
-                    </div>
-                  </div>
-                  <div className="right-side-icon ml-auto mr-3">
-                    <Button variant="primary" onClick={handleSubmit}>
-                      Post
-                    </Button>
-                  </div>
-                </div>
+                <Modal.Footer>
+                  <Button variant="primary" onClick={handleSubmit}>
+                    Post
+                  </Button>
+                </Modal.Footer>
               </Modal>
             </div>
           </div>
