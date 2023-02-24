@@ -58,7 +58,6 @@ export const getMyUser = (currentToken) => {
       );
       if (response.ok) {
         const user = await response.json();
-        console.log(user);
         dispatch({
           type: GET_MY_USER,
           payload: user,
@@ -140,8 +139,6 @@ export const fetchUserExps = (currentToken) => {
       userId="63f3375c8381fc0013fffad2"
     }
     let url = "https://striveschool-api.herokuapp.com/api/profile/"+userId+"/experiences";
-    console.log("url",url)
-    console.log(userId);
     try {
       const response = await fetch(
         "https://striveschool-api.herokuapp.com/api/profile/"+userId+"/experiences",
@@ -155,7 +152,6 @@ export const fetchUserExps = (currentToken) => {
       );
       if (response.ok) {
         let data = await response.json();
-        console.log("yo",userId,data)
         dispatch({
           type: GET_USER_EXPERIENCES,
           payload: data,
@@ -178,7 +174,6 @@ export const postUserExp = (newExp, currentToken) => {
       userId="63f3375c8381fc0013fffad2"
     }
     let url = "https://striveschool-api.herokuapp.com/api/profile/"+userId+"/experiences";
-    console.log("userid->",userId, "newExp->", newExp, "url->",url)
     try {
       let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/profile/"+userId+"/experiences",
@@ -197,7 +192,6 @@ export const postUserExp = (newExp, currentToken) => {
           type: POST_USER_EXP,
           payload: newExp,
         });
-        console.log("new experience added!");
       } else {
         alert("failure to add new experience!");
       }
@@ -208,7 +202,6 @@ export const postUserExp = (newExp, currentToken) => {
 };
 
 export const deleteUserExp = (expId, currentToken) => {
-  console.log(expId);
   return async (dispatch) => {
     let userId = "";
     if (currentToken==="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0"){
@@ -229,7 +222,6 @@ export const deleteUserExp = (expId, currentToken) => {
         }
       );
       if (response.ok) {
-        console.log("deleted exp");
         dispatch(fetchUserExps(currentToken));
       } else {
         console.log("try again!");
@@ -241,7 +233,6 @@ export const deleteUserExp = (expId, currentToken) => {
 };
 
 export const editUserExp = (editedExp, expId, currentToken) => {
-  console.log(editedExp, expId);
   return async (dispatch) => {
     let userId = "";
     if (currentToken==="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0"){
@@ -309,6 +300,58 @@ export const postPost = (post, currentToken) => {
         "https://striveschool-api.herokuapp.com/api/posts/",
         {
           method: "POST",
+          body: JSON.stringify(post),
+          headers: {
+            "Content-type": "application/json",
+            Authorization:
+              currentToken,
+          },
+        }
+      );
+      if (response.ok) {
+        dispatch(fetchPosts(currentToken));
+      } else {
+        alert("Fetching went wrong!!!!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const deletePost = (id, currentToken) => {
+  return async (dispatch) => {
+    try {
+      console.log(currentToken)
+      const response = await fetch(
+        "https://striveschool-api.herokuapp.com/api/posts/"+id,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization:
+              currentToken,
+          },
+        }
+      );
+      if (response.ok) {
+        dispatch(fetchPosts(currentToken));
+      } else {
+        alert("Fetching went wrong!!!!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const editPost = (post,id,currentToken) => {
+  return async (dispatch) => {
+    try {
+      console.log("edited post", post, "id->",id)
+      const response = await fetch(
+        "https://striveschool-api.herokuapp.com/api/posts/"+id,
+        {
+          method: "PUT",
           body: JSON.stringify(post),
           headers: {
             "Content-type": "application/json",

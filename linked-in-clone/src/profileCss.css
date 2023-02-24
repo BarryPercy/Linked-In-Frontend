@@ -672,3 +672,9 @@ Posts Css Below Here
 .comment-icon{
   cursor: pointer;
 }
+
+.pencil-post{
+  position:absolute;
+  right:10px;
+  top:10px;
+}
