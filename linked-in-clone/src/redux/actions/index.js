@@ -44,6 +44,7 @@ export const getUsers = (currentToken) => {
 
 export const getMyUser = (currentToken) => {
   return async (dispatch) => {
+    console.log("token changed", currentToken)
     try {
       let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/profile/me",
@@ -104,6 +105,7 @@ export const getSpecificUser = (id) => {
 
 export const updateUser = (editProfileObj, currentToken, currentUser,image) => {
   return async (dispatch) => {
+    console.log("UPDATE USER",image)
     try {
       let response = await fetch(
         `https://striveschool-api.herokuapp.com/api/profile/`,
@@ -117,6 +119,7 @@ export const updateUser = (editProfileObj, currentToken, currentUser,image) => {
         }
       );
       if (response.ok) {
+        console.log("about to dispatch")
         dispatch(profileImage(currentUser._id,image,currentToken))
         dispatch(getMyUser(currentToken));
       } else {
@@ -511,10 +514,11 @@ export const postImage = (id, imageFile, currentToken) => {
 
 export const profileImage = (userId, imageFile, currentToken) => {
   return async (dispatch) => {
+    console.log(userId,imageFile,currentToken)
     try {
       const formData = new FormData();
       formData.append("profile", imageFile);
-
+      console.log("in try")
       const response = await fetch(
         "https://striveschool-api.herokuapp.com/api/profile/"+userId+"/picture",
         {
@@ -526,6 +530,7 @@ export const profileImage = (userId, imageFile, currentToken) => {
         }
       );
       if (response.ok) {
+        console.log("upload went ok")
       } else {
         throw new Error("Failed to upload image");
       }

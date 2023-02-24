@@ -15,6 +15,7 @@ const Profile = () => {
   let handleClose = () => setShow(false);
   let handleShow = () => setShow(true);
   let dispatch = useAppDispatch();
+  const [image, setImage] = useState<File | null | undefined>(null);
   const [editProfileObj, setEditProfileObj] = useState({
     name: "",
     surname: "",
@@ -23,7 +24,7 @@ const Profile = () => {
   });
 
   const handleSubmit = () => {
-    dispatch(updateUser(editProfileObj, currentToken, currentUser));
+    dispatch(updateUser(editProfileObj, currentToken, currentUser,image));
     handleClose();
   };
 
@@ -32,7 +33,7 @@ const Profile = () => {
       <div className="my-3">
         <Modal show={show} onHide={handleClose} size="lg">
           <Modal.Header closeButton>
-            <Modal.Title>Edit Profile</Modal.Title>
+            <Modal.Title>Edit {currentUser.name}'s Profile</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -88,6 +89,9 @@ const Profile = () => {
                 id="imageFile"
                 label="Upload an Image"
                 accept="image/*"
+                onChange={(e:any) =>
+                  setImage((e.target as HTMLInputElement)?.files?.[0])
+                }
               />
             </Form>
           </Modal.Body>

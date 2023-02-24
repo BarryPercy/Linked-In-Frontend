@@ -14,17 +14,10 @@ const Education: React.FC = () => {
   const [educations, setEducations] = useState<Education[]>([
     {
       id: 1,
-      school: "University of Manchester",
-      degree: "BSc in Computer Sceince",
-      startYear: 2010,
-      endYear: 2013,
-    },
-    {
-      id: 2,
-      school: "University of Glasgow",
-      degree: "MSc in Computer Sceince",
-      startYear: 2014,
-      endYear: 2015,
+      school: "Epicode",
+      degree: "Full Stack Development",
+      startYear: 2022,
+      endYear: 2023,
     },
   ]);
 
