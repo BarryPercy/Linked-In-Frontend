@@ -74,10 +74,10 @@ const TopNav = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-end">
             <Link to="/feed/">
-              <Nav.Link href="#home">
-                <div className="d-flex flex-column align-items-center nav-options">
+              <Nav.Link href="#home" className="home-text">
+                <div className="d-flex flex-column align-items-center nav-options home-text">
                   <AiFillHome size="2em" />
-                  <span className="nav-text">Home</span>
+                  <span className="nav-text home-text">Home</span>
                 </div>
               </Nav.Link>
             </Link>

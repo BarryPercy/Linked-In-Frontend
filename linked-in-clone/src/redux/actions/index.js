@@ -119,8 +119,7 @@ export const updateUser = (editProfileObj, currentToken) => {
         }
       );
       if (response.ok) {
-        console.log("user edited");
-        // eslint-disable-next-line no-undef
+        dispatch(getMyUser(currentToken))
       } else {
         console.log("Uh oh!");
       }
