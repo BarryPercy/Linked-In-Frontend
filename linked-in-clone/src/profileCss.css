@@ -310,11 +310,11 @@ a.profile-text:hover {
   }
 }
 @media only screen and (max-width: 991px) {
-  .sidebar1{
-    display:none;
+  .sidebar1 {
+    display: none;
   }
-  .edit-area{
-    display:none;
+  .edit-area {
+    display: none;
   }
 }
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -436,7 +436,7 @@ Posts Css Below Here
 
 .avatar {
   width: 60px;
-  height:60px;
+  height: 60px;
   margin-right: 10px;
   border-radius: 50%;
   object-fit: cover;
@@ -676,32 +676,52 @@ Posts Css Below Here
   cursor: pointer;
 }
 
-.comment-icon{
+.comment-icon {
   cursor: pointer;
 }
 
-.pencil-post{
-  position:absolute;
-  right:10px;
-  top:10px;
+.pencil-post {
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
 
-.home-text a:hover{
+.home-text a:hover {
   text-decoration: none !important;
   text-decoration-line: none !important;
   text-decoration-color: transparent;
 }
-.home-text{
+.home-text {
   text-decoration: none !important;
   text-decoration-line: none !important;
   text-decoration-color: transparent;
 }
 
-.user-image{
-  width:30px;
+.user-image {
+  width: 30px;
 }
 
-.post-image-changes{
-  height:300px;
+.post-image-changes {
+  height: 300px;
   object-fit: cover;
+}
+
+/* Bottom messenger css */
+
+.bottomMessenger {
+  position: fixed;
+  bottom: 0;
+  right: 20px;
+  width: 250px;
+}
+
+.bottomMessenger .card {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: 0 0 2px 1px #cacaca;
+}
+
+.user-image-messenger {
+  width: 30px;
+  border-radius: 100%;
 }
