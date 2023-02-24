@@ -700,3 +700,8 @@ Posts Css Below Here
 .user-image{
   width:30px;
 }
+
+.post-image-changes{
+  height:300px;
+  object-fit: cover;
+}

@@ -23,9 +23,8 @@ const Profile = () => {
   });
 
   const handleSubmit = () => {
-    dispatch(updateUser(editProfileObj, dispatch));
+    dispatch(updateUser(editProfileObj, currentToken, currentUser));
     handleClose();
-    window.location.reload();
   };
 
   return (
@@ -148,7 +147,7 @@ const Profile = () => {
             variant="outline-primary"
             onClick={handleShow}
           >
-            Add profile section
+            Edit Profile
           </Button>{" "}
           <Button className="more-btn" variant="outline-secondary">
             More

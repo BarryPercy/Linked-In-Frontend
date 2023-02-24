@@ -141,7 +141,6 @@ const Posts = () => {
                   <div className="d-flex">
                     <Card.Title>
                       <>
-                        <Image src={post.image} />
                         <h6>
                           {post.user.name} {post.user.surname}
                         </h6>
@@ -161,6 +160,7 @@ const Posts = () => {
                   </Card.Text>
                 </div>
               </Card.Body>
+              {post.image?<Card.Img src={post.image} className="post-image-changes"/>:""}
               <Card.Body>
                 <hr />
                 <Row>
@@ -202,7 +202,6 @@ const Posts = () => {
                   </Col>
                 </Row>
               </Card.Body>
-              {/* <Card.Img src={post.image}/>  */}
             </Card>
           </>
         );
