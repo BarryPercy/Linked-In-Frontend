@@ -12,6 +12,7 @@ const Profile = () => {
   let experiences = useAppSelector((state) => state.exps.expList);
   let currentToken = useAppSelector((state) => state.users.currentToken);
   let [show, setShow] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
   let handleClose = () => setShow(false);
   let handleShow = () => setShow(true);
   let dispatch = useAppDispatch();
@@ -21,6 +22,7 @@ const Profile = () => {
     surname: "",
     area: "",
     title: "",
+    image: "",
   });
 
   const handleSubmit = () => {
