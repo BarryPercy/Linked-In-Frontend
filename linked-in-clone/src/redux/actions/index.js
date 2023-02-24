@@ -377,10 +377,12 @@ export const fetchPosts = (currentToken) => {
   };
 };
 
-export const postPost = (post, currentToken) => {
+export const postPost = (post, currentToken, image) => {
   return async (dispatch) => {
+    console.log(post, image);
+    console.log(currentToken);
     try {
-      const response = await fetch(
+      let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/posts/",
         {
           method: "POST",
@@ -392,6 +394,7 @@ export const postPost = (post, currentToken) => {
         }
       );
       if (response.ok) {
+        response = await response.json();
         dispatch(fetchPosts(currentToken));
       } else {
         alert("Fetching went wrong!!!!");

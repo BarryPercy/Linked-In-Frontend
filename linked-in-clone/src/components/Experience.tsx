@@ -33,7 +33,7 @@ const Experience = () => {
   const [expId, setExpId] = useState("");
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
+  const [image, setImage] = useState<File | null>(null);
   let currentToken = useAppSelector((state) => state.users.currentToken);
   const handleClose = () => setShow(false);
   const handleShow = () => {
@@ -76,9 +76,9 @@ const Experience = () => {
     console.log(e);
     const files = e.target.files;
     if (files && files.length > 0) {
-      setFile(files[0]);
+      setImage(files[0]);
     } else {
-      setFile(null);
+      setImage(null);
     }
   };
 
@@ -94,7 +94,7 @@ const Experience = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // dispatch(postUserExp(newExp));
-    dispatch(postUserImageExp(file, expId, currentToken));
+    dispatch(postUserImageExp(image, expId, currentToken));
     dispatch(postUserExp(newExp, currentToken));
     handleClose();
   };

@@ -67,6 +67,7 @@ const Posts = () => {
   return (
     <div>
       {slicedPostsReverse.map((post: PostInterface) => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         let [liked, setLiked] = useState(false);
         const toggleLiked = () => {
           if (liked) {

@@ -22,14 +22,17 @@ export default function StartAPost() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const dispatch = useAppDispatch();
+  const [image, setImage] = useState<File | null | undefined>(null);
+
   let currentToken = useAppSelector((state) => state.users.currentToken);
-  let currentUser = useAppSelector((state)=>state.users.currentUser);
+  let currentUser = useAppSelector((state) => state.users.currentUser);
   const handleSubmit = () => {
     const object = {
       text: "",
     };
     object.text += post;
-    dispatch(postPost(object, currentToken));
+    dispatch(postPost(object, currentToken, image));
+
     handleClose();
   };
 
@@ -71,7 +74,9 @@ export default function StartAPost() {
                 <Modal.Body>
                   <div className="d-flex my-2">
                     <Image className="avatar" src={currentUser.image} />
-                    <h5 className="align-self-center">{currentUser.name} {currentUser.surname}</h5>
+                    <h5 className="align-self-center">
+                      {currentUser.name} {currentUser.surname}
+                    </h5>
                   </div>
                   <Form.Control
                     as="textarea"
@@ -82,6 +87,16 @@ export default function StartAPost() {
                     }}
                     value={post}
                   />
+                  <Form.Group>
+                    <Form.Label>Choose an image to upload:</Form.Label>
+                    <Form.Control
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) =>
+                        setImage((e.target as HTMLInputElement)?.files?.[0])
+                      }
+                    />
+                  </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="primary" onClick={handleSubmit}>
