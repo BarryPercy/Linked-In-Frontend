@@ -65,6 +65,7 @@ const Experience = () => {
     if (selectedExp) {
       // check if selectedExp is not undefined
       setNewExp(selectedExp);
+      setExpId(id);
       console.log(newExp);
     }
   };
@@ -88,7 +89,7 @@ const Experience = () => {
 
   const handleShow2 = (id: string) => {
     setShow2(true);
-    setExpId(id);
+    selectEditedExp(id);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -113,7 +114,6 @@ const Experience = () => {
 
     console.log("updating expirience");
     dispatch(editUserExp(editedExp, expId, currentToken));
-
     handleClose2();
   };
 
@@ -376,6 +376,7 @@ const Experience = () => {
                       <Form.File
                         id="imageFile"
                         label="Upload an Image"
+                        value={newExp.image}
                         accept="image/*"
                         onChange={(e: any) => {
                           handleFileChange(e, expId);
