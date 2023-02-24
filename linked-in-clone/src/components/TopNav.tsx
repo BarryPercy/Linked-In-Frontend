@@ -33,19 +33,36 @@ const TopNav = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
-    
     <Navbar bg="white" expand="lg" fixed="top">
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Choose Profile</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Row className="justify-content-center">
-            <Col onClick={()=>dispatch(setToken("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzc1YzgzODFmYzAwMTNmZmZhZDIiLCJpYXQiOjE2NzY4ODM4MDQsImV4cCI6MTY3ODA5MzQwNH0.xJ1_0xYnhu_VGi6iYMgPnmR9ZhWHNeBV0yjk_d6eSfo"))}>Barry Percy</Col>
-            <Col onClick={()=>dispatch(setToken("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0"))}>Jovellyn A Quiapos</Col>
+          <Row className="justify-content-center text-center">
+            <Col
+              onClick={() =>
+                dispatch(
+                  setToken(
+                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzc1YzgzODFmYzAwMTNmZmZhZDIiLCJpYXQiOjE2NzY4ODM4MDQsImV4cCI6MTY3ODA5MzQwNH0.xJ1_0xYnhu_VGi6iYMgPnmR9ZhWHNeBV0yjk_d6eSfo"
+                  )
+                )
+              }
+            >
+              Barry Percy
+            </Col>
+            <Col
+              onClick={() =>
+                dispatch(
+                  setToken(
+                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0"
+                  )
+                )
+              }
+            >
+              Jovellyn A Quiapos
+            </Col>
           </Row>
-          
-          
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -112,7 +129,10 @@ const TopNav = () => {
               </div>
             </Link>
             <Nav.Link>
-              <div className="d-flex flex-column align-items-center nav-options" onClick={handleShow}>
+              <div
+                className="d-flex flex-column align-items-center nav-options"
+                onClick={handleShow}
+              >
                 <BsFillFilePersonFill size="2em" />
                 <span className="nav-text">Change Profile</span>
               </div>

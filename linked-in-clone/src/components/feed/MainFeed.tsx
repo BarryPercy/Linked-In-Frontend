@@ -6,6 +6,7 @@ import LinkedInNews from "./LinkedInNews";
 import Posts from "./Posts";
 import RecentHastags from "./RecentHashtags";
 import StartAPost from "./StartAPost";
+import BottomMessenger from "../BottomMessenger";
 
 const MainFeed = () => {
   return (
@@ -30,6 +31,9 @@ const MainFeed = () => {
             <LinkedInNews />
             <FeedFooter />
           </Col>
+        </Row>
+        <Row>
+          <BottomMessenger />
         </Row>
       </Container>
     </>
