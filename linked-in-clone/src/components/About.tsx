@@ -20,7 +20,6 @@ const About = () => {
   const handleSubmit = () => {
     dispatch(updateUser(editAbout, currentToken));
     handleClose();
-    window.location.reload();
   };
 
   return (

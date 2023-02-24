@@ -117,8 +117,7 @@ export const updateUser = (editProfileObj, currentToken) => {
         }
       );
       if (response.ok) {
-        console.log("user edited");
-        // eslint-disable-next-line no-undef
+        dispatch(getMyUser(currentToken));
       } else {
         console.log("Uh oh!");
       }
@@ -452,43 +451,45 @@ export const editPost = (post, id, currentToken) => {
     }
   };
 };
-export const postImage = (id, imageFile, currentToken) => async (dispatch) => {
-  try {
-    const formData = new FormData();
-    formData.append("post", imageFile);
 
-    const response = await fetch(
-      `https://striveschool-api.herokuapp.com/api/posts/${id}`,
-      {
-        method: "POST",
-        body: formData,
-        headers: {
-          "Content-type": "application/json",
-          Authorization: currentToken,
-        },
+export const postImage = (id, imageFile, currentToken) => {
+  return async (dispatch) => {
+    try {
+      const formData = new FormData();
+      formData.append("post", imageFile);
+
+      const response = await fetch(
+        "https://striveschool-api.herokuapp.com/api/posts/" + id,
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Content-type": "application/json",
+            Authorization: currentToken,
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch({
+          type: POST_IMAGE_SUCCESS,
+          payload: {
+            id,
+            image: data,
+          },
+        });
+      } else {
+        throw new Error("Failed to upload image");
       }
-    );
-    if (!response.ok) {
-      throw new Error("Failed to upload image");
+    } catch (error) {
+      dispatch({
+        type: POST_IMAGE_FAILURE,
+        payload: {
+          id,
+          error: error.message,
+        },
+      });
     }
-
-    const data = await response.json();
-    console.log(data);
-
-    dispatch({
-      type: POST_IMAGE_SUCCESS,
-      payload: {
-        id,
-        image: data,
-      },
-    });
-  } catch (error) {
-    dispatch({
-      type: POST_IMAGE_FAILURE,
-      payload: {
-        id,
-        error: error.message,
-      },
-    });
-  }
+  };
 };
