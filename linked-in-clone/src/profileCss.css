@@ -686,9 +686,9 @@ Posts Css Below Here
   top:10px;
 }
  
-.secondary-nav {
+ .secondary-nav {
   position: fixed;
-  top: 50px; 
+  top: 0px; 
   left: 0;
   right: 0;
   height: 50px;
@@ -698,7 +698,7 @@ Posts Css Below Here
 }
 
 .secondary-nav.show-nav {
-  top: 0;
+  top: 60px;
 }
 
 

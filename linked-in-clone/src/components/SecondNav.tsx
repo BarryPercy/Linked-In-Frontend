@@ -31,10 +31,10 @@ function SecondNav() {
           <p style={{fontSize: "10px"}}>Jr Full Stack Dev</p>
         </div>
       </div>
-      <div>
-        <Button className='mx-1' href="#">More</Button>
-        <Button className='mx-1' href="#">Add profile section</Button>
-        <Button className='mx-1' href="#">Open to</Button>
+      <div className='button-area'>
+        <Button className='mx-1 more-btn' variant="outline-secondary" href="#">More</Button>
+        <Button className='mx-1 add-btn' variant="outline-primary" href="#">Edit Profile</Button>
+        <Button className='mx-1 open-btn' variant="primary" href="#">Open to</Button>
       </div>
     </div>
   );
