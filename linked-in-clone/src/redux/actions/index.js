@@ -240,6 +240,10 @@ export const editUserExp = (editedExp, expId, currentToken) => {
     } else if(currentToken==="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzc1YzgzODFmYzAwMTNmZmZhZDIiLCJpYXQiOjE2NzY4ODM4MDQsImV4cCI6MTY3ODA5MzQwNH0.xJ1_0xYnhu_VGi6iYMgPnmR9ZhWHNeBV0yjk_d6eSfo"){
       userId="63f3375c8381fc0013fffad2"
     }
+    const url = "https://striveschool-api.herokuapp.com/api/profile/"+userId+"/experiences/" +
+    expId
+    console.log(url)
+    console.log(editedExp)
     try {
       let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/profile/"+userId+"/experiences/" +

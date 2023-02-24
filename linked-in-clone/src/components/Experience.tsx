@@ -91,7 +91,7 @@ const Experience = () => {
       area: newExp.area,
     };
 
-    console.log("editing->", newExp, "id->", expId);
+    console.log("editing->", editedExp, "id->", expId);
     console.log("updating expirience");
     dispatch(editUserExp(editedExp, expId, currentToken));
     handleClose2();
@@ -336,7 +336,8 @@ const Experience = () => {
                       <Button
                         variant="secondary"
                         onClick={() => {
-                          dispatch(deleteUserExp(experience._id, currentToken));
+                          dispatch(deleteUserExp(experience._id));
+                          
                           handleClose2();
                         }}
                       >
