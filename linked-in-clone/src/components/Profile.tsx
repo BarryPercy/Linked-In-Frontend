@@ -85,6 +85,11 @@ const Profile = () => {
                   });
                 }}
               />
+              <Form.File
+                id="imageFile"
+                label="Upload an Image"
+                accept="image/*"
+              />
             </Form>
           </Modal.Body>
           <Modal.Footer>
@@ -97,10 +102,7 @@ const Profile = () => {
           </Modal.Footer>
         </Modal>
         <div className="profile-icon">
-          <Image
-            src={currentUser.image}
-            roundedCircle
-          />
+          <Image src={currentUser.image} roundedCircle />
         </div>
         <div className="img-area">
           <div className="camera-btn mr-3 d-flex justify-content-center align-items-center">
