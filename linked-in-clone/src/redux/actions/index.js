@@ -237,7 +237,6 @@ export const postUserImageExp = (file, expId, currentToken) => {
     try {
       const formData = new FormData();
       formData.append("experience", file);
-      console.log("formData >>>>>>", formData);
       let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/profile/" +
           userId +
