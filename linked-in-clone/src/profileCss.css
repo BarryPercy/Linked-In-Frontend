@@ -685,6 +685,25 @@ Posts Css Below Here
   right: 10px;
   top: 10px;
 }
+ 
+ .secondary-nav {
+  position: fixed;
+  top: 0px; 
+  left: 0;
+  right: 0;
+  height: 50px;
+  background-color: #fff;
+  z-index: 100;
+  transition: 0.3s ease-in-out;
+}
+
+.secondary-nav.show-nav {
+  top: 60px;
+}
+
+
+
+
 
 .home-text a:hover {
   text-decoration: none !important;
