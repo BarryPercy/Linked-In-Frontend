@@ -685,10 +685,10 @@ Posts Css Below Here
   right: 10px;
   top: 10px;
 }
- 
- .secondary-nav {
+
+.secondary-nav {
   position: fixed;
-  top: 0px; 
+  top: 0px;
   left: 0;
   right: 0;
   height: 50px;
@@ -698,12 +698,8 @@ Posts Css Below Here
 }
 
 .secondary-nav.show-nav {
-  top: 60px;
+  top: 65px;
 }
-
-
-
-
 
 .home-text a:hover {
   text-decoration: none !important;
