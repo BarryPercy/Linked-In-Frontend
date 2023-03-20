@@ -1,7 +1,7 @@
 import { fetchPosts } from "../../redux/actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useEffect, useState } from "react";
-import { Card, Image, Button, Row, Col, Modal, Form } from "react-bootstrap";
+import { Card, Button, Row, Col, Modal, Form } from "react-bootstrap";
 import parseISO from "date-fns/parseISO";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import { BsHandThumbsUp, BsFillHandThumbsUpFill } from "react-icons/bs";
@@ -40,10 +40,9 @@ interface User {
 const Posts = () => {
   const dispatch = useAppDispatch();
   let posts = useAppSelector((state) => state.posts.postList);
-  let currentToken = useAppSelector((state) => state.users.currentToken);
   let currentUser = useAppSelector((state) => state.users.currentUser);
-  let postsReverse = [...posts].reverse();
-  let slicedPostsReverse = postsReverse.slice(0, 20);
+  //let postsReverse = [...posts].reverse();
+  //let slicedPostsReverse = postsReverse.slice(0, 20);
   const [show, setShow] = useState(false);
   const [currentId, setCurrentId] = useState("");
   const selectEditedPost = async (id: string) => {
@@ -62,12 +61,12 @@ const Posts = () => {
   });
 
   useEffect(() => {
-    dispatch(fetchPosts(currentToken));
-    console.log(slicedPostsReverse);
+    dispatch(fetchPosts());
+    console.log(posts);
   }, []);
   return (
     <div>
-      {slicedPostsReverse.map((post: PostInterface) => {
+      {posts.length>0? posts.map((post: PostInterface) => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         let [liked, setLiked] = useState(false);
         const toggleLiked = () => {
@@ -100,13 +99,9 @@ const Posts = () => {
               <Modal.Footer>
                 <Button
                   variant="secondary"
-                  // onClick={() => {
-                  //   dispatch(deletePost(experience._id, currentToken));
-                  //   handleClose2();
-                  // }}
                   onClick={() => {
                     console.log(currentId, newPost);
-                    dispatch(deletePost(currentId, currentToken));
+                    dispatch(deletePost(currentId));
                     handlePostClose();
                   }}
                 >
@@ -116,7 +111,7 @@ const Posts = () => {
                   variant="primary"
                   onClick={() => {
                     console.log(currentId, newPost);
-                    dispatch(editPost(newPost, currentId, currentToken));
+                    dispatch(editPost(newPost, currentId));
                     handlePostClose();
                   }}
                 >
@@ -160,7 +155,7 @@ const Posts = () => {
                   </Card.Text>
                 </div>
               </Card.Body>
-              {post.image?<Card.Img src={post.image} className="post-image-changes"/>:""}
+              {post.img?<Card.Img src={post.image} className="post-image-changes"/>:""}
               <Card.Body>
                 <hr />
                 <Row>
@@ -205,7 +200,7 @@ const Posts = () => {
             </Card>
           </>
         );
-      })}
+      }):<p>No Posts yet!</p>}
     </div>
   );
 };

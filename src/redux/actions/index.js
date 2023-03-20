@@ -1,4 +1,5 @@
 //USERS
+export const GET_MY_USER = "GET_MY_USER"
 export const GET_USERS = "GET_USERS";
 export const GET_SPECIFIC_USER = "GET_SPECIFIC_USER";
 export const UPDATE_USER = "UPDATE_USER";
@@ -16,6 +17,27 @@ export const EDIT_POST = "EDIT_POSTS";
 export const DELETE_POST = "DELETE_POSTS";
 
 // USERS
+
+export const getMyUser = () => {
+  return async (dispatch) => {
+    try {
+      let response = await fetch(
+        `${process.env.REACT_APP_BACK_END}/users/` + process.env.REACT_APP_CURRENT_USER_ID
+      );
+      if (response.ok) {
+        const user = await response.json();
+        dispatch({
+          type: GET_MY_USER,
+          payload: user,
+        });
+      } else {
+        console.log("Uh oh!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 
 //GET USERS
 export const getUsers = () => {
@@ -75,7 +97,9 @@ export const postUser = (ProfileObj, userId, image) => {
         }
       );
       if (response.ok) {
-        dispatch(profileImage(userId, image))
+        if(image!==null||image!==undefined){
+          dispatch(profileImage(userId, image))
+        }
       } else {
         console.log("Uh oh!");
       }
@@ -100,7 +124,9 @@ export const updateUser = (editProfileObj, userId, image) => {
         }
       );
       if (response.ok) {
-        dispatch(profileImage(currentUser._id, image))
+        if(image!==null||image!==undefined){
+          dispatch(profileImage(userId, image))
+        }
       } else {
         console.log("Uh oh!");
       }
@@ -166,7 +192,6 @@ export const fetchUserExps = (userId) => {
 //POST EXPERIENCE
 export const postUserExp = (userId, newExp, image) => {
   return async (dispatch) => {
-    let userId = "";
     try {
       let response = await fetch(
         `${process.env.REACT_APP_BACK_END}/api/users/`+userId +"/experiences",
@@ -213,7 +238,7 @@ export const fetchUserExp = (userId,expId) => {
 };
 
 //DELETE EXPERIENCE
-export const deleteUserExp = (userId, expId ) => {
+export const deleteUserExp = (userId, expId) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
@@ -292,10 +317,11 @@ export const fetchPosts = () => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/posts/`,
+        `${process.env.REACT_APP_BACK_END}/posts/`,
       );
       if (response.ok) {
         let data = await response.json();
+        console.log(data.posts)
         dispatch({
           type: GET_POSTS,
           payload: data,
@@ -310,7 +336,7 @@ export const fetchPosts = () => {
 };
 
 //POST post
-export const postPost = (userId, post, image) => {
+export const postPost = (post, image) => {
   return async (dispatch) => {
     console.log(post, image);
     console.log();
@@ -327,8 +353,7 @@ export const postPost = (userId, post, image) => {
       );
       if (response.ok) {
         let data = await response.json();
-        console.log(data);
-        dispatch(postImage(data._id, image, ));
+        dispatch(postImage(data._id, image));
         dispatch(fetchPosts());
       } else {
         alert("Posting a post went wrong!!!!");
@@ -407,8 +432,6 @@ export const deletePost = (postId ) => {
     }
   };
 };
-
-
 
 //POST image to post
 export const postImage = (postId, imageFile) => {

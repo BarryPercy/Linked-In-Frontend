@@ -1,7 +1,7 @@
 import { Card } from "react-bootstrap";
 import { FaHashtag } from "react-icons/fa";
 import { HiUserGroup } from "react-icons/hi";
-const RecentHastags = () => {
+const RecentHashtags = () => {
   return (
     <>
       <Card className="start-post">
@@ -191,4 +191,4 @@ const RecentHastags = () => {
   );
 };
 
-export default RecentHastags;
+export default RecentHashtags;

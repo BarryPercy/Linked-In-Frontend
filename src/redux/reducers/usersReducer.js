@@ -2,6 +2,7 @@ const initialState = {
   userList: [],
   currentUser: {},
   currentToken:{},
+  currentProfileUser:{}
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -19,12 +20,8 @@ const usersReducer = (state = initialState, action) => {
     case "GET_SPECIFIC_USER":
       return {
         ...state,
+        currentProfileUser: action.payload,
       };
-    case "SET_CURRENT_TOKEN":
-        return{
-            ...state,
-            currentToken:action.payload,
-        }
     default:
       return state;
   }
