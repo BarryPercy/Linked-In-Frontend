@@ -1,34 +1,30 @@
-export const GET_USER_EXPERIENCES = "GET_USER_EXPERIENCES";
+//USERS
 export const GET_USERS = "GET_USERS";
-export const GET_MY_USER = "GET_MY_USER";
 export const GET_SPECIFIC_USER = "GET_SPECIFIC_USER";
 export const UPDATE_USER = "UPDATE_USER";
+
+//EXPERIENCES
+export const GET_USER_EXPERIENCES = "GET_USER_EXPERIENCES";
+export const GET_USER_EXPERIENCE = "GET_USER_EXPERIENCE";
 export const POST_USER_EXP = "POST_USER_EXP";
+
+//POSTS
 export const GET_POSTS = "GET_POSTS";
 export const GET_POST = "GET_POST";
 export const POST_POST = "POST_POST";
 export const EDIT_POST = "EDIT_POSTS";
 export const DELETE_POST = "DELETE_POSTS";
-export const POST_IMAGE_SUCCESS = "POST_IMAGE_SUCCESS";
-export const POST_IMAGE_FAILURE = "POST_IMAGE_FAILURE";
-export const SET_CURRENT_TOKEN = "SET_CURRENT_TOKEN";
-export const POST_IMAGE_EXP_SUCCESS = "POST_IMAGE_EXP_SUCCESS";
 
-export const getUsers = (currentToken) => {
+// USERS
+
+//GET USERS
+export const getUsers = () => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/profile/`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: currentToken,
-          },
-        }
-      );
+        `${process.env.REACT_APP_BACK_END}/api/users/`);
       if (response.ok) {
         const users = await response.json();
-        // console.log(users);
         dispatch({
           type: GET_USERS,
           payload: users,
@@ -42,51 +38,12 @@ export const getUsers = (currentToken) => {
   };
 };
 
-export const getMyUser = (currentToken) => {
-  return async (dispatch) => {
-    console.log("token changed", currentToken)
-    try {
-      let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/me",
-        {
-          method: "GET",
-          headers: {
-            Authorization: currentToken,
-          },
-        }
-      );
-      if (response.ok) {
-        const user = await response.json();
-
-        dispatch({
-          type: GET_MY_USER,
-          payload: user,
-        });
-      } else {
-        console.log("Uh oh!");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export const setToken = (token) => {
-  return async (dispatch) => {
-    await dispatch({
-      type: SET_CURRENT_TOKEN,
-      payload: token,
-    });
-    dispatch(getMyUser(token));
-    dispatch(fetchUserExps(token));
-  };
-};
-
-export const getSpecificUser = (id) => {
+//GET USER
+export const getSpecificUser = (userId) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/me" + id
+        `${process.env.REACT_APP_BACK_END}/api/users/` + userId
       );
       if (response.ok) {
         const user = await response.json();
@@ -103,25 +60,22 @@ export const getSpecificUser = (id) => {
   };
 };
 
-export const updateUser = (editProfileObj, currentToken, currentUser,image) => {
+//POST USER
+export const postUser = (ProfileObj, userId, image) => {
   return async (dispatch) => {
-    console.log("UPDATE USER",image)
     try {
       let response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/profile/`,
+        `${process.env.REACT_APP_BACK_END}/api/users/`+userId,
         {
-          method: "PUT",
-          body: JSON.stringify(editProfileObj),
+          method: "POST",
+          body: JSON.stringify(ProfileObj),
           headers: {
-            "Content-Type": "application/json",
-            Authorization: currentToken,
+            "Content-Type": "application/json"
           },
         }
       );
       if (response.ok) {
-        console.log("about to dispatch")
-        dispatch(profileImage(currentUser._id,image,currentToken))
-        dispatch(getMyUser(currentToken));
+        dispatch(profileImage(userId, image))
       } else {
         console.log("Uh oh!");
       }
@@ -131,44 +85,24 @@ export const updateUser = (editProfileObj, currentToken, currentUser,image) => {
   };
 };
 
-export const fetchUserExps = (currentToken) => {
+//PUT USER
+export const updateUser = (editProfileObj, userId, image) => {
   return async (dispatch) => {
-    let userId = "";
-    if (
-      currentToken ===
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0"
-    ) {
-      userId = "63f331b78381fc0013fffad0";
-    } else if (
-      currentToken ===
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzc1YzgzODFmYzAwMTNmZmZhZDIiLCJpYXQiOjE2NzY4ODM4MDQsImV4cCI6MTY3ODA5MzQwNH0.xJ1_0xYnhu_VGi6iYMgPnmR9ZhWHNeBV0yjk_d6eSfo"
-    ) {
-      userId = "63f3375c8381fc0013fffad2";
-    }
-    let url =
-      "https://striveschool-api.herokuapp.com/api/profile/" +
-      userId +
-      "/experiences";
     try {
-      const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/" +
-          userId +
-          "/experiences",
+      let response = await fetch(
+        `${process.env.REACT_APP_BACK_END}/api/users/`+userId,
         {
-          method: "GET",
+          method: "PUT",
+          body: JSON.stringify(editProfileObj),
           headers: {
-            Authorization: currentToken,
+            "Content-Type": "application/json"
           },
         }
       );
       if (response.ok) {
-        let data = await response.json();
-        dispatch({
-          type: GET_USER_EXPERIENCES,
-          payload: data,
-        });
+        dispatch(profileImage(currentUser._id, image))
       } else {
-        alert("Fetching went wrong!!!!");
+        console.log("Uh oh!");
       }
     } catch (error) {
       console.log(error);
@@ -176,36 +110,69 @@ export const fetchUserExps = (currentToken) => {
   };
 };
 
-export const postUserExp = (newExp, currentToken, image) => {
+//POST USER IMAGE
+export const profileImage = (userId, imageFile) => {
+  return async (dispatch) => {
+    try {
+      const formData = new FormData();
+      formData.append("profile", imageFile);
+      const response = await fetch(
+        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/image",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      if (response.ok) {
+        dispatch(getSpecificUser(userId))
+      } else {
+        throw new Error("Failed to upload image");
+      }
+    } catch (error) {
+    }
+  };
+};
+
+//GET CV -> HREF to `${process.env.REACT_APP_BACK_END}/api/profile/users/`+userId+"/CV"
+
+
+
+
+
+//EXPERIENCES
+
+
+//GET EXPERIENCES
+export const fetchUserExps = (userId) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/experiences");
+      if (response.ok) {
+        let data = await response.json();
+        dispatch({
+          type: GET_USER_EXPERIENCES,
+          payload: data,
+        });
+      } else {
+        console.log("Fetching Experiences went wrong!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+//POST EXPERIENCE
+export const postUserExp = (userId, newExp, image) => {
   return async (dispatch) => {
     let userId = "";
-    if (
-      currentToken ===
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0"
-    ) {
-      userId = "63f331b78381fc0013fffad0";
-    } else if (
-      currentToken ===
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzc1YzgzODFmYzAwMTNmZmZhZDIiLCJpYXQiOjE2NzY4ODM4MDQsImV4cCI6MTY3ODA5MzQwNH0.xJ1_0xYnhu_VGi6iYMgPnmR9ZhWHNeBV0yjk_d6eSfo"
-    ) {
-      userId = "63f3375c8381fc0013fffad2";
-    }
-    let url =
-      "https://striveschool-api.herokuapp.com/api/profile/" +
-      userId +
-      "/experiences";
     try {
       let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/" +
-          userId +
-          "/experiences",
+        `${process.env.REACT_APP_BACK_END}/api/users/`+userId +"/experiences",
         {
           method: "POST",
           body: JSON.stringify(newExp),
-          headers: {
-            "Content-type": "application/json",
-            Authorization: currentToken,
-          },
         }
       );
       if (response.ok) {
@@ -214,9 +181,9 @@ export const postUserExp = (newExp, currentToken, image) => {
           type: POST_USER_EXP,
           payload: newExp,
         });
-        dispatch(postUserImageExp(image, data._id, currentToken));
+        dispatch(postUserImageExp(userId, data._id, image));
       } else {
-        alert("failure to add new experience!");
+        console.log("Failure to post new experience!");
       }
     } catch (error) {
       console.log(error);
@@ -224,51 +191,20 @@ export const postUserExp = (newExp, currentToken, image) => {
   };
 };
 
-export const postUserImageExp = (file, expId, currentToken) => {
+//GET EXPERIENCE
+export const fetchUserExp = (userId,expId) => {
   return async (dispatch) => {
-    let userId = "";
-    if (
-      currentToken ===
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0"
-    ) {
-      userId = "63f331b78381fc0013fffad0";
-    } else if (
-      currentToken ===
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzc1YzgzODFmYzAwMTNmZmZhZDIiLCJpYXQiOjE2NzY4ODM4MDQsImV4cCI6MTY3ODA5MzQwNH0.xJ1_0xYnhu_VGi6iYMgPnmR9ZhWHNeBV0yjk_d6eSfo"
-    ) {
-      userId = "63f3375c8381fc0013fffad2";
-    }
-
     try {
-      const formData = new FormData();
-      formData.append("experience", file);
-
-      let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/" +
-          userId +
-          "/experiences/" +
-          expId +
-          "/picture",
-        {
-          method: "POST",
-          body: formData,
-          headers: {
-            Authorization:
-              "BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0",
-          },
-        }
-      );
+      const response = await fetch(
+        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/experiences/"+expId);
       if (response.ok) {
-        const data = await response.json();
-        console.log(data);
+        let data = await response.json();
         dispatch({
-          type: POST_IMAGE_EXP_SUCCESS,
-          expId,
-          image: data,
+          type: GET_USER_EXPERIENCE,
+          payload: data,
         });
-        console.log("experience image uploaded");
       } else {
-        console.log("fail image upload");
+        console.log("Fetching Experiences went wrong!");
       }
     } catch (error) {
       console.log(error);
@@ -276,36 +212,21 @@ export const postUserImageExp = (file, expId, currentToken) => {
   };
 };
 
-export const deleteUserExp = (expId, currentToken) => {
+//DELETE EXPERIENCE
+export const deleteUserExp = (userId, expId ) => {
   return async (dispatch) => {
-    let userId = "";
-    if (
-      currentToken ===
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0"
-    ) {
-      userId = "63f331b78381fc0013fffad0";
-    } else if (
-      currentToken ===
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzc1YzgzODFmYzAwMTNmZmZhZDIiLCJpYXQiOjE2NzY4ODM4MDQsImV4cCI6MTY3ODA5MzQwNH0.xJ1_0xYnhu_VGi6iYMgPnmR9ZhWHNeBV0yjk_d6eSfo"
-    ) {
-      userId = "63f3375c8381fc0013fffad2";
-    }
     try {
       let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/" +
-          userId +
-          "/experiences/" +
-          expId,
+        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/experiences/"+expId,
         {
           method: "DELETE",
           headers: {
             "Content-type": "application/json",
-            Authorization: currentToken,
           },
         }
       );
       if (response.ok) {
-        dispatch(fetchUserExps(currentToken));
+        dispatch(fetchUserExps());
       } else {
         console.log("try again!");
       }
@@ -315,49 +236,24 @@ export const deleteUserExp = (expId, currentToken) => {
   };
 };
 
-export const editUserExp = (editedExp, expId, currentToken, image) => {
+//PUT EXPERIENCE
+export const editUserExp = (editedExp, userId, expId, image) => {
   return async (dispatch) => {
-    let userId = "";
-    if (
-      currentToken ===
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0"
-    ) {
-      userId = "63f331b78381fc0013fffad0";
-    } else if (
-      currentToken ===
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzc1YzgzODFmYzAwMTNmZmZhZDIiLCJpYXQiOjE2NzY4ODM4MDQsImV4cCI6MTY3ODA5MzQwNH0.xJ1_0xYnhu_VGi6iYMgPnmR9ZhWHNeBV0yjk_d6eSfo"
-    ) {
-      userId = "63f3375c8381fc0013fffad2";
-    }
-    const url =
-      "https://striveschool-api.herokuapp.com/api/profile/" +
-      userId +
-      "/experiences/" +
-      expId;
-    console.log(url);
-    console.log(editedExp);
     try {
       let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/" +
-          userId +
-          "/experiences/" +
-          expId,
+        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/experiences/"+expId,
         {
           method: "PUT",
           body: JSON.stringify(editedExp),
           headers: {
             "Content-type": "application/json",
-            Authorization: currentToken,
           },
         }
       );
       if (response.ok) {
-        console.log("updated! ");
-        let data = await response.json();
-        dispatch(postUserImageExp(image, data._id, currentToken));
-        dispatch(fetchUserExps(currentToken));
+        dispatch(postUserImageExp(userId, expId, image));
       } else {
-        alert("Failed to edit!");
+        alert("Failed to edit Experience!");
       }
     } catch (error) {
       console.log(error);
@@ -365,17 +261,38 @@ export const editUserExp = (editedExp, expId, currentToken, image) => {
   };
 };
 
-export const fetchPosts = (currentToken) => {
+//POST EXPERIENCE IMAGE
+export const postUserImageExp = (userId, expId, image) => {
+  return async (dispatch) => {
+    try {
+      const formData = new FormData();
+      formData.append("experience", image);
+      let response = await fetch(
+        `${process.env.REACT_APP_BACK_END}/api/users/`+userId +"/experiences/"+expId +"/image",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      if (response.ok) {
+        dispatch(fetchUserExp(userId, expId));
+      } else {
+        console.log("failed experience image upload");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+//POSTS
+
+//GET Posts
+export const fetchPosts = () => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/posts/",
-        {
-          method: "GET",
-          headers: {
-            Authorization: currentToken,
-          },
-        }
+        `${process.env.REACT_APP_BACK_END}/api/posts/`,
       );
       if (response.ok) {
         let data = await response.json();
@@ -384,7 +301,7 @@ export const fetchPosts = (currentToken) => {
           payload: data,
         });
       } else {
-        alert("Fetching went wrong!!!!");
+        console.log("Fetching Posts went wrong");
       }
     } catch (error) {
       console.log(error);
@@ -392,29 +309,29 @@ export const fetchPosts = (currentToken) => {
   };
 };
 
-export const postPost = (post, currentToken, image) => {
+//POST post
+export const postPost = (userId, post, image) => {
   return async (dispatch) => {
     console.log(post, image);
-    console.log(currentToken);
+    console.log();
     try {
       let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/posts/",
+        `${process.env.REACT_APP_BACK_END}/api/posts/`,
         {
           method: "POST",
           body: JSON.stringify(post),
           headers: {
             "Content-type": "application/json",
-            Authorization: currentToken,
           },
         }
       );
       if (response.ok) {
         let data = await response.json();
         console.log(data);
-        dispatch(postImage(data._id, image, currentToken));
-        dispatch(fetchPosts(currentToken));
+        dispatch(postImage(data._id, image, ));
+        dispatch(fetchPosts());
       } else {
-        alert("Fetching went wrong!!!!");
+        alert("Posting a post went wrong!!!!");
       }
     } catch (error) {
       console.log(error);
@@ -422,23 +339,21 @@ export const postPost = (post, currentToken, image) => {
   };
 };
 
-export const deletePost = (id, currentToken) => {
+//GET Specific Post
+export const fetchPost = (postId) => {
   return async (dispatch) => {
     try {
-      console.log(currentToken);
       const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/posts/" + id,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: currentToken,
-          },
-        }
+        `${process.env.REACT_APP_BACK_END}/api/posts/`+postId,
       );
       if (response.ok) {
-        dispatch(fetchPosts(currentToken));
+        let data = await response.json();
+        dispatch({
+          type: GET_POST,
+          payload: data,
+        });
       } else {
-        alert("Fetching went wrong!!!!");
+        console.log("Fetching Post "+postId+" went wrong");
       }
     } catch (error) {
       console.log(error);
@@ -446,23 +361,22 @@ export const deletePost = (id, currentToken) => {
   };
 };
 
-export const editPost = (post, id, currentToken) => {
+//PUT Post
+export const editPost = (post, postId) => {
   return async (dispatch) => {
     try {
-      console.log("edited post", post, "id->", id);
       const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/posts/" + id,
+        `${process.env.REACT_APP_BACK_END}/api/posts/` + postId,
         {
           method: "PUT",
           body: JSON.stringify(post),
           headers: {
             "Content-type": "application/json",
-            Authorization: currentToken,
           },
         }
       );
       if (response.ok) {
-        dispatch(fetchPosts(currentToken));
+        dispatch(fetchPosts());
       } else {
         alert("Fetching went wrong!!!!");
       }
@@ -472,71 +386,50 @@ export const editPost = (post, id, currentToken) => {
   };
 };
 
-export const postImage = (id, imageFile, currentToken) => {
+//DELETE Post
+export const deletePost = (postId ) => {
   return async (dispatch) => {
-    console.log(" postImage >>>>> ", imageFile, id, currentToken);
     try {
-      const formData = new FormData();
-      formData.append("post", imageFile);
-
+      console.log();
       const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/posts/" + id,
+        `${process.env.REACT_APP_BACK_END}/api/posts/`+ postId,
         {
-          method: "POST",
-          body: formData,
-          headers: {
-            Authorization: currentToken,
-          },
+          method: "DELETE",
         }
       );
       if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        dispatch({
-          type: POST_IMAGE_SUCCESS,
-          payload: {
-            id,
-            image: data,
-          },
-        });
+        dispatch(fetchPosts());
       } else {
-        throw new Error("Failed to upload image");
+        alert("Fetching went wrong!!!!");
       }
     } catch (error) {
-      dispatch({
-        type: POST_IMAGE_FAILURE,
-        payload: {
-          id,
-          error: error.message,
-        },
-      });
+      console.log(error);
     }
   };
 };
 
-export const profileImage = (userId, imageFile, currentToken) => {
+
+
+//POST image to post
+export const postImage = (postId, imageFile) => {
   return async (dispatch) => {
-    console.log(userId,imageFile,currentToken)
     try {
       const formData = new FormData();
-      formData.append("profile", imageFile);
-      console.log("in try")
+      formData.append("post", imageFile);
       const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/"+userId+"/picture",
+        `${process.env.REACT_APP_BACK_END}/api/posts/` + postId,
         {
           method: "POST",
           body: formData,
-          headers: {
-            Authorization: currentToken,
-          },
         }
       );
       if (response.ok) {
-        console.log("upload went ok")
+        dispatch(fetchPosts)
       } else {
-        throw new Error("Failed to upload image");
+        console.log("Failed to upload image");
       }
     } catch (error) {
+      console.log(error)
     }
   };
 };
