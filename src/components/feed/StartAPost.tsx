@@ -19,13 +19,11 @@ export default function StartAPost() {
   const dispatch = useAppDispatch();
   const [image, setImage] = useState<File | null | undefined>(null);
   const { userId } = useParams();
-  
-
   let currentUser = useAppSelector((state) => state.users.currentUser);
   const handleSubmit = () => {
     const object = {
       text: "",
-      userId:userId
+      user:currentUser._id
     };
     object.text += post;
     dispatch(postPost(object, image));

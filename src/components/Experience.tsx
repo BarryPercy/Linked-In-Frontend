@@ -31,12 +31,12 @@ interface Experiences {
 const Experience = () => {
   const dispatch = useAppDispatch();
   let experiences = useAppSelector((state) => (state.exps as any).expList);
+  console.log("experiences->",experiences)
   const [expId, setExpId] = useState("");
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const { userId } = useParams();
-  let currentToken = useAppSelector((state) => state.users.currentToken);
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setNewExp({
@@ -62,10 +62,8 @@ const Experience = () => {
   });
 
   const selectEditedExp = async (id: string) => {
-    // console.log("id is here>>>>> ", id);
     let selectedExp = experiences.find((s: Experiences) => s._id === id);
     if (selectedExp) {
-      // check if selectedExp is not undefined
       setNewExp(selectedExp);
       setExpId(id);
       console.log(newExp);
@@ -96,6 +94,7 @@ const Experience = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(newExp)
     dispatch(postUserExp(userId,newExp,file));
     handleClose();
   };
@@ -249,6 +248,7 @@ const Experience = () => {
               <h4>Experience</h4>
             </Card.Title>
             {experiences.map((experience: Experiences) => {
+              console.log(experience)
               return (
                 <div key={experience._id} className="d-flex">
                   <img

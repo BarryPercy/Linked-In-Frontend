@@ -15,7 +15,6 @@ import { editPost } from "../../redux/actions";
 interface PostInterface {
   _id: string;
   text: string;
-  username: string;
   user: User;
   createdAt: string;
   updatedAt: string;
@@ -32,7 +31,6 @@ interface User {
   title: string;
   area: string;
   image: string;
-  username: string;
   createdAt: string;
   updatedAt: string;
   __v: number;
@@ -41,8 +39,7 @@ const Posts = () => {
   const dispatch = useAppDispatch();
   let posts = useAppSelector((state) => state.posts.postList);
   let currentUser = useAppSelector((state) => state.users.currentUser);
-  //let postsReverse = [...posts].reverse();
-  //let slicedPostsReverse = postsReverse.slice(0, 20);
+  let postsReverse = [...posts].reverse()
   const [show, setShow] = useState(false);
   const [currentId, setCurrentId] = useState("");
   const selectEditedPost = async (id: string) => {
@@ -62,22 +59,14 @@ const Posts = () => {
 
   useEffect(() => {
     dispatch(fetchPosts());
-    console.log(posts);
+    console.log("posts->",posts);
   }, []);
-  return (
+  return(
     <div>
-      {posts.length>0? posts.map((post: PostInterface) => {
+      {posts.length>0? postsReverse.map((post: PostInterface) => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        let [liked, setLiked] = useState(false);
-        const toggleLiked = () => {
-          if (liked) {
-            setLiked(false);
-          } else {
-            setLiked(true);
-          }
-        };
-        return (
-          <>
+        return(
+        <div key={post._id}>
             <Modal show={show} onHide={handlePostClose} size="lg">
               <Modal.Header closeButton>
                 <Modal.Title>Edit Post</Modal.Title>
@@ -100,8 +89,8 @@ const Posts = () => {
                 <Button
                   variant="secondary"
                   onClick={() => {
-                    console.log(currentId, newPost);
-                    dispatch(deletePost(currentId));
+                    console.log(currentUser._id, newPost);
+                    dispatch(deletePost(currentUser._id));
                     handlePostClose();
                   }}
                 >
@@ -110,8 +99,8 @@ const Posts = () => {
                 <Button
                   variant="primary"
                   onClick={() => {
-                    console.log(currentId, newPost);
-                    dispatch(editPost(newPost, currentId));
+                    console.log(currentUser._id, newPost);
+                    dispatch(editPost(newPost, currentUser._id));
                     handlePostClose();
                   }}
                 >
@@ -155,26 +144,14 @@ const Posts = () => {
                   </Card.Text>
                 </div>
               </Card.Body>
-              {post.img?<Card.Img src={post.image} className="post-image-changes"/>:""}
+              {post.image?<Card.Img src={post.image} className="post-image-changes"/>:""}
               <Card.Body>
                 <hr />
                 <Row>
                   <Col
                     xs={3}
                     className="justify-content-center d-flex comment-icon"
-                    onClick={toggleLiked}
                   >
-                    {liked ? (
-                      <div>
-                        <BsFillHandThumbsUpFill className="align-self-center" />
-                        Like
-                      </div>
-                    ) : (
-                      <div>
-                        <BsHandThumbsUp className="align-self-center" />
-                        Like
-                      </div>
-                    )}
                   </Col>
                   <Col
                     xs={3}
@@ -198,8 +175,8 @@ const Posts = () => {
                 </Row>
               </Card.Body>
             </Card>
-          </>
-        );
+          </div>
+        )
       }):<p>No Posts yet!</p>}
     </div>
   );

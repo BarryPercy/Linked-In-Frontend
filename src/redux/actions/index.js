@@ -22,7 +22,7 @@ export const getMyUser = () => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/users/` + process.env.REACT_APP_CURRENT_USER_ID
+        `${process.env.REACT_APP_BACK_END}/api/users/` + process.env.REACT_APP_CURRENT_USER_ID
       );
       if (response.ok) {
         const user = await response.json();
@@ -176,6 +176,7 @@ export const fetchUserExps = (userId) => {
         `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/experiences");
       if (response.ok) {
         let data = await response.json();
+        console.log("experiences in action->",data)
         dispatch({
           type: GET_USER_EXPERIENCES,
           payload: data,
@@ -202,10 +203,7 @@ export const postUserExp = (userId, newExp, image) => {
       );
       if (response.ok) {
         let data = await response.json();
-        dispatch({
-          type: POST_USER_EXP,
-          payload: newExp,
-        });
+        console.log("data in post action->", data)
         dispatch(postUserImageExp(userId, data._id, image));
       } else {
         console.log("Failure to post new experience!");
@@ -291,7 +289,7 @@ export const postUserImageExp = (userId, expId, image) => {
   return async (dispatch) => {
     try {
       const formData = new FormData();
-      formData.append("experience", image);
+      formData.append("image", image);
       let response = await fetch(
         `${process.env.REACT_APP_BACK_END}/api/users/`+userId +"/experiences/"+expId +"/image",
         {
@@ -317,7 +315,7 @@ export const fetchPosts = () => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/posts/`,
+        `${process.env.REACT_APP_BACK_END}/api/posts/`,
       );
       if (response.ok) {
         let data = await response.json();
@@ -339,7 +337,6 @@ export const fetchPosts = () => {
 export const postPost = (post, image) => {
   return async (dispatch) => {
     console.log(post, image);
-    console.log();
     try {
       let response = await fetch(
         `${process.env.REACT_APP_BACK_END}/api/posts/`,

@@ -25,6 +25,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 const TopNav = () => {
   const location = useLocation();
   let currentProfileUser = useAppSelector((state) => state.users.currentProfileUser);
+  let currentUser = useAppSelector((state) => state.users.currentUser);
   const dispatch = useAppDispatch();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -71,8 +72,8 @@ const TopNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-end">
-            <Link to="/feed/">
-              <Nav.Link href="#home" className="home-text">
+            <Link to="/feed/" className="home-text">
+              <Nav.Link href="#home" >
                 <div className="d-flex flex-column align-items-center nav-options home-text">
                   <AiFillHome size="2em" />
                   <span className="nav-text home-text">Home</span>
@@ -103,9 +104,9 @@ const TopNav = () => {
                 <span className="nav-text">Notifications</span>
               </div>
             </Nav.Link>
-            <Link className="profile-text" to="/profile/">
+            <Link className="profile-text" to={"/profile/"+currentUser._id}>
               <div className="d-flex flex-column align-items-center nav-options mt-1 profile-text">
-                {/* <Image src={currentProfileUser.image} className="user-image" /> */}
+                <Image src={currentUser.image} className="user-image" />
                 Me
               </div>
             </Link>
