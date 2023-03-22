@@ -5,7 +5,6 @@ import Footer from "./Footer";
 import Profile from "./Profile";
 import Sidebar from "./Sidebar";
 import Skills from "./Skills";
-import TopNav from "./TopNav";
 import Education from "./Education";
 import { EditProfile } from "./EditProfile";
 import { useEffect, useState } from "react";
@@ -25,20 +24,22 @@ const Main = () => {
   return (
     <>
       <SecondNav />
-      <Container className="my-5 pt-3 profile-container">
+      <Container fluid className="my-5 pt-3 profile-container">
         <Row className="d-flex ">
-          <Col className="col-lg-8 col-md-12 col-sm-12  mr-3">
+          <Col className="col-lg-2"></Col>
+          <Col className="col-lg-6 col-md-12 col-sm-12">
             <Profile />
             <About />
             <Education />
             <Experience />
             <Skills />
           </Col>
-          <Col className="col-lg-3 col-md-2 col-sm-12 mt-2">
+          <Col className="col-lg-2 col-md-2 col-sm-12 mt-2">
             <EditProfile />
             <Sidebar firstIndex={0} secondIndex={5} />
             <Sidebar firstIndex={5} secondIndex={10} />
-          </Col>{" "}
+          </Col>
+          <Col className="col-lg-2"></Col>
         </Row>
         <Row>
           <BottomMessenger />

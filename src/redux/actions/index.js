@@ -9,6 +9,11 @@ export const GET_USER_EXPERIENCES = "GET_USER_EXPERIENCES";
 export const GET_USER_EXPERIENCE = "GET_USER_EXPERIENCE";
 export const POST_USER_EXP = "POST_USER_EXP";
 
+//EDUCATIONS
+export const GET_USER_EDUCATIONS = "GET_USER_EDUCATIONS";
+export const GET_USER_EDUCATION = "GET_USER_EDUCATION";
+export const POST_USER_EDU = "POST_USER_EDU";
+
 //POSTS
 export const GET_POSTS = "GET_POSTS";
 export const GET_POST = "GET_POST";
@@ -65,7 +70,7 @@ export const getSpecificUser = (userId) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/` + userId
+        `${process.env.REACT_APP_BACK_END}/api/users/`+userId
       );
       if (response.ok) {
         const user = await response.json();
@@ -124,8 +129,10 @@ export const updateUser = (editProfileObj, userId, image) => {
         }
       );
       if (response.ok) {
-        if(image!==null||image!==undefined){
+        if(image!==null&&image!==undefined){
           dispatch(profileImage(userId, image))
+        }else{
+          dispatch(getSpecificUser(userId));
         }
       } else {
         console.log("Uh oh!");
@@ -176,7 +183,6 @@ export const fetchUserExps = (userId) => {
         `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/experiences");
       if (response.ok) {
         let data = await response.json();
-        console.log("experiences in action->",data)
         dispatch({
           type: GET_USER_EXPERIENCES,
           payload: data,
@@ -192,6 +198,7 @@ export const fetchUserExps = (userId) => {
 
 //POST EXPERIENCE
 export const postUserExp = (userId, newExp, image) => {
+  console.log("what's happening in the post action",newExp)
   return async (dispatch) => {
     try {
       let response = await fetch(
@@ -199,6 +206,9 @@ export const postUserExp = (userId, newExp, image) => {
         {
           method: "POST",
           body: JSON.stringify(newExp),
+          headers: {
+            "Content-Type": "application/json"
+          },
         }
       );
       if (response.ok) {
@@ -249,7 +259,7 @@ export const deleteUserExp = (userId, expId) => {
         }
       );
       if (response.ok) {
-        dispatch(fetchUserExps());
+        dispatch(fetchUserExps(userId));
       } else {
         console.log("try again!");
       }
@@ -298,7 +308,153 @@ export const postUserImageExp = (userId, expId, image) => {
         }
       );
       if (response.ok) {
-        dispatch(fetchUserExp(userId, expId));
+        dispatch(fetchUserExps(userId));
+      } else {
+        console.log("failed experience image upload");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+//EDUCATION
+
+
+//GET EDUCATION
+export const fetchUserEdus = (userId) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/educations");
+      if (response.ok) {
+        let data = await response.json();
+        dispatch({
+          type: GET_USER_EDUCATIONS,
+          payload: data,
+        });
+      } else {
+        console.log("Fetching Education went wrong!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+//POST EDUCATION
+export const postUserEdu = (userId, newEdu, image) => {
+  console.log("what's happening in the post action",newEdu)
+  return async (dispatch) => {
+    try {
+      let response = await fetch(
+        `${process.env.REACT_APP_BACK_END}/api/users/`+userId +"/educations",
+        {
+          method: "POST",
+          body: JSON.stringify(newEdu),
+          headers: {
+            "Content-Type": "application/json"
+          },
+        }
+      );
+      if (response.ok) {
+        let data = await response.json();
+        console.log("data in post action->", data)
+        dispatch(postUserImageEdu(userId, data._id, image));
+      } else {
+        console.log("Failure to post new experience!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+//GET EDUCATION
+export const fetchUserEdu = (userId,eduId) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/educations/"+eduId);
+      if (response.ok) {
+        let data = await response.json();
+        dispatch({
+          type: GET_USER_EDUCATION,
+          payload: data,
+        });
+      } else {
+        console.log("Fetching Edueriences went wrong!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+//DELETE EDUCATION
+export const deleteUserEdu = (userId, eduId) => {
+  return async (dispatch) => {
+    try {
+      let response = await fetch(
+        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/educations/"+eduId,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        dispatch(fetchUserEdus(userId));
+      } else {
+        console.log("try again!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+//PUT EDUCATION
+export const editUserEdu = (editedEdu, userId, eduId, image) => {
+  return async (dispatch) => {
+    try {
+      let response = await fetch(
+        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/educations/"+eduId,
+        {
+          method: "PUT",
+          body: JSON.stringify(editedEdu),
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        dispatch(postUserImageEdu(userId, eduId, image));
+      } else {
+        alert("Failed to edit Eduerience!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+//POST EDUCATION IMAGE
+export const postUserImageEdu = (userId, eduId, image) => {
+  return async (dispatch) => {
+    try {
+      const formData = new FormData();
+      formData.append("image", image);
+      let response = await fetch(
+        `${process.env.REACT_APP_BACK_END}/api/users/`+userId +"/educations/"+eduId +"/image",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      if (response.ok) {
+        dispatch(fetchUserEdus(userId));
       } else {
         console.log("failed experience image upload");
       }
@@ -350,8 +506,11 @@ export const postPost = (post, image) => {
       );
       if (response.ok) {
         let data = await response.json();
-        dispatch(postImage(data._id, image));
-        dispatch(fetchPosts());
+        if(image!==null){
+          dispatch(postImage(data._id, image));
+        }else{
+          dispatch(fetchPosts());
+        }
       } else {
         alert("Posting a post went wrong!!!!");
       }
@@ -388,7 +547,7 @@ export const editPost = (post, postId) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/posts/` + postId,
+        `${process.env.REACT_APP_BACK_END}/api/posts/`+postId,
         {
           method: "PUT",
           body: JSON.stringify(post),
@@ -398,6 +557,7 @@ export const editPost = (post, postId) => {
         }
       );
       if (response.ok) {
+        console.log("psoting went ok")
         dispatch(fetchPosts());
       } else {
         alert("Fetching went wrong!!!!");
@@ -435,16 +595,16 @@ export const postImage = (postId, imageFile) => {
   return async (dispatch) => {
     try {
       const formData = new FormData();
-      formData.append("post", imageFile);
+      formData.append("image", imageFile);
       const response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/posts/` + postId,
+        `${process.env.REACT_APP_BACK_END}/api/posts/` + postId+"/image",
         {
           method: "POST",
           body: formData,
         }
       );
       if (response.ok) {
-        dispatch(fetchPosts)
+        dispatch(fetchPosts())
       } else {
         console.log("Failed to upload image");
       }

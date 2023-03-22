@@ -31,7 +31,6 @@ interface Experiences {
 const Experience = () => {
   const dispatch = useAppDispatch();
   let experiences = useAppSelector((state) => (state.exps as any).expList);
-  console.log("experiences->",experiences)
   const [expId, setExpId] = useState("");
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
@@ -110,7 +109,7 @@ const Experience = () => {
       area: newExp.area,
     };
 
-    console.log("updating expirience");
+    console.log("updating experience", editedExp);
     dispatch(editUserExp(editedExp, userId, expId, file));
     handleClose2();
   };
@@ -248,7 +247,6 @@ const Experience = () => {
               <h4>Experience</h4>
             </Card.Title>
             {experiences.map((experience: Experiences) => {
-              console.log(experience)
               return (
                 <div key={experience._id} className="d-flex">
                   <img

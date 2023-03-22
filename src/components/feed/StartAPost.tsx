@@ -8,7 +8,6 @@ import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { postPost } from "../../redux/actions";
-import { useParams } from "react-router-dom";
 
 export default function StartAPost() {
   const [show, setShow] = useState(false);
@@ -18,7 +17,6 @@ export default function StartAPost() {
   const handleShow = () => setShow(true);
   const dispatch = useAppDispatch();
   const [image, setImage] = useState<File | null | undefined>(null);
-  const { userId } = useParams();
   let currentUser = useAppSelector((state) => state.users.currentUser);
   const handleSubmit = () => {
     const object = {

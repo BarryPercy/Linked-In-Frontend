@@ -54,11 +54,9 @@ const TopNav = () => {
       </Modal>
       <Container className="nav-padding">
         <div className="d-flex align-items-center">
-          <Link to="/feed">
-            <Navbar.Brand href="#home">
+            <Navbar.Brand href="/">
               <BsLinkedin size="2em" className="linked-in-nav-icon" />
             </Navbar.Brand>
-          </Link>
 
           <Form className="d-flex">
             <Form.Control
@@ -72,14 +70,12 @@ const TopNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-end">
-            <Link to="/feed/" className="home-text">
-              <Nav.Link href="#home" >
+              <Nav.Link href="/" >
                 <div className="d-flex flex-column align-items-center nav-options home-text">
                   <AiFillHome size="2em" />
                   <span className="nav-text home-text">Home</span>
                 </div>
               </Nav.Link>
-            </Link>
             <Nav.Link>
               <div className="d-flex flex-column align-items-center nav-options">
                 <BsFillPeopleFill size="2em" />

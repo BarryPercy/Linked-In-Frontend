@@ -5,9 +5,9 @@ const initialState = {
 const experiencesReducer = (state = initialState, action) => {
   switch (action.type) {
     case "GET_USER_EXPERIENCES":
-      console.log("experience list in router->",state.expList)
       return {
         ...state,
+        expList:action.payload
       };
     case "POST_USER_EXP":
       return {

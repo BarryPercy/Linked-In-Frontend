@@ -10,7 +10,14 @@ const About = () => {
   let currentProfileUser = useAppSelector((state) => state.users.currentProfileUser);
   let [show, setShow] = useState(false);
   let handleClose = () => setShow(false);
-  let handleShow = () => setShow(true);
+  let handleShow = () => {
+    setShow(true);
+    selectEditAbout()
+  }
+
+  const selectEditAbout = async () => {
+      setEditAbout({bio:currentProfileUser.bio});
+  }
   let dispatch = useAppDispatch();
   const { userId } = useParams();
   const [editAbout, setEditAbout] = useState({

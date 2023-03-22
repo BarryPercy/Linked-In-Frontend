@@ -48,6 +48,7 @@ const Posts = () => {
   const handlePostClose = () => setShow(false);
   const handlePostShow = (id: string, postText: string) => {
     setShow(true);
+    console.log(id)
     setCurrentId(id);
     setNewPost({
       text: postText,
@@ -90,7 +91,7 @@ const Posts = () => {
                   variant="secondary"
                   onClick={() => {
                     console.log(currentUser._id, newPost);
-                    dispatch(deletePost(currentUser._id));
+                    dispatch(deletePost(currentId));
                     handlePostClose();
                   }}
                 >
@@ -99,8 +100,7 @@ const Posts = () => {
                 <Button
                   variant="primary"
                   onClick={() => {
-                    console.log(currentUser._id, newPost);
-                    dispatch(editPost(newPost, currentUser._id));
+                    dispatch(editPost(newPost, currentId));
                     handlePostClose();
                   }}
                 >

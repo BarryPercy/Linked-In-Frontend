@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
 import experiencesReducer from "../reducers/experienceReducer";
 import postsReducer from "../reducers/postsReducer";
+import educationsReducer from "../reducers/educationReducer";
 
 const persistConfig = {
   storage: storage,
@@ -15,6 +16,7 @@ const combinedReducer = combineReducers({
   mySkills: mySkillsReducer,
   users: usersReducer,
   posts: postsReducer,
+  edus: educationsReducer
 });
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
 
