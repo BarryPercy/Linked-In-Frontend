@@ -38,9 +38,9 @@ interface User {
 }
 
 interface Social {
-  pending: string;
-  sent: string;
-  friends: string;
+  pending: string[];
+  sent: string[];
+  friends: string[];
 }
 
 const Posts = () => {
@@ -139,15 +139,15 @@ const Posts = () => {
                             <h6>
                               {post.user.name} {post.user.surname}
                             </h6>
-                            {/* {currentUser.social.friends.filter(
-                              (e) => e._id === post.user._id
+                            {currentUser.social.friends.find(
+                              (e: string) => e === post.user._id
                             ) ? (
                               ""
                             ) : (
                               <Button className="friend-button ml-2">
                                 Add friend
                               </Button>
-                            )} */}
+                            )}
                           </div>
                           <h6 className="post-user-title">{post.user.title}</h6>
                           <h6 className="post-user-title">

@@ -4,7 +4,9 @@ import userPic from "../images/jovelynn.png";
 import { useAppSelector } from "../redux/hooks";
 
 function SecondNav() {
-  let currentProfileUser = useAppSelector((state) => state.users.currentProfileUser);
+  let currentProfileUser = useAppSelector(
+    (state) => state.users.currentProfileUser
+  );
   function handleScroll() {
     const distance = window.scrollY;
     const nav = document.querySelector(".secondary-nav");
