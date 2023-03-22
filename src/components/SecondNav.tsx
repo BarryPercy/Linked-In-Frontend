@@ -19,7 +19,6 @@ function SecondNav() {
   }
 
   useEffect(() => {
-    console.log(currentProfileUser)
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);

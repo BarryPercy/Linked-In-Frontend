@@ -123,7 +123,7 @@ const Profile = () => {
             <Card.Body className="profile-info-area">
               <Card.Title>
                 <b>
-                {currentProfileUser!==undefined ? currentProfileUser.name +currentProfileUser.surname:""}
+                {currentProfileUser!==undefined ? currentProfileUser.name +" "+currentProfileUser.surname:""}
                 </b>
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
