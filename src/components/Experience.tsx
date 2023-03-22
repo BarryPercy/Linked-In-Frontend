@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { BsPencil, BsPlusLg } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useParams } from "react-router-dom";
 // import { parseISO, format } from "date-fns";
 
 interface Experiences {
@@ -29,12 +30,12 @@ interface Experiences {
 }
 const Experience = () => {
   const dispatch = useAppDispatch();
-  let experiences = useAppSelector((state) => state.exps.expList);
+  let experiences = useAppSelector((state) => (state.exps as any).expList);
   const [expId, setExpId] = useState("");
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const [file, setFile] = useState<File | null>(null);
-  let currentToken = useAppSelector((state) => state.users.currentToken);
+  const { userId } = useParams();
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setNewExp({
@@ -60,10 +61,8 @@ const Experience = () => {
   });
 
   const selectEditedExp = async (id: string) => {
-    // console.log("id is here>>>>> ", id);
     let selectedExp = experiences.find((s: Experiences) => s._id === id);
     if (selectedExp) {
-      // check if selectedExp is not undefined
       setNewExp(selectedExp);
       setExpId(id);
       console.log(newExp);
@@ -84,7 +83,7 @@ const Experience = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchUserExps(currentToken));
+    dispatch(fetchUserExps(userId));
   }, []);
 
   const handleShow2 = (id: string) => {
@@ -94,9 +93,8 @@ const Experience = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // dispatch(postUserExp(newExp));
-    // dispatch(postUserImageExp(image, expId, currentToken));
-    dispatch(postUserExp(newExp, currentToken, file));
+    console.log(newExp)
+    dispatch(postUserExp(userId,newExp,file));
     handleClose();
   };
   const handleClose2 = () => setShow2(false);
@@ -111,8 +109,8 @@ const Experience = () => {
       area: newExp.area,
     };
 
-    console.log("updating expirience");
-    dispatch(editUserExp(editedExp, expId, currentToken, file));
+    console.log("updating experience", editedExp);
+    dispatch(editUserExp(editedExp, userId, expId, file));
     handleClose2();
   };
 
@@ -385,7 +383,7 @@ const Experience = () => {
                       <Button
                         variant="secondary"
                         onClick={() => {
-                          dispatch(deleteUserExp(experience._id, currentToken));
+                          dispatch(deleteUserExp(userId, experience._id));
 
                           handleClose2();
                         }}

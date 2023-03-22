@@ -5,10 +5,9 @@ const initialState = {
 const experiencesReducer = (state = initialState, action) => {
   switch (action.type) {
     case "GET_USER_EXPERIENCES":
-      console.log(action.payload);
       return {
         ...state,
-        expList: action.payload,
+        expList:action.payload
       };
     case "POST_USER_EXP":
       return {

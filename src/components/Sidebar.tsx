@@ -31,10 +31,9 @@ const Sidebar = (props: SideBarProps) => {
   let users = useAppSelector((state) => state.users.userList);
   let reverseUsers = [...users].reverse();
   let fewUsers = reverseUsers.slice(props.firstIndex, props.secondIndex);
-  let currentToken = useAppSelector((state) => state.users.currentToken);
 
   useEffect(() => {
-    dispatch(getUsers(currentToken));
+    dispatch(getUsers());
   }, []);
 
   return (

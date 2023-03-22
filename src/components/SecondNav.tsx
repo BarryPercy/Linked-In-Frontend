@@ -4,7 +4,7 @@ import userPic from "../images/jovelynn.png";
 import { useAppSelector } from "../redux/hooks";
 
 function SecondNav() {
-  let currentUser = useAppSelector((state) => state.users.currentUser);
+  let currentProfileUser = useAppSelector((state) => state.users.currentProfileUser);
   function handleScroll() {
     const distance = window.scrollY;
     const nav = document.querySelector(".secondary-nav");
@@ -27,16 +27,16 @@ function SecondNav() {
     <div className="secondary-nav d-flex align-items-center justify-content-around fixed-nav">
       <div className="d-flex align-items-center">
         <Image
-          src={currentUser.image}
+          src={currentProfileUser.image}
           alt="Profile"
           roundedCircle
           style={{ width: 36, height: 36 }}
         />
         <div className="ml-3">
           <p style={{ fontSize: "15px", marginBottom: "0", marginTop: "10px" }}>
-            {currentUser.name} {currentUser.surname}
+            {currentProfileUser.name} {currentProfileUser.surname}
           </p>
-          <p style={{ fontSize: "10px" }}>{currentUser.title}</p>
+          <p style={{ fontSize: "10px" }}>{currentProfileUser.title}</p>
         </div>
       </div>
       <div className="button-area">

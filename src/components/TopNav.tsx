@@ -17,16 +17,14 @@ import {
   BsFillFilePersonFill,
 } from "react-icons/bs";
 import { AiFillHome, AiFillMessage } from "react-icons/ai";
-import { RxMagnifyingGlass } from "react-icons/rx";
 import { FaBell } from "react-icons/fa";
-import userPic from "../images/jovelynn.png";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { setToken } from "../redux/actions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 const TopNav = () => {
   const location = useLocation();
+  let currentProfileUser = useAppSelector((state) => state.users.currentProfileUser);
   let currentUser = useAppSelector((state) => state.users.currentUser);
   const dispatch = useAppDispatch();
   const [show, setShow] = useState(false);
@@ -40,26 +38,10 @@ const TopNav = () => {
         </Modal.Header>
         <Modal.Body>
           <Row className="justify-content-center text-center">
-            <Col
-              onClick={() =>
-                dispatch(
-                  setToken(
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzc1YzgzODFmYzAwMTNmZmZhZDIiLCJpYXQiOjE2NzY4ODM4MDQsImV4cCI6MTY3ODA5MzQwNH0.xJ1_0xYnhu_VGi6iYMgPnmR9ZhWHNeBV0yjk_d6eSfo"
-                  )
-                )
-              }
-            >
+            <Col>
               Barry Percy
             </Col>
-            <Col
-              onClick={() =>
-                dispatch(
-                  setToken(
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YzMzFiNzgzODFmYzAwMTNmZmZhZDAiLCJpYXQiOjE2NzY4ODIzNjAsImV4cCI6MTY3ODA5MTk2MH0.fKOP9PvNISSBaPjCxn8CFuAIdac9s6aY2aytp3bv7I0"
-                  )
-                )
-              }
-            >
+            <Col>
               Jovellyn A Quiapos
             </Col>
           </Row>
@@ -72,11 +54,9 @@ const TopNav = () => {
       </Modal>
       <Container className="nav-padding">
         <div className="d-flex align-items-center">
-          <Link to="/feed">
-            <Navbar.Brand href="#home">
+            <Navbar.Brand href="/">
               <BsLinkedin size="2em" className="linked-in-nav-icon" />
             </Navbar.Brand>
-          </Link>
 
           <Form className="d-flex">
             <Form.Control
@@ -90,14 +70,12 @@ const TopNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-end">
-            <Link to="/feed/">
-              <Nav.Link href="#home" className="home-text">
+              <Nav.Link href="/" >
                 <div className="d-flex flex-column align-items-center nav-options home-text">
                   <AiFillHome size="2em" />
                   <span className="nav-text home-text">Home</span>
                 </div>
               </Nav.Link>
-            </Link>
             <Nav.Link>
               <div className="d-flex flex-column align-items-center nav-options">
                 <BsFillPeopleFill size="2em" />
@@ -122,7 +100,7 @@ const TopNav = () => {
                 <span className="nav-text">Notifications</span>
               </div>
             </Nav.Link>
-            <Link className="profile-text" to="/profile/">
+            <Link className="profile-text" to={"/profile/"+currentUser._id}>
               <div className="d-flex flex-column align-items-center nav-options mt-1 profile-text">
                 <Image src={currentUser.image} className="user-image" />
                 Me

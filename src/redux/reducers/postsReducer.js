@@ -6,7 +6,7 @@ const initialState = {
     switch (action.type) {
       case "GET_POSTS":
         return {
-          postList: action.payload,
+          postList: action.payload.posts,
         };
       default:
         return state;
