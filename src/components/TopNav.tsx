@@ -24,7 +24,6 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 const TopNav = () => {
   const location = useLocation();
-  let currentProfileUser = useAppSelector((state) => state.users.currentProfileUser);
   let currentUser = useAppSelector((state) => state.users.currentUser);
   const dispatch = useAppDispatch();
   const [show, setShow] = useState(false);
