@@ -1,19 +1,13 @@
-import React from "react";
 import { MdPhotoSizeSelectActual, MdOutlineArticle } from "react-icons/md";
 import {
   BsFillPlayBtnFill,
   BsBriefcaseFill,
-  BsEmojiSmile,
-  BsFillFileEarmarkTextFill,
-  BsThreeDots,
 } from "react-icons/bs";
-import { RxDividerVertical } from "react-icons/rx";
 import { Card, Image, Button, Modal } from "react-bootstrap";
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { postPost } from "../../redux/actions";
-import {} from "react-icons/bs";
 
 export default function StartAPost() {
   const [show, setShow] = useState(false);
@@ -23,15 +17,14 @@ export default function StartAPost() {
   const handleShow = () => setShow(true);
   const dispatch = useAppDispatch();
   const [image, setImage] = useState<File | null | undefined>(null);
-
-  let currentToken = useAppSelector((state) => state.users.currentToken);
   let currentUser = useAppSelector((state) => state.users.currentUser);
   const handleSubmit = () => {
     const object = {
       text: "",
+      user:currentUser._id
     };
     object.text += post;
-    dispatch(postPost(object, currentToken, image));
+    dispatch(postPost(object, image));
 
     handleClose();
   };
@@ -129,10 +122,6 @@ export default function StartAPost() {
                 <Modal.Title>Upload Image</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                {/* <div className="d-flex my-2">
-                  <Image className="avatar" src="./images/jovelynn.png" />
-                  <h5 className="align-self-center">Jovellyn Quiapos</h5>
-                </div> */}
                 <div className="upload-area">
                   <Button id="share-a-img" className="share-a-img-btn">
                     Select image to share

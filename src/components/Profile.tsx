@@ -4,15 +4,16 @@ import { AiFillCamera } from "react-icons/ai";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import { updateUser } from "../redux/actions";
+import { getSpecificUser, updateUser } from "../redux/actions";
+import { useParams } from "react-router-dom";
 // import { BsPencil } from "react-icons/bs";
 
 const Profile = () => {
-  let currentUser = useAppSelector((state) => state.users.currentUser);
-  let experiences = useAppSelector((state) => state.exps.expList);
-  let currentToken = useAppSelector((state) => state.users.currentToken);
+  let experiences = useAppSelector((state) => (state.exps as any).expList);
+  let currentProfileUser = useAppSelector((state) => state.users.currentProfileUser);
   let [show, setShow] = useState(false);
   const [file, setFile] = useState<File | null>(null);
+  const { userId } = useParams();
   let handleClose = () => setShow(false);
   let handleShow = () => setShow(true);
   let dispatch = useAppDispatch();
@@ -26,16 +27,19 @@ const Profile = () => {
   });
 
   const handleSubmit = () => {
-    dispatch(updateUser(editProfileObj, currentToken, currentUser,image));
+    dispatch(updateUser(editProfileObj, userId ,image));
     handleClose();
   };
 
+  // useEffect(() => {
+    
+  // }, []);
   return (
     <Col className="main px-0">
       <div className="my-3">
         <Modal show={show} onHide={handleClose} size="lg">
           <Modal.Header closeButton>
-            <Modal.Title>Edit {currentUser.name}'s Profile</Modal.Title>
+            <Modal.Title>Edit NAME SHOULD BE HERE's Profile</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -107,7 +111,7 @@ const Profile = () => {
           </Modal.Footer>
         </Modal>
         <div className="profile-icon">
-          <Image src={currentUser.image} roundedCircle />
+          <Image src={currentProfileUser.image} roundedCircle />
         </div>
         <div className="img-area">
           <div className="camera-btn mr-3 d-flex justify-content-center align-items-center">
@@ -119,14 +123,14 @@ const Profile = () => {
             <Card.Body className="profile-info-area">
               <Card.Title>
                 <b>
-                  {currentUser.name} {currentUser.surname}
+                  {currentProfileUser.name} {currentProfileUser.surname}
                 </b>
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
-                {currentUser.title}
+                {currentProfileUser.title}
               </Card.Subtitle>
               <Card.Text>
-                {currentUser.area}
+                {currentProfileUser.area}
                 <Card.Link href="#"> Contact Info</Card.Link>
               </Card.Text>
               <Card.Link className="mt-0">89 connections</Card.Link>

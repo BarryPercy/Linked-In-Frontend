@@ -1,27 +1,33 @@
 import { Row, Col, Card, Button, Form } from "react-bootstrap";
 import { BsPencil } from "react-icons/bs";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
-import { updateUser } from "../redux/actions";
-import { cursorTo } from "readline";
+import { getSpecificUser, updateUser } from "../redux/actions";
+import { useParams } from "react-router-dom";
 
 const About = () => {
-  let currentUser = useAppSelector((state) => state.users.currentUser);
+  let currentProfileUser = useAppSelector((state) => state.users.currentProfileUser);
   let [show, setShow] = useState(false);
   let handleClose = () => setShow(false);
-  let handleShow = () => setShow(true);
+  let handleShow = () => {
+    setShow(true);
+    selectEditAbout()
+  }
+
+  const selectEditAbout = async () => {
+      setEditAbout({bio:currentProfileUser.bio});
+  }
   let dispatch = useAppDispatch();
-  let currentToken = useAppSelector((state) => state.users.currentToken);
+  const { userId } = useParams();
   const [editAbout, setEditAbout] = useState({
     bio: "",
   });
 
   const handleSubmit = () => {
-    dispatch(updateUser(editAbout, currentToken));
+    dispatch(updateUser(editAbout,userId,null));
     handleClose();
   };
-
   return (
     <Col className="main">
       <div className="my-3">
@@ -72,27 +78,7 @@ const About = () => {
               <h4>About</h4>
             </Card.Title>
             <Card.Text>
-              {currentUser.bio}
-              {/* 🖥 Currently in education, studying, to become a full-stack
-              developer.
-              <br></br>
-              <br></br>
-              ✈Former Flight Attendant with 4 years of experience currently
-              based in Charleroi Airport, Belgium. Great teamwork and
-              communication skills. Can work in a pressured situation and look
-              into ways to make both passengers and crew work well. Have quick
-              thinking and sociable skills to adapt to different scenarios. Work
-              with various types of personalities throughout my years. <br></br>
-              <br></br>
-              🖌With some knowledge of Graphic Design as I was self-taught at
-              such a young age and had a great interest when growing up.{" "}
-              <br></br>
-              <br></br>
-              🏢Coding knowledge from going to the National College of Ireland
-              and doing the Computing and Business course. */}
-              {/* <Button className="see-more-btn mr-2" variant="outline-light">
-                  ...see more
-                </Button>{" "} */}
+              {currentProfileUser.bio}
             </Card.Text>{" "}
           </Card.Body>
         </Card>
