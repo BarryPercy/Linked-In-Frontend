@@ -26,12 +26,16 @@ function SecondNav() {
   return (
     <div className="secondary-nav d-flex align-items-center justify-content-around fixed-nav">
       <div className="d-flex align-items-center">
-        <Image
+        {currentProfileUser!==undefined?
+          <Image
           src={currentProfileUser.image}
           alt="Profile"
           roundedCircle
           style={{ width: 36, height: 36 }}
-        />
+        />:
+        ""
+        }
+        
         <div className="ml-3">
           <p style={{ fontSize: "15px", marginBottom: "0", marginTop: "10px" }}>
             {currentProfileUser.name} {currentProfileUser.surname}
