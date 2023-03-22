@@ -24,7 +24,9 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 const TopNav = () => {
   const location = useLocation();
-  let currentProfileUser = useAppSelector((state) => state.users.currentProfileUser);
+  let currentProfileUser = useAppSelector(
+    (state) => state.users.currentProfileUser
+  );
   let currentUser = useAppSelector((state) => state.users.currentUser);
   const dispatch = useAppDispatch();
   const [show, setShow] = useState(false);
@@ -38,12 +40,8 @@ const TopNav = () => {
         </Modal.Header>
         <Modal.Body>
           <Row className="justify-content-center text-center">
-            <Col>
-              Barry Percy
-            </Col>
-            <Col>
-              Jovellyn A Quiapos
-            </Col>
+            <Col>Barry Percy</Col>
+            <Col>Jovellyn A Quiapos</Col>
           </Row>
         </Modal.Body>
         <Modal.Footer>
@@ -54,9 +52,9 @@ const TopNav = () => {
       </Modal>
       <Container className="nav-padding">
         <div className="d-flex align-items-center">
-            <Navbar.Brand href="/">
-              <BsLinkedin size="2em" className="linked-in-nav-icon" />
-            </Navbar.Brand>
+          <Navbar.Brand href="/">
+            <BsLinkedin size="2em" className="linked-in-nav-icon" />
+          </Navbar.Brand>
 
           <Form className="d-flex">
             <Form.Control
@@ -70,12 +68,12 @@ const TopNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-end">
-              <Nav.Link href="/" >
-                <div className="d-flex flex-column align-items-center nav-options home-text">
-                  <AiFillHome size="2em" />
-                  <span className="nav-text home-text">Home</span>
-                </div>
-              </Nav.Link>
+            <Nav.Link href="/">
+              <div className="d-flex flex-column align-items-center nav-options home-text">
+                <AiFillHome size="2em" />
+                <span className="nav-text home-text">Home</span>
+              </div>
+            </Nav.Link>
             <Nav.Link>
               <div className="d-flex flex-column align-items-center nav-options">
                 <BsFillPeopleFill size="2em" />
@@ -100,7 +98,7 @@ const TopNav = () => {
                 <span className="nav-text">Notifications</span>
               </div>
             </Nav.Link>
-            <Link className="profile-text" to={"/profile/"+currentUser._id}>
+            <Link className="profile-text" to={"/profile/" + currentUser._id}>
               <div className="d-flex flex-column align-items-center nav-options mt-1 profile-text">
                 <Image src={currentUser.image} className="user-image" />
                 Me

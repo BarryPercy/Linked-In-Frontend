@@ -34,12 +34,21 @@ interface User {
   createdAt: string;
   updatedAt: string;
   __v: number;
+  social: Social;
 }
+
+interface Social {
+  pending: string;
+  sent: string;
+  friends: string;
+}
+
 const Posts = () => {
   const dispatch = useAppDispatch();
   let posts = useAppSelector((state) => state.posts.postList);
   let currentUser = useAppSelector((state) => state.users.currentUser);
-  let postsReverse = [...posts].reverse()
+  console.log(currentUser);
+  let postsReverse = [...posts].reverse();
   const [show, setShow] = useState(false);
   const [currentId, setCurrentId] = useState("");
   const selectEditedPost = async (id: string) => {
@@ -48,7 +57,7 @@ const Posts = () => {
   const handlePostClose = () => setShow(false);
   const handlePostShow = (id: string, postText: string) => {
     setShow(true);
-    console.log(id)
+    console.log(id);
     setCurrentId(id);
     setNewPost({
       text: postText,
@@ -60,124 +69,144 @@ const Posts = () => {
 
   useEffect(() => {
     dispatch(fetchPosts());
-    console.log("posts->",posts);
+    console.log("posts->", posts);
   }, []);
-  return(
+  return (
     <div>
-      {posts.length>0? postsReverse.map((post: PostInterface) => {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        return(
-        <div key={post._id}>
-            <Modal show={show} onHide={handlePostClose} size="lg">
-              <Modal.Header closeButton>
-                <Modal.Title>Edit Post</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Form>
-                  <Form.Control
-                    type="text"
-                    value={newPost.text}
-                    onChange={(e) => {
-                      setNewPost({
-                        ...newPost,
-                        text: e.target.value,
-                      });
+      {posts.length > 0 ? (
+        postsReverse.map((post: PostInterface) => {
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          return (
+            <div key={post._id}>
+              <Modal show={show} onHide={handlePostClose} size="lg">
+                <Modal.Header closeButton>
+                  <Modal.Title>Edit Post</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form>
+                    <Form.Control
+                      type="text"
+                      value={newPost.text}
+                      onChange={(e) => {
+                        setNewPost({
+                          ...newPost,
+                          text: e.target.value,
+                        });
+                      }}
+                    />
+                  </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    variant="secondary"
+                    onClick={() => {
+                      console.log(currentUser._id, newPost);
+                      dispatch(deletePost(currentId));
+                      handlePostClose();
                     }}
+                  >
+                    Delete
+                  </Button>
+                  <Button
+                    variant="primary"
+                    onClick={() => {
+                      dispatch(editPost(newPost, currentId));
+                      handlePostClose();
+                    }}
+                  >
+                    Save Changes
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+              <Card key={post._id} className="posts">
+                {currentUser._id === post.user._id && (
+                  <BsPencil
+                    className="pencil-icon pencil-post"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handlePostShow(post._id, post.text)}
                   />
-                </Form>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button
-                  variant="secondary"
-                  onClick={() => {
-                    console.log(currentUser._id, newPost);
-                    dispatch(deletePost(currentId));
-                    handlePostClose();
-                  }}
-                >
-                  Delete
-                </Button>
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    dispatch(editPost(newPost, currentId));
-                    handlePostClose();
-                  }}
-                >
-                  Save Changes
-                </Button>
-              </Modal.Footer>
-            </Modal>
-            <Card key={post._id} className="posts">
-              {currentUser._id === post.user._id && (
-                <BsPencil
-                  className="pencil-icon pencil-post"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handlePostShow(post._id, post.text)}
-                />
-              )}
-              <Card.Body className="ml-2 d-flex">
-                <Card.Img
-                  src={post.user.image}
-                  className="avatar align-self-start"
-                />
-                <div>
-                  <div className="d-flex">
-                    <Card.Title>
+                )}
+                <Card.Body className="ml-2 d-flex">
+                  <Card.Img
+                    src={post.user.image}
+                    className="avatar align-self-start"
+                  />
+                  <div>
+                    <div className="d-flex">
+                      <Card.Title>
+                        <>
+                          <div className="d-flex align-items-center">
+                            <h6>
+                              {post.user.name} {post.user.surname}
+                            </h6>
+                            {/* {currentUser.social.friends.filter(
+                              (e) => e._id === post.user._id
+                            ) ? (
+                              ""
+                            ) : (
+                              <Button className="friend-button ml-2">
+                                Add friend
+                              </Button>
+                            )} */}
+                          </div>
+                          <h6 className="post-user-title">{post.user.title}</h6>
+                          <h6 className="post-user-title">
+                            {formatDistanceToNowStrict(
+                              parseISO(post.createdAt)
+                            )}{" "}
+                            ago
+                          </h6>
+                        </>
+                      </Card.Title>
+                    </div>
+                    <Card.Text>
                       <>
-                        <h6>
-                          {post.user.name} {post.user.surname}
-                        </h6>
-                        <h6 className="post-user-title">{post.user.title}</h6>
-                        <h6 className="post-user-title">
-                          {formatDistanceToNowStrict(parseISO(post.createdAt))}{" "}
-                          ago
-                        </h6>
+                        <p>{post.text}</p>
+                        <p></p>
                       </>
-                    </Card.Title>
+                    </Card.Text>
                   </div>
-                  <Card.Text>
-                    <>
-                      <p>{post.text}</p>
-                      <p></p>
-                    </>
-                  </Card.Text>
-                </div>
-              </Card.Body>
-              {post.image?<Card.Img src={post.image} className="post-image-changes"/>:""}
-              <Card.Body>
-                <hr />
-                <Row>
-                  <Col
-                    xs={3}
-                    className="justify-content-center d-flex comment-icon"
-                  >
-                  </Col>
-                  <Col
-                    xs={3}
-                    className="justify-content-center d-flex comment-icon"
-                  >
-                    <MdOutlineInsertComment className="align-self-center" />{" "}
-                    Comment
-                  </Col>
-                  <Col
-                    xs={3}
-                    className="justify-content-center d-flex comment-icon"
-                  >
-                    <BiRepost className="align-self-center" /> Repost
-                  </Col>
-                  <Col
-                    xs={3}
-                    className="justify-content-center d-flex comment-icon"
-                  >
-                    <IoIosSend className="align-self-center" /> Send
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
-          </div>
-        )
-      }):<p>No Posts yet!</p>}
+                </Card.Body>
+                {post.image ? (
+                  <Card.Img src={post.image} className="post-image-changes" />
+                ) : (
+                  ""
+                )}
+                <Card.Body>
+                  <hr />
+                  <Row>
+                    <Col
+                      xs={3}
+                      className="justify-content-center d-flex comment-icon"
+                    ></Col>
+                    <Col
+                      xs={3}
+                      className="justify-content-center d-flex comment-icon"
+                    >
+                      <MdOutlineInsertComment className="align-self-center" />{" "}
+                      Comment
+                    </Col>
+                    <Col
+                      xs={3}
+                      className="justify-content-center d-flex comment-icon"
+                    >
+                      <BiRepost className="align-self-center" /> Repost
+                    </Col>
+                    <Col
+                      xs={3}
+                      className="justify-content-center d-flex comment-icon"
+                    >
+                      <IoIosSend className="align-self-center" /> Send
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+            </div>
+          );
+        })
+      ) : (
+        <p>No Posts yet!</p>
+      )}
     </div>
   );
 };
