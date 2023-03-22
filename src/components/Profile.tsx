@@ -123,14 +123,14 @@ const Profile = () => {
             <Card.Body className="profile-info-area">
               <Card.Title>
                 <b>
-                  {currentProfileUser.name} {currentProfileUser.surname}
+                {Object.keys(currentProfileUser).length ? currentProfileUser.name +currentProfileUser.surname:""}
                 </b>
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
-                {currentProfileUser.title}
+                {Object.keys(currentProfileUser).length ?currentProfileUser.title:""}
               </Card.Subtitle>
               <Card.Text>
-                {currentProfileUser.area}
+                {Object.keys(currentProfileUser).length ?currentProfileUser.area:""}
                 <Card.Link href="#"> Contact Info</Card.Link>
               </Card.Text>
               <Card.Link className="mt-0">89 connections</Card.Link>
