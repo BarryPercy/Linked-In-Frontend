@@ -111,7 +111,7 @@ const Profile = () => {
           </Modal.Footer>
         </Modal>
         <div className="profile-icon">
-          <Image src={currentProfileUser.image} roundedCircle />
+        {currentProfileUser===undefined ?<Image src={currentProfileUser.image} roundedCircle />:""}
         </div>
         <div className="img-area">
           <div className="camera-btn mr-3 d-flex justify-content-center align-items-center">
@@ -123,14 +123,14 @@ const Profile = () => {
             <Card.Body className="profile-info-area">
               <Card.Title>
                 <b>
-                {Object.keys(currentProfileUser).length ? currentProfileUser.name +currentProfileUser.surname:""}
+                {currentProfileUser===undefined ? currentProfileUser.name +currentProfileUser.surname:""}
                 </b>
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
-                {Object.keys(currentProfileUser).length ?currentProfileUser.title:""}
+                {currentProfileUser===undefined ?currentProfileUser.title:""}
               </Card.Subtitle>
               <Card.Text>
-                {Object.keys(currentProfileUser).length ?currentProfileUser.area:""}
+                {currentProfileUser===undefined ?currentProfileUser.area:""}
                 <Card.Link href="#"> Contact Info</Card.Link>
               </Card.Text>
               <Card.Link className="mt-0">89 connections</Card.Link>

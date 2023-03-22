@@ -26,7 +26,7 @@ function SecondNav() {
   
   return (
     <div className="secondary-nav d-flex align-items-center justify-content-around fixed-nav">
-      {Object.keys(currentProfileUser).length ?
+      {currentProfileUser===undefined ?
         <div className="d-flex align-items-center">
           
           <Image
