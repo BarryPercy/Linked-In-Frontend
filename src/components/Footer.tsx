@@ -70,7 +70,7 @@ function LargeFooter() {
           <Col lg={3}>
             <div className="d-flex flex-column">
               <label className="footer-text">Select Language</label>
-              <select id="language" name="language">
+              <select id="language" name="language" className="zindex">
                 <option value="English">English (English)</option>
                 <option value="Italian">Italian</option>
                 <option value="German">German</option>

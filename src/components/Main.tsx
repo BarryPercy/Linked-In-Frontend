@@ -23,7 +23,7 @@ const Main = () => {
 
   return (
     <>
-      <SecondNav />
+      <SecondNav/>
       <Container fluid className="my-5 pt-3 profile-container">
         <Row className="d-flex ">
           <Col className="col-lg-2"></Col>

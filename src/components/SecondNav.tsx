@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Button, Image } from "react-bootstrap";
-import userPic from "../images/jovelynn.png";
 import { useAppSelector } from "../redux/hooks";
 
-function SecondNav() {
+const SecondNav=() =>{
   let currentProfileUser = useAppSelector((state) => state.users.currentProfileUser);
   function handleScroll() {
     const distance = window.scrollY;
@@ -24,7 +23,7 @@ function SecondNav() {
   }, []);
   
   return (
-    <div className="secondary-nav d-flex align-items-center justify-content-around fixed-nav">
+    <div className="secondary-nav d-flex align-items-center justify-content-around fixed-nav secondNav">
       {currentProfileUser!==undefined ?
         <div className="d-flex align-items-center">
           
