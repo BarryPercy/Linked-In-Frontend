@@ -1,7 +1,7 @@
 import { Button, Card, Col, Form, Modal, Row, Image } from "react-bootstrap";
-import react, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { fetchPosts, getComments, postComment, postLikes, deletePost, editPost, friendRequest } from "../../redux/actions";
+import { getComments, postComment, postLikes, deletePost, editPost, friendRequest } from "../../redux/actions";
 import { BsPencil } from "react-icons/bs";
 import { formatDistanceToNowStrict, parseISO } from "date-fns";
 import { AiOutlineLike } from "react-icons/ai";

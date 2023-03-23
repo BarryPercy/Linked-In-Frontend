@@ -1,15 +1,6 @@
-import { fetchPosts, friendRequest } from "../../redux/actions";
+import { fetchPosts } from "../../redux/actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { useEffect, useState } from "react";
-import { Card, Button, Row, Col, Modal, Form, Image } from "react-bootstrap";
-import parseISO from "date-fns/parseISO";
-import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
-import { BiCommentDetail, BiRepost } from "react-icons/bi";
-import { IoIosSend } from "react-icons/io";
-import { BsPencil } from "react-icons/bs";
-import { deletePost } from "../../redux/actions";
-import { editPost } from "../../redux/actions";
-import { AiOutlineLike } from "react-icons/ai";
+import { useEffect, } from "react";
 import Post from "./Post";
 
 interface PostInterface {
