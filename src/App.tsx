@@ -14,10 +14,10 @@ const App = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getMyUser());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <BrowserRouter>
-      <TopNav />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile/:userId" element={<Main />}></Route>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
+import { BsLinkedin } from "react-icons/bs";
 import { getSpecificUser, getUsers, GET_SPECIFIC_USER } from "../redux/actions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import LoginIcon from "./LoginIcon";
@@ -49,6 +50,7 @@ const LoginPage = () => {
 
   return (
     <Container className="mt-5 pt-5 text-center">
+      <BsLinkedin size="5em" className="linked-in-nav-icon" />
       <h2 className="my-5">Click on your profile to start!</h2>
       <div className="d-flex justify-content-between mx-5 pt-5">
         {monguese.length > 0 &&

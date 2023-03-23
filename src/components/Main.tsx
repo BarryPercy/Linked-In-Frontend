@@ -13,6 +13,7 @@ import BottomMessenger from "./BottomMessenger";
 import SecondNav from "./SecondNav";
 import { getSpecificUser } from "../redux/actions";
 import { useParams } from "react-router-dom";
+import TopNav from "./TopNav";
 
 const Main = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +25,7 @@ const Main = () => {
 
   return (
     <>
+      <TopNav />
       <SecondNav />
       <Container fluid className="my-5 pt-3 profile-container">
         <Row className="d-flex ">

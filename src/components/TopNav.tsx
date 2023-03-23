@@ -120,9 +120,9 @@ const TopNav = () => {
       </Modal>
       <Container className="nav-padding">
         <div className="d-flex align-items-center px-1">
-            <Navbar.Brand href="/" >
-              <BsLinkedin size="2em" className="linked-in-nav-icon" />
-            </Navbar.Brand>
+          <Navbar.Brand href="/">
+            <BsLinkedin size="2em" className="linked-in-nav-icon" />
+          </Navbar.Brand>
 
           <Form className="d-flex">
             <Form.Control
@@ -176,13 +176,13 @@ const TopNav = () => {
               </div>
             </Link>
             <Nav.Link>
-              <div
+              <Link
+                to="/login"
                 className="d-flex flex-column align-items-center nav-options"
-                onClick={handleShow}
               >
                 <BsFillFilePersonFill size="2em" />
-                <span className="nav-text">Change Profile</span>
-              </div>
+                <span className="nav-text">Logout</span>
+              </Link>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

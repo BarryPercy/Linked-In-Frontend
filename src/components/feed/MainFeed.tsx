@@ -19,6 +19,7 @@ const MainFeed = () => {
   return (
     <>
       <TopNav />
+      <TopNav />
       <Container className="d-flex mt-5">
         <Row>
           {/* at a certain width this area disappears , this is left sidebard*/}
