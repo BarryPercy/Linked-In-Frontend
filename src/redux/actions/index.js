@@ -716,6 +716,7 @@ export const postLikes = (postId, userId) => {
       if (response.ok) {
         const data = await response.json();
         console.log("likes data->",data)
+        
         dispatch(fetchPosts())
       } else {
         console.log("Like operation failed");
