@@ -166,6 +166,8 @@ export const profileImage = (userId, imageFile) => {
   };
 };
 
+
+
 //GET CV -> HREF to `${process.env.REACT_APP_BACK_END}/api/profile/users/`+userId+"/CV"
 
 
@@ -610,6 +612,53 @@ export const postImage = (postId, imageFile) => {
       }
     } catch (error) {
       console.log(error)
+    }
+  };
+};
+
+//POST Likes
+export const postLikes = (postId, userId) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACK_END}/api/posts/`+postId+"/likes/"+userId,
+        {
+          method: "POST",
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log("likes data->",data)
+        dispatch(fetchPosts())
+      } else {
+        console.log("Like operation failed");
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  };
+};
+
+export const postComment = (comment, postId) => {
+  return async (dispatch) => {
+    try {
+      let response = await fetch(
+        `${process.env.REACT_APP_BACK_END}/api/posts/`+postId+"/comments",
+        {
+          method: "POST",
+          body: JSON.stringify(comment),
+          headers: {
+            "Content-Type": "application/json"
+          },
+        }
+      );
+      if (response.ok) {
+        dispatch(fetchPosts())
+      } else {
+        console.log("Uh oh!");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 };

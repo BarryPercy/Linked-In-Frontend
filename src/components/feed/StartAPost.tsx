@@ -47,7 +47,6 @@ export default function StartAPost() {
               <Image
                 className="avatar"
                 src={currentUser.image}
-                alt="Avatar"
                 style={{ height: "100%" }}
               />
               <Button
