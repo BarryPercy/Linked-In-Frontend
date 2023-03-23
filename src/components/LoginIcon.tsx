@@ -1,5 +1,8 @@
+import { useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { getMyUser } from "../redux/actions";
+import { useAppDispatch } from "../redux/hooks";
 
 interface User {
   _id: string;
@@ -17,9 +20,13 @@ interface User {
 
 const LoginIcon = (props: User & { children?: React.ReactNode }) => {
   console.log(props);
+  const dispatch = useAppDispatch();
+  const changeUser = () => {
+    dispatch(getMyUser(props._id));
+  };
 
   return (
-    <a href="/">
+    <Link to="/" onClick={changeUser}>
       <Card className="profileLoginIcon">
         <Card.Img
           className="profileImage mt-3"
@@ -33,7 +40,7 @@ const LoginIcon = (props: User & { children?: React.ReactNode }) => {
           </Card.Title>
         </Card.Body>
       </Card>
-    </a>
+    </Link>
   );
 };
 
