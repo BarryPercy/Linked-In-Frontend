@@ -661,3 +661,39 @@ export const friendRequest = (sender, reciver) => {
     }
   };
 };
+export const friendAccept = (sender, reciver) => {
+  return async (dispatch) => {
+    try {
+      const res = await fetch(
+        process.env.REACT_APP_BACK_END +
+          `/api/users/${sender}/acceptfriend/${reciver}`,
+        { method: "POST" }
+      );
+      if (res.ok) {
+        dispatch(fetchPosts());
+      } else {
+        console.log("Friend accept failed");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const friendCancel = (sender, reciver) => {
+  return async (dispatch) => {
+    try {
+      const res = await fetch(
+        process.env.REACT_APP_BACK_END +
+          `/api/users/${sender}/unfriend/${reciver}`,
+        { method: "POST" }
+      );
+      if (res.ok) {
+        dispatch(fetchPosts());
+      } else {
+        console.log("Friend request failed");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

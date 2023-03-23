@@ -57,14 +57,14 @@ const TopNav = () => {
       </Modal>
       <Modal show={show2} onHide={handleClose2}>
         <Modal.Header closeButton>
-          <Modal.Title>Friend list</Modal.Title>
+          <Modal.Title>My Network</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="">
-            <h6>Friends:</h6>
+            <h6>Friends list:</h6>
             {currentUser.social.friends.map((e: User, i: number) => {
               return (
-                <div key={i} className="d-flex align-items-center">
+                <div key={i} className="d-flex align-items-center mb-2">
                   <img
                     src={e.image}
                     alt={"user avatar"}
@@ -81,7 +81,7 @@ const TopNav = () => {
             <h6>Pending requests:</h6>
             {currentUser.social.pending.map((e: User, i: number) => {
               return (
-                <div key={i} className="d-flex align-items-center">
+                <div key={i} className="d-flex align-items-center mb-2">
                   <img
                     src={e.image}
                     alt={"user avatar"}
@@ -89,8 +89,8 @@ const TopNav = () => {
                   />
                   <span className="mr-1">{e.name}</span>
                   <span>{e.surname}</span>
-                  <Button variant="warning" className="friend-button ml-2">
-                    Decline request
+                  <Button variant="info" className="friend-button ml-2">
+                    Accept request
                   </Button>
                 </div>
               );
@@ -106,7 +106,7 @@ const TopNav = () => {
                   />
                   <span className="mr-1">{e.name}</span>
                   <span>{e.surname}</span>
-                  <Button variant="info" className="friend-button ml-2">
+                  <Button variant="warning" className="friend-button ml-2">
                     Cancel request
                   </Button>
                 </div>
