@@ -18,7 +18,7 @@ const Main = () => {
   const dispatch = useAppDispatch();
   const { userId } = useParams();
   useEffect(() => {
-    dispatch(getSpecificUser(userId))
+    dispatch(getSpecificUser(userId));
   }, []);
 
   return (
