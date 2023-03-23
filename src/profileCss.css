@@ -316,6 +316,9 @@ a.profile-text:hover {
   .edit-area {
     display: none;
   }
+  .nav-padding{
+    padding: 5px !important;;
+  }
 }
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
@@ -348,8 +351,13 @@ a.profile-text:hover {
     height: 95px;
     border: 2px solid white;
   }
+  
 }
-
+@media only screen and (max-width: 1300px) {
+  .sidebar1{
+    display:none;
+  }
+}
 @media only screen and (min-width: 1600px) {
   .profile-icon img {
     width: 160px;
@@ -678,6 +686,12 @@ Posts Css Below Here
 
 .comment-icon {
   cursor: pointer;
+  padding-bottom:15px;
+  padding-top:15px;
+  border-radius:5px;
+}
+.comment-icon:hover{
+  background-color: #ebebeb;
 }
 
 .pencil-post {
@@ -750,4 +764,19 @@ Posts Css Below Here
 
 .zindex{
   z-index:0
+}
+
+.icon-flipped {
+  transform: scaleX(-1);
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+}
+
+.comment-box{
+  background-color: #f2f2f2;
+  width:100%;
+  padding-left:20px;
+  border-radius: 0 5px 5px 5px;
+  margin-top:15px;
 }

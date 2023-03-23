@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { Button, Image } from "react-bootstrap";
 import { useAppSelector } from "../redux/hooks";
 
-const SecondNav=() =>{
-  let currentProfileUser = useAppSelector((state) => state.users.currentProfileUser);
+const SecondNav = () => {
+  let currentProfileUser = useAppSelector(
+    (state) => state.users.currentProfileUser
+  );
   function handleScroll() {
     const distance = window.scrollY;
     const nav = document.querySelector(".secondary-nav");
@@ -21,30 +23,30 @@ const SecondNav=() =>{
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
+
   return (
     <div className="secondary-nav d-flex align-items-center justify-content-around fixed-nav secondNav">
-      {currentProfileUser!==undefined ?
+      {currentProfileUser !== undefined ? (
         <div className="d-flex align-items-center">
-          
           <Image
             src={currentProfileUser.image}
             alt="Profile"
             roundedCircle
             style={{ width: 36, height: 36 }}
           />
-          
+
           <div className="ml-3">
-            <p style={{ fontSize: "15px", marginBottom: "0", marginTop: "10px" }}>
+            <p
+              style={{ fontSize: "15px", marginBottom: "0", marginTop: "10px" }}
+            >
               {currentProfileUser.name} {currentProfileUser.surname}
             </p>
             <p style={{ fontSize: "10px" }}>{currentProfileUser.title}</p>
           </div>
-          
         </div>
-        :
-          ""
-          }
+      ) : (
+        ""
+      )}
       <div className="button-area">
         <Button
           className="mx-1 py-0 more-btn"
@@ -66,6 +68,6 @@ const SecondNav=() =>{
       </div>
     </div>
   );
-}
+};
 
 export default SecondNav;
