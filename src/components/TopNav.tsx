@@ -4,7 +4,6 @@ import {
   Navbar,
   Form,
   Image,
-  InputGroup,
   Modal,
   Button,
   Row,
@@ -18,12 +17,11 @@ import {
 } from "react-icons/bs";
 import { AiFillHome, AiFillMessage } from "react-icons/ai";
 import { FaBell } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppSelector } from "../redux/hooks";
 
 const TopNav = () => {
-  const location = useLocation();
   let currentUser = useAppSelector((state) => state.users.currentUser);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);

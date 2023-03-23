@@ -20,7 +20,7 @@ export const GET_POST = "GET_POST";
 export const POST_POST = "POST_POST";
 export const EDIT_POST = "EDIT_POSTS";
 export const DELETE_POST = "DELETE_POSTS";
-
+export const GET_COMMENTS = "GET_COMMENTS"
 // USERS
 
 export const getMyUser = () => {
@@ -654,6 +654,28 @@ export const postComment = (comment, postId) => {
       );
       if (response.ok) {
         dispatch(fetchPosts())
+      } else {
+        console.log("Uh oh!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getComments = (comment, postId) => {
+  return async (dispatch) => {
+    try {
+      let response = await fetch(
+        `${process.env.REACT_APP_BACK_END}/api/posts/`+postId+"/comments",
+      );
+      if (response.ok) {
+        let data = await response.json();
+        console.log(data)
+        dispatch({
+          type: GET_COMMENTS,
+          payload: data,
+        });
       } else {
         console.log("Uh oh!");
       }
