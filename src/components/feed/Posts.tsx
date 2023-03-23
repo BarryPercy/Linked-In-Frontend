@@ -1,4 +1,4 @@
-import { fetchPosts } from "../../redux/actions";
+import { fetchPosts, friendRequest } from "../../redux/actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useEffect, useState } from "react";
 import { Card, Button, Row, Col, Modal, Form } from "react-bootstrap";
@@ -69,7 +69,8 @@ const Posts = () => {
 
   useEffect(() => {
     dispatch(fetchPosts());
-    console.log("posts->", posts);
+    // console.log("posts->", posts);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div>
@@ -141,12 +142,49 @@ const Posts = () => {
                             </h6>
                             {currentUser.social.friends.find(
                               (e: string) => e === post.user._id
-                            ) ? (
+                            ) ||
+                            currentUser.social.sent.find(
+                              (e: string) => e === post.user._id
+                            ) ||
+                            currentUser.social.pending.find(
+                              (e: string) => e === post.user._id
+                            ) ||
+                            currentUser._id === post.user._id ? (
                               ""
                             ) : (
-                              <Button className="friend-button ml-2">
+                              <Button
+                                className="friend-button ml-2"
+                                onClick={() =>
+                                  dispatch(
+                                    friendRequest(
+                                      currentUser._id,
+                                      post.user._id
+                                    )
+                                  )
+                                }
+                              >
                                 Add friend
                               </Button>
+                            )}
+                            {currentUser.social.sent.find(
+                              (e: string) => e === post.user._id
+                            ) ? (
+                              <Button
+                                className="friend-button ml-2"
+                                variant="secondary"
+                                onClick={() =>
+                                  dispatch(
+                                    friendRequest(
+                                      currentUser._id,
+                                      post.user._id
+                                    )
+                                  )
+                                }
+                              >
+                                Friend request pending
+                              </Button>
+                            ) : (
+                              ""
                             )}
                           </div>
                           <h6 className="post-user-title">{post.user.title}</h6>

@@ -1,5 +1,5 @@
 //USERS
-export const GET_MY_USER = "GET_MY_USER"
+export const GET_MY_USER = "GET_MY_USER";
 export const GET_USERS = "GET_USERS";
 export const GET_SPECIFIC_USER = "GET_SPECIFIC_USER";
 export const UPDATE_USER = "UPDATE_USER";
@@ -27,7 +27,8 @@ export const getMyUser = () => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/` + process.env.REACT_APP_CURRENT_USER_ID
+        `${process.env.REACT_APP_BACK_END}/api/users/` +
+          process.env.REACT_APP_CURRENT_USER_ID
       );
       if (response.ok) {
         const user = await response.json();
@@ -42,14 +43,15 @@ export const getMyUser = () => {
       console.log(error);
     }
   };
-}
+};
 
 //GET USERS
 export const getUsers = () => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`);
+        `${process.env.REACT_APP_BACK_END}/api/users/`
+      );
       if (response.ok) {
         const users = await response.json();
         dispatch({
@@ -70,7 +72,7 @@ export const getSpecificUser = (userId) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`+userId
+        `${process.env.REACT_APP_BACK_END}/api/users/` + userId
       );
       if (response.ok) {
         const user = await response.json();
@@ -92,18 +94,18 @@ export const postUser = (ProfileObj, userId, image) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`+userId,
+        `${process.env.REACT_APP_BACK_END}/api/users/` + userId,
         {
           method: "POST",
           body: JSON.stringify(ProfileObj),
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
         }
       );
       if (response.ok) {
-        if(image!==null||image!==undefined){
-          dispatch(profileImage(userId, image))
+        if (image !== null || image !== undefined) {
+          dispatch(profileImage(userId, image));
         }
       } else {
         console.log("Uh oh!");
@@ -119,19 +121,19 @@ export const updateUser = (editProfileObj, userId, image) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`+userId,
+        `${process.env.REACT_APP_BACK_END}/api/users/` + userId,
         {
           method: "PUT",
           body: JSON.stringify(editProfileObj),
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
         }
       );
       if (response.ok) {
-        if(image!==null&&image!==undefined){
-          dispatch(profileImage(userId, image))
-        }else{
+        if (image !== null && image !== undefined) {
+          dispatch(profileImage(userId, image));
+        } else {
           dispatch(getSpecificUser(userId));
         }
       } else {
@@ -150,37 +152,32 @@ export const profileImage = (userId, imageFile) => {
       const formData = new FormData();
       formData.append("profile", imageFile);
       const response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/image",
+        `${process.env.REACT_APP_BACK_END}/api/users/` + userId + "/image",
         {
           method: "POST",
           body: formData,
         }
       );
       if (response.ok) {
-        dispatch(getSpecificUser(userId))
+        dispatch(getSpecificUser(userId));
       } else {
         throw new Error("Failed to upload image");
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 };
 
 //GET CV -> HREF to `${process.env.REACT_APP_BACK_END}/api/profile/users/`+userId+"/CV"
 
-
-
-
-
 //EXPERIENCES
-
 
 //GET EXPERIENCES
 export const fetchUserExps = (userId) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/experiences");
+        `${process.env.REACT_APP_BACK_END}/api/users/` + userId + "/experiences"
+      );
       if (response.ok) {
         let data = await response.json();
         dispatch({
@@ -198,22 +195,24 @@ export const fetchUserExps = (userId) => {
 
 //POST EXPERIENCE
 export const postUserExp = (userId, newExp, image) => {
-  console.log("what's happening in the post action",newExp)
+  console.log("what's happening in the post action", newExp);
   return async (dispatch) => {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`+userId +"/experiences",
+        `${process.env.REACT_APP_BACK_END}/api/users/` +
+          userId +
+          "/experiences",
         {
           method: "POST",
           body: JSON.stringify(newExp),
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
         }
       );
       if (response.ok) {
         let data = await response.json();
-        console.log("data in post action->", data)
+        console.log("data in post action->", data);
         dispatch(postUserImageExp(userId, data._id, image));
       } else {
         console.log("Failure to post new experience!");
@@ -225,11 +224,15 @@ export const postUserExp = (userId, newExp, image) => {
 };
 
 //GET EXPERIENCE
-export const fetchUserExp = (userId,expId) => {
+export const fetchUserExp = (userId, expId) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/experiences/"+expId);
+        `${process.env.REACT_APP_BACK_END}/api/users/` +
+          userId +
+          "/experiences/" +
+          expId
+      );
       if (response.ok) {
         let data = await response.json();
         dispatch({
@@ -250,7 +253,10 @@ export const deleteUserExp = (userId, expId) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/experiences/"+expId,
+        `${process.env.REACT_APP_BACK_END}/api/users/` +
+          userId +
+          "/experiences/" +
+          expId,
         {
           method: "DELETE",
           headers: {
@@ -274,7 +280,10 @@ export const editUserExp = (editedExp, userId, expId, image) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/experiences/"+expId,
+        `${process.env.REACT_APP_BACK_END}/api/users/` +
+          userId +
+          "/experiences/" +
+          expId,
         {
           method: "PUT",
           body: JSON.stringify(editedExp),
@@ -301,7 +310,11 @@ export const postUserImageExp = (userId, expId, image) => {
       const formData = new FormData();
       formData.append("image", image);
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`+userId +"/experiences/"+expId +"/image",
+        `${process.env.REACT_APP_BACK_END}/api/users/` +
+          userId +
+          "/experiences/" +
+          expId +
+          "/image",
         {
           method: "POST",
           body: formData,
@@ -320,13 +333,13 @@ export const postUserImageExp = (userId, expId, image) => {
 
 //EDUCATION
 
-
 //GET EDUCATION
 export const fetchUserEdus = (userId) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/educations");
+        `${process.env.REACT_APP_BACK_END}/api/users/` + userId + "/educations"
+      );
       if (response.ok) {
         let data = await response.json();
         dispatch({
@@ -344,22 +357,22 @@ export const fetchUserEdus = (userId) => {
 
 //POST EDUCATION
 export const postUserEdu = (userId, newEdu, image) => {
-  console.log("what's happening in the post action",newEdu)
+  console.log("what's happening in the post action", newEdu);
   return async (dispatch) => {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`+userId +"/educations",
+        `${process.env.REACT_APP_BACK_END}/api/users/` + userId + "/educations",
         {
           method: "POST",
           body: JSON.stringify(newEdu),
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
         }
       );
       if (response.ok) {
         let data = await response.json();
-        console.log("data in post action->", data)
+        console.log("data in post action->", data);
         dispatch(postUserImageEdu(userId, data._id, image));
       } else {
         console.log("Failure to post new experience!");
@@ -371,11 +384,15 @@ export const postUserEdu = (userId, newEdu, image) => {
 };
 
 //GET EDUCATION
-export const fetchUserEdu = (userId,eduId) => {
+export const fetchUserEdu = (userId, eduId) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/educations/"+eduId);
+        `${process.env.REACT_APP_BACK_END}/api/users/` +
+          userId +
+          "/educations/" +
+          eduId
+      );
       if (response.ok) {
         let data = await response.json();
         dispatch({
@@ -396,7 +413,10 @@ export const deleteUserEdu = (userId, eduId) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/educations/"+eduId,
+        `${process.env.REACT_APP_BACK_END}/api/users/` +
+          userId +
+          "/educations/" +
+          eduId,
         {
           method: "DELETE",
           headers: {
@@ -420,7 +440,10 @@ export const editUserEdu = (editedEdu, userId, eduId, image) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`+userId+"/educations/"+eduId,
+        `${process.env.REACT_APP_BACK_END}/api/users/` +
+          userId +
+          "/educations/" +
+          eduId,
         {
           method: "PUT",
           body: JSON.stringify(editedEdu),
@@ -447,7 +470,11 @@ export const postUserImageEdu = (userId, eduId, image) => {
       const formData = new FormData();
       formData.append("image", image);
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/users/`+userId +"/educations/"+eduId +"/image",
+        `${process.env.REACT_APP_BACK_END}/api/users/` +
+          userId +
+          "/educations/" +
+          eduId +
+          "/image",
         {
           method: "POST",
           body: formData,
@@ -471,11 +498,11 @@ export const fetchPosts = () => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/posts/`,
+        `${process.env.REACT_APP_BACK_END}/api/posts/`
       );
       if (response.ok) {
         let data = await response.json();
-        console.log(data.posts)
+        console.log(data.posts);
         dispatch({
           type: GET_POSTS,
           payload: data,
@@ -506,9 +533,9 @@ export const postPost = (post, image) => {
       );
       if (response.ok) {
         let data = await response.json();
-        if(image!==null){
+        if (image !== null) {
           dispatch(postImage(data._id, image));
-        }else{
+        } else {
           dispatch(fetchPosts());
         }
       } else {
@@ -525,7 +552,7 @@ export const fetchPost = (postId) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/posts/`+postId,
+        `${process.env.REACT_APP_BACK_END}/api/posts/` + postId
       );
       if (response.ok) {
         let data = await response.json();
@@ -534,7 +561,7 @@ export const fetchPost = (postId) => {
           payload: data,
         });
       } else {
-        console.log("Fetching Post "+postId+" went wrong");
+        console.log("Fetching Post " + postId + " went wrong");
       }
     } catch (error) {
       console.log(error);
@@ -547,7 +574,7 @@ export const editPost = (post, postId) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/posts/`+postId,
+        `${process.env.REACT_APP_BACK_END}/api/posts/` + postId,
         {
           method: "PUT",
           body: JSON.stringify(post),
@@ -557,7 +584,7 @@ export const editPost = (post, postId) => {
         }
       );
       if (response.ok) {
-        console.log("psoting went ok")
+        console.log("psoting went ok");
         dispatch(fetchPosts());
       } else {
         alert("Fetching went wrong!!!!");
@@ -569,12 +596,12 @@ export const editPost = (post, postId) => {
 };
 
 //DELETE Post
-export const deletePost = (postId ) => {
+export const deletePost = (postId) => {
   return async (dispatch) => {
     try {
       console.log();
       const response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/posts/`+ postId,
+        `${process.env.REACT_APP_BACK_END}/api/posts/` + postId,
         {
           method: "DELETE",
         }
@@ -597,19 +624,40 @@ export const postImage = (postId, imageFile) => {
       const formData = new FormData();
       formData.append("image", imageFile);
       const response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/posts/` + postId+"/image",
+        `${process.env.REACT_APP_BACK_END}/api/posts/` + postId + "/image",
         {
           method: "POST",
           body: formData,
         }
       );
       if (response.ok) {
-        dispatch(fetchPosts())
+        dispatch(fetchPosts());
       } else {
         console.log("Failed to upload image");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
+    }
+  };
+};
+
+//FRIENDS
+
+export const friendRequest = (sender, reciver) => {
+  return async (dispatch) => {
+    try {
+      const res = await fetch(
+        process.env.REACT_APP_BACK_END +
+          `/api/users/${sender}/friendrequest/${reciver}`,
+        { method: "POST" }
+      );
+      if (res.ok) {
+        dispatch(fetchPosts());
+      } else {
+        console.log("Friend request failed");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 };
