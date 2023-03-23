@@ -33,6 +33,7 @@ const TopNav = () => {
   let currentUser = useAppSelector((state) => state.users.currentUser);
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
+  const dispatch = useAppDispatch();
   const handleClose = () => setShow(false);
   const handleClose2 = () => setShow2(false);
   const handleShow = () => setShow(true);
