@@ -1,7 +1,7 @@
 import { Button, Card, Col, Form, Modal, Row, Image } from "react-bootstrap";
-import react, { useState } from "react";
+import react, { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { fetchPosts, getComments, postComment, postLikes, deletePost, editPost } from "../../redux/actions";
+import { fetchPosts, getComments, postComment, postLikes, deletePost, editPost, friendRequest } from "../../redux/actions";
 import { BsPencil } from "react-icons/bs";
 import { formatDistanceToNowStrict, parseISO } from "date-fns";
 import { AiOutlineLike } from "react-icons/ai";
@@ -39,6 +39,11 @@ interface PostInterface {
 
   interface PostProps {
     post: PostInterface;
+  }
+  interface Social {
+    pending: string[];
+    sent: string[];
+    friends: string[];
   }
 
 const Post: React.FC<PostProps> = ({post}) => {
@@ -81,6 +86,9 @@ const Post: React.FC<PostProps> = ({post}) => {
       })
     const [show, setShow] = useState(false);
     let currentUser = useAppSelector((state) => state.users.currentUser);
+    useEffect(() => {
+      dispatch(getComments(post._id));
+    }, []);
     return(
         <>
             <Modal show={show} onHide={handlePostClose} size="lg">
@@ -143,6 +151,52 @@ const Post: React.FC<PostProps> = ({post}) => {
                         <h6>
                           {post.user.name} {post.user.surname}
                         </h6>
+                        {currentUser.social.friends.find(
+                              (e: string) => e === post.user._id
+                            ) ||
+                            currentUser.social.sent.find(
+                              (e: string) => e === post.user._id
+                            ) ||
+                            currentUser.social.pending.find(
+                              (e: string) => e === post.user._id
+                            ) ||
+                            currentUser._id === post.user._id ? (
+                              ""
+                            ) : (
+                              <Button
+                                className="friend-button ml-2"
+                                onClick={() =>
+                                  dispatch(
+                                    friendRequest(
+                                      currentUser._id,
+                                      post.user._id
+                                    )
+                                  )
+                                }
+                              >
+                                Add friend
+                              </Button>
+                            )}
+                            {currentUser.social.sent.find(
+                              (e: string) => e === post.user._id
+                            ) ? (
+                              <Button
+                                className="friend-button ml-2"
+                                variant="secondary"
+                                onClick={() =>
+                                  dispatch(
+                                    friendRequest(
+                                      currentUser._id,
+                                      post.user._id
+                                    )
+                                  )
+                                }
+                              >
+                                Friend request pending
+                              </Button>
+                            ) : (
+                              ""
+                            )}
                         <h6 className="post-user-title">{post.user.title}</h6>
                         <h6 className="post-user-title">
                           {formatDistanceToNowStrict(parseISO(post.createdAt))}{" "}

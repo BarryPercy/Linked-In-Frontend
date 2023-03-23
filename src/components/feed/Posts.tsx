@@ -52,7 +52,6 @@ const Posts = () => {
       {posts.length>0? postsReverse.map((post: PostInterface) => {
         return(
             <Post post={post}/>
-
         )
       }):<p>No Posts yet!</p>}
     </div>
