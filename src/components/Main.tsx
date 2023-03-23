@@ -18,12 +18,13 @@ const Main = () => {
   const dispatch = useAppDispatch();
   const { userId } = useParams();
   useEffect(() => {
-    dispatch(getSpecificUser(userId))
+    dispatch(getSpecificUser(userId));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
-      <SecondNav/>
+      <SecondNav />
       <Container fluid className="my-5 pt-3 profile-container">
         <Row className="d-flex ">
           <Col className="col-lg-2"></Col>

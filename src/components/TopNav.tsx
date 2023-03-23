@@ -21,11 +21,20 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useAppSelector } from "../redux/hooks";
 
+interface User {
+  name: string;
+  surname: string;
+  image: string;
+}
+
 const TopNav = () => {
   let currentUser = useAppSelector((state) => state.users.currentUser);
   const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
   const handleClose = () => setShow(false);
+  const handleClose2 = () => setShow2(false);
   const handleShow = () => setShow(true);
+  const handleShow2 = () => setShow2(true);
   return (
     <Navbar bg="white" expand="lg" fixed="top">
       <Modal show={show} onHide={handleClose}>
@@ -34,16 +43,77 @@ const TopNav = () => {
         </Modal.Header>
         <Modal.Body>
           <Row className="justify-content-center text-center">
-            <Col>
-              Barry Percy
-            </Col>
-            <Col>
-              Jovellyn A Quiapos
-            </Col>
+            <Col>Barry Percy</Col>
+            <Col>Jovellyn A Quiapos</Col>
           </Row>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={show2} onHide={handleClose2}>
+        <Modal.Header closeButton>
+          <Modal.Title>My Network</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="">
+            <h6>Friends list:</h6>
+            {currentUser.social.friends.map((e: User, i: number) => {
+              return (
+                <div key={i} className="d-flex align-items-center mb-2">
+                  <img
+                    src={e.image}
+                    alt={"user avatar"}
+                    className="friends-image mr-2"
+                  />
+                  <span className="mr-1">{e.name}</span>
+                  <span>{e.surname}</span>
+                  <Button variant="danger" className="friend-button ml-2">
+                    Remove friend
+                  </Button>
+                </div>
+              );
+            })}
+            <h6>Pending requests:</h6>
+            {currentUser.social.pending.map((e: User, i: number) => {
+              return (
+                <div key={i} className="d-flex align-items-center mb-2">
+                  <img
+                    src={e.image}
+                    alt={"user avatar"}
+                    className="friends-image mr-2"
+                  />
+                  <span className="mr-1">{e.name}</span>
+                  <span>{e.surname}</span>
+                  <Button variant="info" className="friend-button ml-2">
+                    Accept request
+                  </Button>
+                </div>
+              );
+            })}
+            <h6>Sent requests:</h6>
+            {currentUser.social.sent.map((e: User, i: number) => {
+              return (
+                <div key={i} className="d-flex align-items-center">
+                  <img
+                    src={e.image}
+                    alt={"user avatar"}
+                    className="friends-image mr-2"
+                  />
+                  <span className="mr-1">{e.name}</span>
+                  <span>{e.surname}</span>
+                  <Button variant="warning" className="friend-button ml-2">
+                    Cancel request
+                  </Button>
+                </div>
+              );
+            })}
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose2}>
             Close
           </Button>
         </Modal.Footer>
@@ -66,14 +136,17 @@ const TopNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-end">
-              <Nav.Link href="/" >
-                <div className="d-flex flex-column align-items-center nav-options home-text">
-                  <AiFillHome size="2em" />
-                  <span className="nav-text home-text">Home</span>
-                </div>
-              </Nav.Link>
+            <Nav.Link href="/">
+              <div className="d-flex flex-column align-items-center nav-options home-text">
+                <AiFillHome size="2em" />
+                <span className="nav-text home-text">Home</span>
+              </div>
+            </Nav.Link>
             <Nav.Link>
-              <div className="d-flex flex-column align-items-center nav-options">
+              <div
+                className="d-flex flex-column align-items-center nav-options"
+                onClick={handleShow2}
+              >
                 <BsFillPeopleFill size="2em" />
                 <span className="nav-text">My Network</span>
               </div>
@@ -96,7 +169,7 @@ const TopNav = () => {
                 <span className="nav-text">Notifications</span>
               </div>
             </Nav.Link>
-            <Link className="profile-text" to={"/profile/"+currentUser._id}>
+            <Link className="profile-text" to={"/profile/" + currentUser._id}>
               <div className="d-flex flex-column align-items-center nav-options mt-1 profile-text">
                 <Image src={currentUser.image} className="user-image" />
                 Me

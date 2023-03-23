@@ -9,15 +9,14 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import { getMyUser } from "./redux/actions";
 
-
-const App = ()=> {
+const App = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getMyUser());
   }, []);
   return (
     <BrowserRouter>
-      <TopNav/>
+      <TopNav />
       <Routes>
         <Route path="/profile/:userId" element={<Main />}></Route>
         <Route path="/" element={<MainFeed />}></Route>
@@ -26,6 +25,6 @@ const App = ()=> {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

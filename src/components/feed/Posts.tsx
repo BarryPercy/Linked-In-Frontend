@@ -1,4 +1,4 @@
-import { fetchPosts, getComments, postComment, postLikes } from "../../redux/actions";
+import { fetchPosts, friendRequest } from "../../redux/actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useEffect, useState } from "react";
 import { Card, Button, Row, Col, Modal, Form, Image } from "react-bootstrap";
@@ -39,7 +39,15 @@ interface User {
   createdAt: string;
   updatedAt: string;
   __v: number;
+  social: Social;
 }
+
+interface Social {
+  pending: string[];
+  sent: string[];
+  friends: string[];
+}
+
 const Posts = () => {
   const dispatch = useAppDispatch();
   let posts = useAppSelector((state) => state.posts.postList);
@@ -47,7 +55,7 @@ const Posts = () => {
   useEffect(() => {
     dispatch(fetchPosts());
   }, []);
-  return(
+  return (
     <div>
       {posts.length>0? postsReverse.map((post: PostInterface) => {
         return(
