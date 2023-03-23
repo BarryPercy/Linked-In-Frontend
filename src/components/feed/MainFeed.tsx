@@ -10,7 +10,7 @@ import BottomMessenger from "../BottomMessenger";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getMyUser } from "../../redux/actions";
-
+//
 const MainFeed = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {

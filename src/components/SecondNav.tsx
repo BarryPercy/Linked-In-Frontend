@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Button, Image } from "react-bootstrap";
-import userPic from "../images/jovelynn.png";
 import { useAppSelector } from "../redux/hooks";
 
-function SecondNav() {
+const SecondNav=() =>{
   let currentProfileUser = useAppSelector((state) => state.users.currentProfileUser);
   function handleScroll() {
     const distance = window.scrollY;
@@ -22,27 +21,30 @@ function SecondNav() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
+  
   return (
-    <div className="secondary-nav d-flex align-items-center justify-content-around fixed-nav">
-      <div className="d-flex align-items-center">
-        {currentProfileUser!==undefined?
+    <div className="secondary-nav d-flex align-items-center justify-content-around fixed-nav secondNav">
+      {currentProfileUser!==undefined ?
+        <div className="d-flex align-items-center">
+          
           <Image
-          src={currentProfileUser.image}
-          alt="Profile"
-          roundedCircle
-          style={{ width: 36, height: 36 }}
-        />:
-        ""
-        }
-        
-        <div className="ml-3">
-          <p style={{ fontSize: "15px", marginBottom: "0", marginTop: "10px" }}>
-            {currentProfileUser.name} {currentProfileUser.surname}
-          </p>
-          <p style={{ fontSize: "10px" }}>{currentProfileUser.title}</p>
+            src={currentProfileUser.image}
+            alt="Profile"
+            roundedCircle
+            style={{ width: 36, height: 36 }}
+          />
+          
+          <div className="ml-3">
+            <p style={{ fontSize: "15px", marginBottom: "0", marginTop: "10px" }}>
+              {currentProfileUser.name} {currentProfileUser.surname}
+            </p>
+            <p style={{ fontSize: "10px" }}>{currentProfileUser.title}</p>
+          </div>
+          
         </div>
-      </div>
+        :
+          ""
+          }
       <div className="button-area">
         <Button
           className="mx-1 py-0 more-btn"
