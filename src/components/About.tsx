@@ -78,7 +78,7 @@ const About = () => {
               <h4>About</h4>
             </Card.Title>
             <Card.Text>
-              {currentProfileUser.bio}
+            {currentProfileUser!==undefined ?currentProfileUser.bio:""}
             </Card.Text>{" "}
           </Card.Body>
         </Card>

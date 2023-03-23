@@ -10,8 +10,7 @@ const BottomMessenger = () => {
   let currentUser = useAppSelector((state) => state.users.currentUser);
   return (
     <>
-      <footer>
-        <div className="bottomMessenger ">
+        <div className="bottomMessenger">
           <Card className="d-flex flex-row messenger py-2 pl-2">
             <Image src={currentUser.image} className="user-image-messenger" />
             <Card.Text>
@@ -31,7 +30,6 @@ const BottomMessenger = () => {
             </Card.Text>
           </Card>
         </div>
-      </footer>
     </>
   );
 };

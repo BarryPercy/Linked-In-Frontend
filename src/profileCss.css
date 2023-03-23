@@ -728,6 +728,7 @@ Posts Css Below Here
   bottom: 0;
   right: 20px;
   width: 250px;
+  z-index:10;
 }
 
 .bottomMessenger .card {
@@ -739,4 +740,14 @@ Posts Css Below Here
 .user-image-messenger {
   width: 30px;
   border-radius: 100%;
+}
+
+@media only screen and (max-width: 500px) {
+  .secondNav{
+    display:none !important;
+  }
+}
+
+.zindex{
+  z-index:0
 }
