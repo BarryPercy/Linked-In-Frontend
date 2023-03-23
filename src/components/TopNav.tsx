@@ -60,7 +60,7 @@ const TopNav = () => {
         <Modal.Body>
           <div className="">
             <h6>Friends list:</h6>
-            {currentUser.social.friends.map((e: User, i: number) => {
+            {/* {currentUser.social.friends!==undefined?currentUser.social.friends.map((e: User, i: number) => {
               return (
                 <div key={i} className="d-flex align-items-center mb-2">
                   <img
@@ -75,9 +75,9 @@ const TopNav = () => {
                   </Button>
                 </div>
               );
-            })}
+            }):""} */}
             <h6>Pending requests:</h6>
-            {currentUser.social.pending.map((e: User, i: number) => {
+            {/* {currentUser?currentUser.social.pending.map((e: User, i: number) => {
               return (
                 <div key={i} className="d-flex align-items-center mb-2">
                   <img
@@ -92,9 +92,9 @@ const TopNav = () => {
                   </Button>
                 </div>
               );
-            })}
+            }):""} */}
             <h6>Sent requests:</h6>
-            {currentUser.social.sent.map((e: User, i: number) => {
+            {/* {currentUser?currentUser.social.sent.map((e: User, i: number) => {
               return (
                 <div key={i} className="d-flex align-items-center">
                   <img
@@ -109,7 +109,7 @@ const TopNav = () => {
                   </Button>
                 </div>
               );
-            })}
+            }):""} */}
           </div>
         </Modal.Body>
         <Modal.Footer>
