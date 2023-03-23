@@ -25,7 +25,6 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 const TopNav = () => {
   const location = useLocation();
   let currentUser = useAppSelector((state) => state.users.currentUser);
-  const dispatch = useAppDispatch();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -52,8 +51,8 @@ const TopNav = () => {
         </Modal.Footer>
       </Modal>
       <Container className="nav-padding">
-        <div className="d-flex align-items-center">
-            <Navbar.Brand href="/">
+        <div className="d-flex align-items-center px-1">
+            <Navbar.Brand href="/" >
               <BsLinkedin size="2em" className="linked-in-nav-icon" />
             </Navbar.Brand>
 
