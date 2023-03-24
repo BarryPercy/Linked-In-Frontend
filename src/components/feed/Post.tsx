@@ -200,55 +200,34 @@ const Post: React.FC<PostProps> = ({post}) => {
                   <div className="d-flex">
                     <Card.Title>
                       <>
-                        <h6>
-                          {post.user.name} {post.user.surname}
-                        </h6>
-                        {/* {currentUser.social.friends.find(
-                              (e: string) => e === post.user._id
-                            ) ||
-                            currentUser.social.sent.find(
-                              (e: string) => e === post.user._id
-                            ) ||
-                            currentUser.social.pending.find(
-                              (e: string) => e === post.user._id
-                            ) ||
-                            currentUser._id === post.user._id ? (
-                              ""
-                            ) : (
-                              <Button
-                                className="friend-button ml-2"
-                                onClick={() =>
-                                  dispatch(
-                                    friendRequest(
-                                      currentUser._id,
-                                      post.user._id
-                                    )
-                                  )
-                                }
-                              >
-                                Add friend
-                              </Button>
-                            )}
-                            {currentUser.social.sent.find(
-                              (e: string) => e === post.user._id
-                            ) ? (
-                              <Button
-                                className="friend-button ml-2"
-                                variant="secondary"
-                                onClick={() =>
-                                  dispatch(
-                                    friendRequest(
-                                      currentUser._id,
-                                      post.user._id
-                                    )
-                                  )
-                                }
-                              >
-                                Friend request pending
-                              </Button>
-                            ) : (
-                              ""
-                            )} */}
+                      <div className="d-flex">
+                    <h6>
+                      {post.user.name} {post.user.surname}
+                    </h6>
+                    {currentUser.social.friends.find(
+                      (e: User) => e._id === post.user._id
+                    ) ||
+                    currentUser.social.sent.find(
+                      (e: User) => e._id === post.user._id
+                    ) ||
+                    currentUser.social.pending.find(
+                      (e: User) => e._id === post.user._id
+                    ) ||
+                    currentUser._id === post.user._id ? (
+                      ""
+                    ) : (
+                      <Button
+                        className="friend-button ml-2"
+                        onClick={() =>
+                          dispatch(
+                            friendRequest(currentUser._id, post.user._id)
+                          )
+                        }
+                      >
+                        Add friend
+                      </Button>
+                    )}
+                  </div>
                         <h6 className="post-user-title">{post.user.title}</h6>
                         <h6 className="post-user-title">
                           {formatDistanceToNowStrict(parseISO(post.createdAt))}{" "}
