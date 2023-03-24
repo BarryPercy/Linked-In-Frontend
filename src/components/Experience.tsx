@@ -11,7 +11,8 @@ import { useEffect, useState } from "react";
 import { BsPencil, BsPlusLg } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { AiOutlineCloudDownload } from "react-icons/ai";
 // import { parseISO, format } from "date-fns";
 
 interface Experiences {
@@ -31,6 +32,9 @@ interface Experiences {
 const Experience = () => {
   const dispatch = useAppDispatch();
   let experiences = useAppSelector((state) => (state.exps as any).expList);
+  let currentProfileUser = useAppSelector(
+    (state) => state.users.currentProfileUser
+  );
   const [expId, setExpId] = useState("");
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
@@ -93,8 +97,8 @@ const Experience = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(newExp)
-    dispatch(postUserExp(userId,newExp,file));
+    console.log(newExp);
+    dispatch(postUserExp(userId, newExp, file));
     handleClose();
   };
   const handleClose2 = () => setShow2(false);
@@ -244,7 +248,15 @@ const Experience = () => {
               </div>
             </div>
             <Card.Title>
-              <h4>Experience</h4>
+              <h4>
+                Experience{" "}
+                <Link
+                  className="pdf-btn ml-2"
+                  to={`${process.env.REACT_APP_BACK_END}/api/users/${currentProfileUser._id}/experiences/CSV`}
+                >
+                  <AiOutlineCloudDownload />
+                </Link>
+              </h4>
             </Card.Title>
             {experiences.map((experience: Experiences) => {
               return (
