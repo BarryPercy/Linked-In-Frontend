@@ -650,7 +650,7 @@ export const friendRequest = (sender, reciver) => {
         { method: "POST" }
       );
       if (res.ok) {
-        dispatch(getMyUser());
+        dispatch(getMyUser(sender));
         console.log("Friend requested success");
       } else {
         console.log("Friend request failed");
@@ -669,7 +669,7 @@ export const friendAccept = (sender, reciver) => {
         { method: "POST" }
       );
       if (res.ok) {
-        dispatch(getMyUser());
+        dispatch(getMyUser(sender));
         console.log("Friend accepted");
       } else {
         console.log("Friend accept failed");
@@ -688,7 +688,7 @@ export const cancelRequest = (sender, reciver) => {
         { method: "POST" }
       );
       if (res.ok) {
-        dispatch(getMyUser());
+        dispatch(getMyUser(sender));
         console.log("Friend request cancel");
       } else {
         console.log("Friend request error");
@@ -707,7 +707,7 @@ export const friendCancel = (sender, reciver) => {
         { method: "POST" }
       );
       if (res.ok) {
-        dispatch(getMyUser());
+        dispatch(getMyUser(sender));
         console.log("Friend deleted");
       } else {
         console.log("Friend cancel failed");
