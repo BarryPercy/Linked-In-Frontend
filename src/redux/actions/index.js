@@ -680,6 +680,25 @@ export const friendAccept = (sender, reciver) => {
     }
   };
 };
+export const cancelRequest = (sender, reciver) => {
+  return async (dispatch) => {
+    try {
+      const res = await fetch(
+        process.env.REACT_APP_BACK_END +
+          `/api/users/${sender}/cancelrequest/${reciver}`,
+        { method: "POST" }
+      );
+      if (res.ok) {
+        dispatch(getMyUser());
+        console.log("Friend request cancel");
+      } else {
+        console.log("Friend request error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 export const friendCancel = (sender, reciver) => {
   return async (dispatch) => {
     try {
