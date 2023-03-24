@@ -41,7 +41,7 @@ const Profile = () => {
       <div className="my-3">
         <Modal show={show} onHide={handleClose} size="lg">
           <Modal.Header closeButton>
-            <Modal.Title>Edit NAME SHOULD BE HERE's Profile</Modal.Title>
+            <Modal.Title>Edit {currentProfileUser.name}'s Profile</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>

@@ -14,9 +14,10 @@ interface PostInterface {
   comments: Comment[];
   likes: User[];
 }
-interface Comment {
-  _id: string;
-  comment: string;
+interface Comment{
+  _id:string;
+  comment:string;
+  user:User;
 }
 interface User {
   _id: string;
@@ -48,13 +49,11 @@ const Posts = () => {
   }, []);
   return (
     <div>
-      {posts.length > 0 ? (
-        postsReverse.map((post: PostInterface, i: number) => {
-          return <Post post={post} key={i} />;
-        })
-      ) : (
-        <p>No Posts yet!</p>
-      )}
+      {posts.length>0? postsReverse.map((post: PostInterface) => {
+        return(
+            <Post key={post._id} post={post}/>
+        )
+      }):<p>No Posts yet!</p>}
     </div>
   );
 };

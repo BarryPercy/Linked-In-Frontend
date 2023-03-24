@@ -249,7 +249,7 @@ const Education = () => {
                     alt=""
                   />
                   <div className="d-flex flex-column">
-                    <h5>{education.degree}</h5>
+                    <h5>{education.field}</h5>
                     <h6>{education.school}</h6>
                     <h6 className="grey-text">
                       {new Date(education.startDate).toLocaleDateString(
@@ -266,7 +266,7 @@ const Education = () => {
                         }
                       )}
                     </h6>
-                    <h6 className="grey-text">{education.field}</h6>
+                    <h6 className="grey-text">{education.degree}</h6>
                     <h6>{education.description}</h6>
                     <hr />
                   </div>
