@@ -7,17 +7,20 @@ import { getSpecificUser, updateUser } from "../redux/actions";
 import { useParams } from "react-router-dom";
 
 const About = () => {
-  let currentProfileUser = useAppSelector((state) => state.users.currentProfileUser);
+  let currentProfileUser = useAppSelector(
+    (state) => state.users.currentProfileUser
+  );
+  let currentUser = useAppSelector((state) => state.users.currentUser);
   let [show, setShow] = useState(false);
   let handleClose = () => setShow(false);
   let handleShow = () => {
     setShow(true);
-    selectEditAbout()
-  }
+    selectEditAbout();
+  };
 
   const selectEditAbout = async () => {
-      setEditAbout({bio:currentProfileUser.bio});
-  }
+    setEditAbout({ bio: currentProfileUser.bio });
+  };
   let dispatch = useAppDispatch();
   const { userId } = useParams();
   const [editAbout, setEditAbout] = useState({
@@ -25,7 +28,7 @@ const About = () => {
   });
 
   const handleSubmit = () => {
-    dispatch(updateUser(editAbout,userId,null));
+    dispatch(updateUser(editAbout, userId, null));
     handleClose();
   };
   return (
@@ -68,17 +71,19 @@ const About = () => {
               className="edit-main mr-4
               "
             >
-              <BsPencil
-                style={{ cursor: "pointer" }}
-                className="pencil-icon"
-                onClick={handleShow}
-              />
+              {currentProfileUser._id === currentUser._id && (
+                <BsPencil
+                  style={{ cursor: "pointer" }}
+                  className="pencil-icon"
+                  onClick={handleShow}
+                />
+              )}
             </div>
             <Card.Title>
               <h4>About</h4>
             </Card.Title>
             <Card.Text>
-            {currentProfileUser!==undefined ?currentProfileUser.bio:""}
+              {currentProfileUser !== undefined ? currentProfileUser.bio : ""}
             </Card.Text>{" "}
           </Card.Body>
         </Card>
