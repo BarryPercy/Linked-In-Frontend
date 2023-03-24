@@ -20,7 +20,12 @@ import { FaBell } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { friendAccept, friendCancel, friendRequest } from "../redux/actions";
+import {
+  cancelRequest,
+  friendAccept,
+  friendCancel,
+  friendRequest,
+} from "../redux/actions";
 
 interface User {
   _id: string;
@@ -105,6 +110,15 @@ const TopNav = () => {
                       }}
                     >
                       Accept request
+                    </Button>
+                    <Button
+                      variant="danger"
+                      className="friend-button ml-2"
+                      onClick={() => {
+                        dispatch(cancelRequest(currentUser._id, e._id));
+                      }}
+                    >
+                      Cancel request
                     </Button>
                   </div>
                 );

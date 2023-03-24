@@ -20,7 +20,7 @@ export const GET_POST = "GET_POST";
 export const POST_POST = "POST_POST";
 export const EDIT_POST = "EDIT_POSTS";
 export const DELETE_POST = "DELETE_POSTS";
-export const GET_COMMENTS = "GET_COMMENTS"
+export const GET_COMMENTS = "GET_COMMENTS";
 // USERS
 
 export const getMyUser = () => {
@@ -166,8 +166,6 @@ export const profileImage = (userId, imageFile) => {
     } catch (error) {}
   };
 };
-
-
 
 //GET CV -> HREF to `${process.env.REACT_APP_BACK_END}/api/profile/users/`+userId+"/CV"
 
@@ -683,6 +681,25 @@ export const friendAccept = (sender, reciver) => {
     }
   };
 };
+export const cancelRequest = (sender, reciver) => {
+  return async (dispatch) => {
+    try {
+      const res = await fetch(
+        process.env.REACT_APP_BACK_END +
+          `/api/users/${sender}/cancelrequest/${reciver}`,
+        { method: "POST" }
+      );
+      if (res.ok) {
+        dispatch(getMyUser());
+        console.log("Friend request cancel");
+      } else {
+        console.log("Friend request error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 export const friendCancel = (sender, reciver) => {
   return async (dispatch) => {
     try {
@@ -708,21 +725,24 @@ export const postLikes = (postId, userId) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/posts/`+postId+"/likes/"+userId,
+        `${process.env.REACT_APP_BACK_END}/api/posts/` +
+          postId +
+          "/likes/" +
+          userId,
         {
           method: "POST",
         }
       );
       if (response.ok) {
         const data = await response.json();
-        console.log("likes data->",data)
-        
-        dispatch(fetchPosts())
+        console.log("likes data->", data);
+
+        dispatch(fetchPosts());
       } else {
         console.log("Like operation failed");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 };
@@ -731,17 +751,17 @@ export const postComment = (comment, postId) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/posts/`+postId+"/comments",
+        `${process.env.REACT_APP_BACK_END}/api/posts/` + postId + "/comments",
         {
           method: "POST",
           body: JSON.stringify(comment),
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
         }
       );
       if (response.ok) {
-        dispatch(fetchPosts())
+        dispatch(fetchPosts());
       } else {
         console.log("Uh oh!");
       }
@@ -755,11 +775,11 @@ export const getComments = (comment, postId) => {
   return async (dispatch) => {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BACK_END}/api/posts/`+postId+"/comments",
+        `${process.env.REACT_APP_BACK_END}/api/posts/` + postId + "/comments"
       );
       if (response.ok) {
         let data = await response.json();
-        console.log(data)
+        console.log(data);
         dispatch({
           type: GET_COMMENTS,
           payload: data,
