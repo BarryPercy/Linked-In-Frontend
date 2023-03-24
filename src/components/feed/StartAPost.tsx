@@ -41,7 +41,10 @@ export default function StartAPost() {
               className="recommended-user-image mr-1 d-flex p-3"
               style={{ objectFit: "cover" }}
             >
-              <Image className="avatar-post" src={currentUser.image} />
+              <Image
+                className="avatar-post"
+                src={currentUser.image}
+              />
               <Button
                 id="start-a-post"
                 className="start-a-post-button d-flex border ml-3 p-1"

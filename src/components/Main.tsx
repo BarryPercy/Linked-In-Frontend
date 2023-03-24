@@ -4,7 +4,7 @@ import Experience from "./Experience";
 import Footer from "./Footer";
 import Profile from "./Profile";
 import Sidebar from "./Sidebar";
-import Skills from "./Skills";
+// import Skills from "./Skills";
 import Education from "./Education";
 import { EditProfile } from "./EditProfile";
 import { useEffect, useState } from "react";
@@ -35,7 +35,7 @@ const Main = () => {
             <About />
             <Education />
             <Experience />
-            <Skills />
+            {/* <Skills /> */}
           </Col>
           <Col className="col-lg-2 col-md-2 col-sm-12 mt-2">
             <EditProfile />

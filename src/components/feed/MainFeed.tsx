@@ -13,9 +13,6 @@ import { getMyUser } from "../../redux/actions";
 //
 const MainFeed = () => {
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getMyUser());
-  }, []);
   return (
     <>
       <TopNav />
