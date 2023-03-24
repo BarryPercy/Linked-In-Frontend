@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getMyUser } from "../redux/actions";
@@ -19,7 +18,6 @@ interface User {
 }
 
 const LoginIcon = (props: User & { children?: React.ReactNode }) => {
-  console.log(props);
   const dispatch = useAppDispatch();
   const changeUser = () => {
     dispatch(getMyUser(props._id));

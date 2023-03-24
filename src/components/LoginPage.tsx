@@ -29,9 +29,7 @@ const LoginPage = () => {
         `);
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         setMonguese((prevMonguese) => [...prevMonguese, data]);
-        console.log(monguese);
       } else {
         console.log("Uh oh!");
       }
@@ -39,7 +37,6 @@ const LoginPage = () => {
       console.log(error);
     }
   };
-  console.log(monguese);
 
   useEffect(() => {
     getUser("641844fd7cc3b85262016def");
@@ -54,8 +51,8 @@ const LoginPage = () => {
       <h2 className="my-5">Click on your profile to start!</h2>
       <div className="d-flex justify-content-between mx-5 pt-5">
         {monguese.length > 0 &&
-          monguese.map((mongoose: User) => {
-            return <LoginIcon key={mongoose._id} {...mongoose} />;
+          monguese.map((mongoose: User, i: number) => {
+            return <LoginIcon key={i} {...mongoose} />;
           })}
       </div>
     </Container>
