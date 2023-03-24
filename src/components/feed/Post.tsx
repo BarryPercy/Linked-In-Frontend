@@ -97,7 +97,7 @@ const Post: React.FC<PostProps> = ({post}) => {
               setOpenComments([...openComments,idOfPost])
 
             } else {
-              console.log("Uh oh!");
+              console.log("Uh oh!!");
             }
           } catch (error) {
             console.log(error)
