@@ -43,6 +43,7 @@ const TopNav = () => {
   const handleClose2 = () => setShow2(false);
   const handleShow = () => setShow(true);
   const handleShow2 = () => setShow2(true);
+
   return (
     <Navbar bg="white" expand="lg" fixed="top">
       <Modal show={show} onHide={handleClose}>
@@ -66,86 +67,91 @@ const TopNav = () => {
           <Modal.Title>My Network</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {currentUser.friends !== undefined ? (
+          {currentUser ? (
             <div className="">
               <h6>Friends list:</h6>
-              {currentUser.social.friends.map((e: User, i: number) => {
-                return (
-                  <div key={i} className="d-flex align-items-center mb-2">
-                    <img
-                      src={e.image}
-                      alt={"user avatar"}
-                      className="friends-image mr-2"
-                    />
-                    <span className="mr-1">{e.name}</span>
-                    <span>{e.surname}</span>
-                    <Button
-                      variant="danger"
-                      className="friend-button ml-2"
-                      onClick={() => {
-                        dispatch(friendCancel(currentUser._id, e._id));
-                      }}
-                    >
-                      Remove friend
-                    </Button>
-                  </div>
-                );
-              })}
+              {currentUser.social &&
+                currentUser.social.friends.map((e: User, i: number) => {
+                  return (
+                    <div key={i} className="d-flex align-items-center mb-2">
+                      <img
+                        src={e.image}
+                        alt={"user avatar"}
+                        className="friends-image mr-2"
+                      />
+                      <span className="mr-1">{e.name}</span>
+                      <span>{e.surname}</span>
+                      <Button
+                        variant="danger"
+                        className="friend-button ml-2"
+                        onClick={() => {
+                          dispatch(friendCancel(currentUser._id, e._id));
+                        }}
+                      >
+                        Remove friend
+                      </Button>
+                    </div>
+                  );
+                })}
+
               <h6>Pending requests:</h6>
-              {currentUser.social.pending.map((e: User, i: number) => {
-                return (
-                  <div key={i} className="d-flex align-items-center mb-2">
-                    <img
-                      src={e.image}
-                      alt={"user avatar"}
-                      className="friends-image mr-2"
-                    />
-                    <span className="mr-1">{e.name}</span>
-                    <span>{e.surname}</span>
-                    <Button
-                      variant="info"
-                      className="friend-button ml-2"
-                      onClick={() => {
-                        dispatch(friendAccept(currentUser._id, e._id));
-                      }}
-                    >
-                      Accept request
-                    </Button>
-                    <Button
-                      variant="danger"
-                      className="friend-button ml-2"
-                      onClick={() => {
-                        dispatch(cancelRequest(currentUser._id, e._id));
-                      }}
-                    >
-                      Cancel request
-                    </Button>
-                  </div>
-                );
-              })}
+              {currentUser.social &&
+                currentUser.social.pending.map((e: User, i: number) => {
+                  return (
+                    <div key={i} className="d-flex align-items-center mb-2">
+                      <img
+                        src={e.image}
+                        alt={"user avatar"}
+                        className="friends-image mr-2"
+                      />
+                      <span className="mr-1">{e.name}</span>
+                      <span>{e.surname}</span>
+                      <Button
+                        variant="info"
+                        className="friend-button ml-2"
+                        onClick={() => {
+                          dispatch(friendAccept(currentUser._id, e._id));
+                        }}
+                      >
+                        Accept request
+                      </Button>
+                      <Button
+                        variant="danger"
+                        className="friend-button ml-2"
+                        onClick={() => {
+                          dispatch(cancelRequest(currentUser._id, e._id));
+                        }}
+                      >
+                        Cancel request
+                      </Button>
+                    </div>
+                  );
+                })}
+
               <h6>Sent requests:</h6>
-              {currentUser.social.sent.map((e: User, i: number) => {
-                return (
-                  <div key={i} className="d-flex align-items-center">
-                    <img
-                      src={e.image}
-                      alt={"user avatar"}
-                      className="friends-image mr-2"
-                    />
-                    <span className="mr-1">{e.name}</span>
-                    <span>{e.surname}</span>
-                    <Button
-                      variant="warning"
-                      className="friend-button ml-2"
-                      onClick={() => {
-                        dispatch(friendRequest(currentUser._id, e._id));
-                      }}
-                    >
-                      Cancel request
-                    </Button>
-                  </div>
-                );
-              })}
+              {currentUser.social &&
+                currentUser.social.sent.map((e: User, i: number) => {
+                  return (
+                    <div key={i} className="d-flex align-items-center">
+                      <img
+                        src={e.image}
+                        alt={"user avatar"}
+                        className="friends-image mr-2"
+                      />
+                      <span className="mr-1">{e.name}</span>
+                      <span>{e.surname}</span>
+                      <Button
+                        variant="warning"
+                        className="friend-button ml-2"
+                        onClick={() => {
+                          dispatch(friendRequest(currentUser._id, e._id));
+                        }}
+                      >
+                        Cancel request
+                      </Button>
+                    </div>
+                  );
+                })}
             </div>
           ) : (
             ""
