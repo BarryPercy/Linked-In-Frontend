@@ -12,7 +12,7 @@ interface PostInterface {
   __v: number;
   image: string;
   comments: Comment[];
-  likes: string[];
+  likes: User[];
 }
 interface Comment{
   _id:string;

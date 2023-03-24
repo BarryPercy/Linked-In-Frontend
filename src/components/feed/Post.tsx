@@ -17,7 +17,7 @@ interface PostInterface {
     __v: number;
     image: string;
     comments: Comment[];
-    likes: string[];
+    likes: User[];
   }
   interface Comment{
     _id:string;
@@ -47,10 +47,12 @@ interface PostInterface {
   }
 
 const Post: React.FC<PostProps> = ({post}) => {
+    let currentUser = useAppSelector((state) => state.users.currentUser);
     const [currentId, setCurrentId] = useState("");
     const dispatch = useAppDispatch();
     const handlePostClose = () => setShow(false);
     const [openComments, setOpenComments] = useState<string[]>([]);
+    const [currentPost, setCurrentPost] = useState<PostInterface|null>(null)
     const toggleComments=(idOfPost:string)=>{
     if (openComments.includes(idOfPost)){
         setOpenComments(openComments.filter(id=>id!==idOfPost))
@@ -85,7 +87,21 @@ const Post: React.FC<PostProps> = ({post}) => {
         text: "",
       })
     const [show, setShow] = useState(false);
-    let currentUser = useAppSelector((state) => state.users.currentUser);
+    const getThisPost = async()=>{
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_BACK_END}/api/posts/` + post._id
+        );
+        if (response.ok) {
+          let data = await response.json();
+          setCurrentPost(data);
+        } else {
+          console.log("Fetching Post " + post._id + " went wrong");
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
     useEffect(() => {
       dispatch(getComments(post._id));
     }, []);
@@ -225,7 +241,8 @@ const Post: React.FC<PostProps> = ({post}) => {
                     className="justify-content-center d-flex comment-icon"
                     onClick={()=>clickLike(post._id)}
                   >
-                    <AiOutlineLike size={22} className="icon-flipped"/>
+                    {currentPost?.likes.some(item=>item._id===currentUser._id)? "NOT LIKE":<AiOutlineLike size={22} className="icon-flipped"/>}
+                    
                     Like
                   </Col>
                   <Col
