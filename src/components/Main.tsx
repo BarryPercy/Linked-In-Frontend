@@ -16,6 +16,12 @@ import { useParams } from "react-router-dom";
 import TopNav from "./TopNav";
 
 const Main = () => {
+  let currentProfileUser = useAppSelector(
+    (state) => state.users.currentProfileUser
+  );
+  let currentUser = useAppSelector(
+    (state) => state.users.currentUser
+  );
   const dispatch = useAppDispatch();
   const { userId } = useParams();
   useEffect(() => {
@@ -26,7 +32,8 @@ const Main = () => {
   return (
     <>
       <TopNav />
-      <SecondNav />
+      {currentProfileUser._id===currentUser._id? <SecondNav />:""}
+      
       <Container fluid className="my-5 pt-3 profile-container">
         <Row className="d-flex ">
           <Col className="col-lg-2"></Col>

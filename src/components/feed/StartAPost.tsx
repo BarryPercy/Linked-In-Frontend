@@ -10,7 +10,10 @@ export default function StartAPost() {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const [post, setPost] = useState("");
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setImage(null)
+  }
   const handleShow = () => setShow(true);
   const dispatch = useAppDispatch();
   const [image, setImage] = useState<File | null | undefined>(null);
@@ -27,7 +30,10 @@ export default function StartAPost() {
   };
 
   //  This is for the upload modal
-  const handleClose2 = () => setShow2(false);
+  const handleClose2 = () => {
+    setShow2(false);
+  }
+
   const handleShow2 = () => {
     setShow2(true);
   };

@@ -6,6 +6,9 @@ const SecondNav = () => {
   let currentProfileUser = useAppSelector(
     (state) => state.users.currentProfileUser
   );
+  let currentUser = useAppSelector(
+    (state) => state.users.currentUser
+  );
   function handleScroll() {
     const distance = window.scrollY;
     const nav = document.querySelector(".secondary-nav");
