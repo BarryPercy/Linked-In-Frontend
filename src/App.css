@@ -94,3 +94,9 @@
   height: 25px;
   border-radius: 20px;
 }
+
+.avatar-post {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}

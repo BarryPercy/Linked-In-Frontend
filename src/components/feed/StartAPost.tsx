@@ -1,8 +1,5 @@
 import { MdPhotoSizeSelectActual, MdOutlineArticle } from "react-icons/md";
-import {
-  BsFillPlayBtnFill,
-  BsBriefcaseFill,
-} from "react-icons/bs";
+import { BsFillPlayBtnFill, BsBriefcaseFill } from "react-icons/bs";
 import { Card, Image, Button, Modal } from "react-bootstrap";
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
@@ -21,7 +18,7 @@ export default function StartAPost() {
   const handleSubmit = () => {
     const object = {
       text: "",
-      user:currentUser._id
+      user: currentUser._id,
     };
     object.text += post;
     dispatch(postPost(object, image));
@@ -44,11 +41,7 @@ export default function StartAPost() {
               className="recommended-user-image mr-1 d-flex p-3"
               style={{ objectFit: "cover" }}
             >
-              <Image
-                className="avatar"
-                src={currentUser.image}
-                style={{ height: "100%" }}
-              />
+              <Image className="avatar-post" src={currentUser.image} />
               <Button
                 id="start-a-post"
                 className="start-a-post-button d-flex border ml-3 p-1"
