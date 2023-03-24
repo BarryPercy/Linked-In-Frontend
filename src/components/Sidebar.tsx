@@ -1,7 +1,7 @@
 import { Card, Button, Image } from "react-bootstrap";
 import { MdPersonAddAlt1 } from "react-icons/md";
 // import { SlArrowDown } from "react-icons/sl";
-import { getUsers } from "../redux/actions";
+import { friendRequest, getUsers } from "../redux/actions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { useEffect } from "react";
 import { BsQuestionCircleFill } from "react-icons/bs";
@@ -19,6 +19,13 @@ interface User {
   createdAt: string; // server generated
   updatedAt: string; // server generated
   __v: number; // server generated
+  social: Social;
+}
+
+interface Social {
+  pending: string[];
+  sent: string[];
+  friends: string[];
 }
 
 interface SideBarProps {
@@ -29,11 +36,13 @@ interface SideBarProps {
 const Sidebar = (props: SideBarProps) => {
   const dispatch = useAppDispatch();
   let users = useAppSelector((state) => state.users.userList);
+  let currentUser = useAppSelector((state) => state.users.currentUser);
   let reverseUsers = [...users].reverse();
   let fewUsers = reverseUsers.slice(props.firstIndex, props.secondIndex);
 
   useEffect(() => {
     dispatch(getUsers());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -54,13 +63,32 @@ const Sidebar = (props: SideBarProps) => {
                     {user.name} {user.surname}
                   </Card.Title>
                   <Card.Text>{user.title}</Card.Text>
-                  <Button className="connect-btn" variant="outline-secondary">
-                    <MdPersonAddAlt1 className="mr-1" />
-                    Connect
-                  </Button>
+                  {user._id === currentUser._id ||
+                  currentUser.social.friends.find(
+                    (e: User) => e._id === user._id
+                  ) ||
+                  currentUser.social.sent.find(
+                    (e: User) => e._id === user._id
+                  ) ||
+                  currentUser.social.pending.find(
+                    (e: User) => e._id === user._id
+                  ) ? (
+                    ""
+                  ) : (
+                    <Button
+                      className="connect-btn"
+                      variant="outline-secondary"
+                      onClick={() =>
+                        dispatch(friendRequest(currentUser._id, user._id))
+                      }
+                    >
+                      <MdPersonAddAlt1 className="mr-1" />
+                      Connect
+                    </Button>
+                  )}
                 </Card.Body>
               </div>
-              {index!==fewUsers.length-1&&<hr className="line-1" />}
+              {index !== fewUsers.length - 1 && <hr className="line-1" />}
             </Card>
           );
         })}

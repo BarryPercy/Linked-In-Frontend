@@ -19,9 +19,7 @@ const Main = () => {
   let currentProfileUser = useAppSelector(
     (state) => state.users.currentProfileUser
   );
-  let currentUser = useAppSelector(
-    (state) => state.users.currentUser
-  );
+  let currentUser = useAppSelector((state) => state.users.currentUser);
   const dispatch = useAppDispatch();
   const { userId } = useParams();
   useEffect(() => {
@@ -32,8 +30,8 @@ const Main = () => {
   return (
     <>
       <TopNav />
-      {currentProfileUser._id===currentUser._id? <SecondNav />:""}
-      
+      {currentProfileUser._id === currentUser._id ? <SecondNav /> : ""}
+
       <Container fluid className="my-5 pt-3 profile-container">
         <Row className="d-flex ">
           <Col className="col-lg-2"></Col>
@@ -47,7 +45,6 @@ const Main = () => {
           <Col className="col-lg-2 col-md-2 col-sm-12 mt-2">
             <EditProfile />
             <Sidebar firstIndex={0} secondIndex={5} />
-            <Sidebar firstIndex={5} secondIndex={10} />
           </Col>
           <Col className="col-lg-2"></Col>
         </Row>
