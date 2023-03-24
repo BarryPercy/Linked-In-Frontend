@@ -1,6 +1,6 @@
 import { fetchPosts } from "../../redux/actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { useEffect, } from "react";
+import { useEffect } from "react";
 import Post from "./Post";
 
 interface PostInterface {
@@ -14,9 +14,9 @@ interface PostInterface {
   comments: Comment[];
   likes: User[];
 }
-interface Comment{
-  _id:string;
-  comment:string;
+interface Comment {
+  _id: string;
+  comment: string;
 }
 interface User {
   _id: string;
@@ -42,17 +42,19 @@ interface Social {
 const Posts = () => {
   const dispatch = useAppDispatch();
   let posts = useAppSelector((state) => state.posts.postList);
-  let postsReverse = [...posts].reverse()
+  let postsReverse = [...posts].reverse();
   useEffect(() => {
     dispatch(fetchPosts());
   }, []);
   return (
     <div>
-      {posts.length>0? postsReverse.map((post: PostInterface) => {
-        return(
-            <Post post={post}/>
-        )
-      }):<p>No Posts yet!</p>}
+      {posts.length > 0 ? (
+        postsReverse.map((post: PostInterface, i: number) => {
+          return <Post post={post} key={i} />;
+        })
+      ) : (
+        <p>No Posts yet!</p>
+      )}
     </div>
   );
 };
