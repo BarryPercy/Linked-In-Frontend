@@ -12,16 +12,12 @@ import LoginPage from "./components/LoginPage";
 
 const App = () => {
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getMyUser());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile/:userId" element={<Main />}></Route>
-        <Route path="/" element={<MainFeed />}></Route>
+        <Route path="/" element={<LoginPage />}></Route>
         <Route path="/feed/" element={<MainFeed />}></Route>
         <Route path="/profile/:userId" element={<h1>testing</h1>} />
       </Routes>

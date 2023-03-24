@@ -26,7 +26,7 @@ const LoginIcon = (props: User & { children?: React.ReactNode }) => {
   };
 
   return (
-    <Link to="/" onClick={changeUser}>
+    <Link to="/feed" onClick={changeUser}>
       <Card className="profileLoginIcon">
         <Card.Img
           className="profileImage mt-3"

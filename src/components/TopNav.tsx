@@ -72,7 +72,7 @@ const TopNav = () => {
               {currentUser.social.friends.map((e: User, i: number) => {
                 return (
                   <div key={i} className="d-flex align-items-center mb-2">
-                    <img
+                    <Image
                       src={e.image}
                       alt={"user avatar"}
                       className="friends-image mr-2"
@@ -95,7 +95,7 @@ const TopNav = () => {
               {currentUser.social.pending.map((e: User, i: number) => {
                 return (
                   <div key={i} className="d-flex align-items-center mb-2">
-                    <img
+                    <Image
                       src={e.image}
                       alt={"user avatar"}
                       className="friends-image mr-2"
@@ -127,7 +127,7 @@ const TopNav = () => {
               {currentUser.social.sent.map((e: User, i: number) => {
                 return (
                   <div key={i} className="d-flex align-items-center">
-                    <img
+                    <Image
                       src={e.image}
                       alt={"user avatar"}
                       className="friends-image mr-2"

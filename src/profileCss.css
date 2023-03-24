@@ -235,6 +235,7 @@ a.profile-text:hover {
     width: 95px;
     height: 95px;
     border: 2px solid white;
+    object-fit: cover;
   }
 }
 
@@ -727,7 +728,10 @@ Posts Css Below Here
 }
 
 .user-image {
-  width: 30px;
+  width: 32px;
+  height:32px;
+  border-radius: 50%!important;
+  object-fit: cover;
 }
 
 .post-image-changes {

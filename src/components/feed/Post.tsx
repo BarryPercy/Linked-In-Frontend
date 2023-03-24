@@ -83,10 +83,10 @@ const Post: React.FC<PostProps> = ({post}) => {
         post:idOfPost
         }
         console.log(object)
-        dispatch(postComment(object,idOfPost))
+        await dispatch(postComment(object,idOfPost))
+        setNewComment({text:""})
         if(openComments.includes(idOfPost)){
         }else{
-          setOpenComments([...openComments,idOfPost])
           try {
             let response = await fetch(
               `${process.env.REACT_APP_BACK_END}/api/posts/`+idOfPost+"/comments",
@@ -94,7 +94,7 @@ const Post: React.FC<PostProps> = ({post}) => {
             if (response.ok) {
               let data = await response.json();
               setCurrentComments(data)
-              console.log("current comments->",currentComments)
+              setOpenComments([...openComments,idOfPost])
 
             } else {
               console.log("Uh oh!");
@@ -256,7 +256,10 @@ const Post: React.FC<PostProps> = ({post}) => {
                 
                 </Row>
                 <hr />
-                <Form>
+                <Form onSubmit={(event)=>{
+                    event.preventDefault();
+                    handleCommentSubmit(post._id)
+                  }}>
                 <Row>
                 
                   <Col
@@ -306,6 +309,7 @@ const Post: React.FC<PostProps> = ({post}) => {
                       <Form.Control
                         type="text"
                         placeholder="Add a comment..."
+                        value={newComment.text}
                         style={{ borderRadius: "30px"}}
                         onChange={(e) => {
                           setNewComment({
