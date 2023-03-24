@@ -211,8 +211,12 @@ export const postUserExp = (userId, newExp, image) => {
       );
       if (response.ok) {
         let data = await response.json();
-        console.log("data in post action->", data);
-        dispatch(postUserImageExp(userId, data._id, image));
+        if(image!=null){
+          dispatch(postUserImageExp(userId, data._id, image));
+        }else{
+          fetchUserExps(userId)
+        }
+        
       } else {
         console.log("Failure to post new experience!");
       }
@@ -371,8 +375,12 @@ export const postUserEdu = (userId, newEdu, image) => {
       );
       if (response.ok) {
         let data = await response.json();
-        console.log("data in post action->", data);
-        dispatch(postUserImageEdu(userId, data._id, image));
+       
+        if(image!=null){
+          dispatch(postUserImageEdu(userId, data._id, image));
+        }else{
+          fetchUserEdus(userId)
+        }
       } else {
         console.log("Failure to post new experience!");
       }
