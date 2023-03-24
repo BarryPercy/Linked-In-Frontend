@@ -733,8 +733,8 @@ export const postLikes = (postId, userId) => {
       );
       if (response.ok) {
         //const data = await response.json();
-        
-        dispatch(fetchPosts())
+
+        dispatch(fetchPosts());
       } else {
         console.log("Like operation failed");
       }
