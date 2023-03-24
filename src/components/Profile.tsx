@@ -13,6 +13,7 @@ const Profile = () => {
   let currentProfileUser = useAppSelector(
     (state) => state.users.currentProfileUser
   );
+  let currentUser = useAppSelector((state) => state.users.currentUser);
   let [show, setShow] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const { userId } = useParams();
@@ -166,21 +167,23 @@ const Profile = () => {
           </Card>
         </div>
 
-        <div className="ml-3 button-area pb-3">
-          <Button className="px-3 open-btn" variant="primary">
-            Open to
-          </Button>{" "}
-          <Button
-            className="add-btn"
-            variant="outline-primary"
-            onClick={handleShow}
-          >
-            Edit Profile
-          </Button>{" "}
-          <Button className="more-btn" variant="outline-secondary">
-            More
-          </Button>
-        </div>
+        {userId === currentUser._id && (
+          <div className="ml-3 button-area pb-3">
+            <Button className="px-3 open-btn" variant="primary">
+              Open to
+            </Button>{" "}
+            <Button
+              className="add-btn"
+              variant="outline-primary"
+              onClick={handleShow}
+            >
+              Edit Profile
+            </Button>{" "}
+            <Button className="more-btn" variant="outline-secondary">
+              More
+            </Button>
+          </div>
+        )}
       </div>
     </Col>
   );

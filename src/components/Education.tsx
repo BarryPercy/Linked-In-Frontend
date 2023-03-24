@@ -32,6 +32,10 @@ interface Education {
 const Education = () => {
   const dispatch = useAppDispatch();
   let education = useAppSelector((state) => (state.edus as any).eduList);
+  let currentUser = useAppSelector((state) => state.users.currentUser);
+  let currentProfileUser = useAppSelector(
+    (state) => state.users.currentProfileUser
+  );
   const [eduId, setEduId] = useState("");
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
@@ -42,7 +46,7 @@ const Education = () => {
     setNewEdu({
       field: "",
       school: "",
-      degree:"",
+      degree: "",
       startDate: "",
       endDate: "",
       description: "",
@@ -54,7 +58,7 @@ const Education = () => {
   const [newEdu, setNewEdu] = useState({
     field: "",
     school: "",
-    degree:"",
+    degree: "",
     startDate: "",
     endDate: "",
     description: "",
@@ -92,8 +96,8 @@ const Education = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(newEdu)
-    dispatch(postUserEdu(userId,newEdu,file));
+    console.log(newEdu);
+    dispatch(postUserEdu(userId, newEdu, file));
     handleClose();
   };
   const handleClose2 = () => setShow2(false);
@@ -102,7 +106,7 @@ const Education = () => {
     const editedEdu = {
       field: newEdu.field,
       school: newEdu.school,
-      degree:newEdu.degree,
+      degree: newEdu.degree,
       startDate: newEdu.startDate,
       endDate: newEdu.endDate,
       description: newEdu.description,
@@ -227,15 +231,17 @@ const Education = () => {
               className="edit-main mr-4
                         "
             >
-              <div className="d-flex">
-                <h5>
-                  <BsPlusLg
-                    style={{ cursor: "pointer" }}
-                    className="plus-icon mr-4"
-                    onClick={handleShow}
-                  />
-                </h5>
-              </div>
+              {currentProfileUser._id === currentUser._id && (
+                <div className="d-flex">
+                  <h5>
+                    <BsPlusLg
+                      style={{ cursor: "pointer" }}
+                      className="plus-icon mr-4"
+                      onClick={handleShow}
+                    />
+                  </h5>
+                </div>
+              )}
             </div>
             <Card.Title>
               <h4>Education</h4>
@@ -257,26 +263,25 @@ const Education = () => {
                         { year: "numeric", month: "2-digit", day: "2-digit" }
                       )}
                       -{" "}
-                      {new Date(education.endDate).toLocaleDateString(
-                        "en-US",
-                        {
-                          year: "numeric",
-                          month: "2-digit",
-                          day: "2-digit",
-                        }
-                      )}
+                      {new Date(education.endDate).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      })}
                     </h6>
                     <h6 className="grey-text">{education.degree}</h6>
                     <h6>{education.description}</h6>
                     <hr />
                   </div>
-                  <BsPencil
-                    className="pencil-icon"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      handleShow2(education._id);
-                    }}
-                  />
+                  {currentProfileUser._id === currentUser._id && (
+                    <BsPencil
+                      className="pencil-icon"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        handleShow2(education._id);
+                      }}
+                    />
+                  )}
                   <Modal show={show2} onHide={handleClose2} size="lg">
                     <Modal.Header closeButton>
                       <Modal.Title>Edit Education</Modal.Title>

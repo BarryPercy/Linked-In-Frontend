@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { BsPencil, BsPlusLg } from "react-icons/bs";
+import { useAppSelector } from "../redux/hooks";
 
 interface Skill {
   id: number;
@@ -8,6 +9,10 @@ interface Skill {
 }
 
 const Skills: React.FC = () => {
+  let currentUser = useAppSelector((state) => state.users.currentUser);
+  let currentProfileUser = useAppSelector(
+    (state) => state.users.currentProfileUser
+  );
   const [skills, setSkills] = useState<Skill[]>([
     { id: 1, name: "JavaScript" },
     { id: 2, name: "React" },
@@ -51,23 +56,28 @@ const Skills: React.FC = () => {
         <Card>
           <Card.Body>
             <Card.Title className="d-flex align-items-center">
-              <h4>Skills</h4>
-              <div className="edit-main mr-4 d-flex align-items-center">
-                <Button className="mr-4" style={{ borderRadius: "20px" }}>
-                  Demonstrate Skill
-                </Button>
-                <BsPlusLg
-                  style={{ cursor: "pointer" }}
-                  className="plus-icon mr-4"
-                  onClick={() => setIsAddClicked(!isAddClicked)}
-                />
-                <BsPencil
-                  style={{ cursor: "pointer" }}
-                  className="pencil-icon"
-                  onClick={() => setIsEditClicked(!isEditClicked)}
-                />
-              </div>
+              {currentProfileUser._id === currentUser._id && (
+                <>
+                  <h4>Skills</h4>
+                  <div className="edit-main mr-4 d-flex align-items-center">
+                    <Button className="mr-4" style={{ borderRadius: "20px" }}>
+                      Demonstrate Skill
+                    </Button>
+                    <BsPlusLg
+                      style={{ cursor: "pointer" }}
+                      className="plus-icon mr-4"
+                      onClick={() => setIsAddClicked(!isAddClicked)}
+                    />
+                    <BsPencil
+                      style={{ cursor: "pointer" }}
+                      className="pencil-icon"
+                      onClick={() => setIsEditClicked(!isEditClicked)}
+                    />
+                  </div>
+                </>
+              )}
             </Card.Title>
+
             <Card.Text>
               <ul
                 className="list-group font-weight-bold"

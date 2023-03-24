@@ -31,6 +31,7 @@ interface Experiences {
 }
 const Experience = () => {
   const dispatch = useAppDispatch();
+  let currentUser = useAppSelector((state) => state.users.currentUser);
   let experiences = useAppSelector((state) => (state.exps as any).expList);
   let currentProfileUser = useAppSelector(
     (state) => state.users.currentProfileUser
@@ -237,15 +238,17 @@ const Experience = () => {
               className="edit-main mr-4
                         "
             >
-              <div className="d-flex">
-                <h5>
-                  <BsPlusLg
-                    style={{ cursor: "pointer" }}
-                    className="plus-icon mr-4"
-                    onClick={handleShow}
-                  />
-                </h5>
-              </div>
+              {currentProfileUser._id === currentUser._id && (
+                <div className="d-flex">
+                  <h5>
+                    <BsPlusLg
+                      style={{ cursor: "pointer" }}
+                      className="plus-icon mr-4"
+                      onClick={handleShow}
+                    />
+                  </h5>
+                </div>
+              )}
             </div>
             <Card.Title>
               <h4>
@@ -293,13 +296,15 @@ const Experience = () => {
                     <h6>{experience.description}</h6>
                     <hr />
                   </div>
-                  <BsPencil
-                    className="pencil-icon"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      handleShow2(experience._id);
-                    }}
-                  />
+                  {currentProfileUser._id === currentUser._id && (
+                    <BsPencil
+                      className="pencil-icon"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        handleShow2(experience._id);
+                      }}
+                    />
+                  )}
                   <Modal show={show2} onHide={handleClose2} size="lg">
                     <Modal.Header closeButton>
                       <Modal.Title>Edit Experience</Modal.Title>
