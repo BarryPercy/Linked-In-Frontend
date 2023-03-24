@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getComments, postComment, postLikes, deletePost, editPost, friendRequest } from "../../redux/actions";
 import { BsPencil } from "react-icons/bs";
 import { formatDistanceToNowStrict, parseISO } from "date-fns";
-import { AiOutlineLike } from "react-icons/ai";
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { BiCommentDetail, BiRepost } from "react-icons/bi";
 import { IoIosSend } from "react-icons/io";
 
@@ -22,6 +22,7 @@ interface PostInterface {
   interface Comment{
     _id:string;
     comment:string;
+    user:User;
   }
   interface User {
     _id: string;
@@ -51,16 +52,31 @@ const Post: React.FC<PostProps> = ({post}) => {
     const [currentId, setCurrentId] = useState("");
     const dispatch = useAppDispatch();
     const handlePostClose = () => setShow(false);
+    const [currentComments,setCurrentComments] = useState<Comment[]>([])
     const [openComments, setOpenComments] = useState<string[]>([]);
-    const [currentPost, setCurrentPost] = useState<PostInterface|null>(null)
-    const toggleComments=(idOfPost:string)=>{
-    if (openComments.includes(idOfPost)){
-        setOpenComments(openComments.filter(id=>id!==idOfPost))
-        }else{
-        setOpenComments([...openComments,idOfPost])
-        }
-    }
-    const handleCommentSubmit = (idOfPost:string)=>{
+    const toggleComments=async(idOfPost:string)=>{
+      if (openComments.includes(idOfPost)){
+          setOpenComments(openComments.filter(id=>id!==idOfPost))
+      }else{
+          setOpenComments([...openComments,idOfPost])
+          try {
+            let response = await fetch(
+              `${process.env.REACT_APP_BACK_END}/api/posts/`+idOfPost+"/comments",
+            );
+            if (response.ok) {
+              let data = await response.json();
+              setCurrentComments(data)
+              console.log("current comments->",currentComments)
+
+            } else {
+              console.log("Uh oh!");
+            }
+          } catch (error) {
+            console.log(error)
+          }
+          }
+      }
+    const handleCommentSubmit = async (idOfPost:string)=>{
         const object = {
         comment:newComment.text,
         user:currentUser._id,
@@ -68,6 +84,25 @@ const Post: React.FC<PostProps> = ({post}) => {
         }
         console.log(object)
         dispatch(postComment(object,idOfPost))
+        if(openComments.includes(idOfPost)){
+        }else{
+          setOpenComments([...openComments,idOfPost])
+          try {
+            let response = await fetch(
+              `${process.env.REACT_APP_BACK_END}/api/posts/`+idOfPost+"/comments",
+            );
+            if (response.ok) {
+              let data = await response.json();
+              setCurrentComments(data)
+              console.log("current comments->",currentComments)
+
+            } else {
+              console.log("Uh oh!");
+            }
+          } catch (error) {
+            console.log(error)
+          }
+        }
     }
     const handlePostShow = (id: string, postText: string) => {
         setShow(true);
@@ -78,7 +113,10 @@ const Post: React.FC<PostProps> = ({post}) => {
         });
     };
     const clickLike = (idOfPost:string)=>{
+        console.log("post likes->",post?.likes)
+        console.log("post truth", post?.likes.some(item=>item._id===currentUser._id))
         dispatch(postLikes(idOfPost,currentUser._id))
+        getThisPost()
     }
     const [newPost, setNewPost] = useState({
         text: "",
@@ -94,7 +132,6 @@ const Post: React.FC<PostProps> = ({post}) => {
         );
         if (response.ok) {
           let data = await response.json();
-          setCurrentPost(data);
         } else {
           console.log("Fetching Post " + post._id + " went wrong");
         }
@@ -103,7 +140,6 @@ const Post: React.FC<PostProps> = ({post}) => {
       }
     }
     useEffect(() => {
-      dispatch(getComments(post._id));
     }, []);
     return(
         <>
@@ -147,7 +183,7 @@ const Post: React.FC<PostProps> = ({post}) => {
                 </Button>
               </Modal.Footer>
             </Modal>
-            <Card key={post._id} className="posts">
+            <Card className="posts">
               {currentUser._id === post.user._id && (
                 <BsPencil
                   className="pencil-icon pencil-post"
@@ -167,7 +203,7 @@ const Post: React.FC<PostProps> = ({post}) => {
                         <h6>
                           {post.user.name} {post.user.surname}
                         </h6>
-                        {currentUser.social.friends.find(
+                        {/* {currentUser.social.friends.find(
                               (e: string) => e === post.user._id
                             ) ||
                             currentUser.social.sent.find(
@@ -212,7 +248,7 @@ const Post: React.FC<PostProps> = ({post}) => {
                               </Button>
                             ) : (
                               ""
-                            )}
+                            )} */}
                         <h6 className="post-user-title">{post.user.title}</h6>
                         <h6 className="post-user-title">
                           {formatDistanceToNowStrict(parseISO(post.createdAt))}{" "}
@@ -224,7 +260,6 @@ const Post: React.FC<PostProps> = ({post}) => {
                   <Card.Text>
                     <>
                       <p>{post.text}</p>
-                      <p></p>
                     </>
                   </Card.Text>
                 </div>
@@ -232,6 +267,15 @@ const Post: React.FC<PostProps> = ({post}) => {
               {post.image?<Card.Img src={post.image} className="post-image-changes"/>:""}
               <Card.Body>
               <>
+                <Row>
+                    <Col className="col-9">
+                      <p>{post.likes.length} Likes</p>
+                    </Col>
+                    <Col className="col-3">
+                      <p>{post.comments.length} comments</p>
+                    </Col>
+                
+                </Row>
                 <hr />
                 <Form>
                 <Row>
@@ -241,9 +285,8 @@ const Post: React.FC<PostProps> = ({post}) => {
                     className="justify-content-center d-flex comment-icon"
                     onClick={()=>clickLike(post._id)}
                   >
-                    {currentPost?.likes.some(item=>item._id===currentUser._id)? "NOT LIKE":<AiOutlineLike size={22} className="icon-flipped"/>}
+                    {post?.likes.some(item=>item._id===currentUser._id)? <><AiFillLike size={22} className="icon-flipped liked"/><span className="liked">Like</span></>:<><AiOutlineLike size={22} className="icon-flipped"/>Like</>}
                     
-                    Like
                   </Col>
                   <Col
                     xs={3}
@@ -277,7 +320,7 @@ const Post: React.FC<PostProps> = ({post}) => {
                   <Col className="col-2">
                     <Image
                     src={currentUser.image}
-                    className="avatar"/>
+                    className="avatar-comment"/>
                   </Col>
                   <Col className="col-10">
                     
@@ -297,12 +340,22 @@ const Post: React.FC<PostProps> = ({post}) => {
                   
                 </Row>
                 </Form>
-                {openComments.includes(post._id)?post.comments.map((commentObject:Comment)=>{
+                {openComments.includes(post._id)?currentComments.map((commentObject:Comment)=>{
                   return(
-                  <Row>
-                    <div className="comment-box">
-                      <p>{commentObject.comment}</p>
-                    </div>
+                  <Row key={commentObject._id} className="align-items-center justify-content-center">
+                    <Col className="col-2">
+                      <Image
+                      src={commentObject.user.image}
+                      className="avatar-comment"/>
+                    </Col>
+                    <Col className="comment-box col-10">
+                      <p className="comment-user-name"><strong>{commentObject.user.name} {commentObject.user.surname}</strong></p>
+                      <p className="comment-user-title">{commentObject.user.title}</p>
+                      <p></p>
+                      <p className="comment-text">{commentObject.comment}</p>
+                    </Col>
+                      
+                    
                   </Row>
                   )
                 }):""}

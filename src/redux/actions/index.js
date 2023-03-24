@@ -457,7 +457,7 @@ export const editUserEdu = (editedEdu, userId, eduId, image) => {
       if (response.ok) {
         dispatch(postUserImageEdu(userId, eduId, image));
       } else {
-        alert("Failed to edit Eduerience!");
+        alert("Failed to edit Education!");
       }
     } catch (error) {
       console.log(error);
@@ -485,7 +485,7 @@ export const postUserImageEdu = (userId, eduId, image) => {
       if (response.ok) {
         dispatch(fetchUserEdus(userId));
       } else {
-        console.log("failed experience image upload");
+        console.log("failed education image upload");
       }
     } catch (error) {
       console.log(error);
@@ -504,7 +504,6 @@ export const fetchPosts = () => {
       );
       if (response.ok) {
         let data = await response.json();
-        console.log(data.posts);
         dispatch({
           type: GET_POSTS,
           payload: data,
@@ -711,8 +710,7 @@ export const postLikes = (postId, userId) => {
         }
       );
       if (response.ok) {
-        const data = await response.json();
-        console.log("likes data->",data)
+        //const data = await response.json();
         
         dispatch(fetchPosts())
       } else {
@@ -748,7 +746,7 @@ export const postComment = (comment, postId) => {
   };
 };
 
-export const getComments = (comment, postId) => {
+export const getComments = (postId) => {
   return async (dispatch) => {
     try {
       let response = await fetch(

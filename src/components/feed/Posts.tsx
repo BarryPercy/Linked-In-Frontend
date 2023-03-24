@@ -17,6 +17,7 @@ interface PostInterface {
 interface Comment{
   _id:string;
   comment:string;
+  user:User;
 }
 interface User {
   _id: string;
@@ -50,7 +51,7 @@ const Posts = () => {
     <div>
       {posts.length>0? postsReverse.map((post: PostInterface) => {
         return(
-            <Post post={post}/>
+            <Post key={post._id} post={post}/>
         )
       }):<p>No Posts yet!</p>}
     </div>
