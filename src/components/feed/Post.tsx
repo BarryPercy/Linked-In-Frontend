@@ -351,7 +351,6 @@ const Post: React.FC<PostProps> = ({post}) => {
                     <Col className="comment-box col-10">
                       <p className="comment-user-name"><strong>{commentObject.user.name} {commentObject.user.surname}</strong></p>
                       <p className="comment-user-title">{commentObject.user.title}</p>
-                      <p></p>
                       <p className="comment-text">{commentObject.comment}</p>
                     </Col>
                       
