@@ -66,7 +66,7 @@ const TopNav = () => {
           <Modal.Title>My Network</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {currentUser ? (
+          {currentUser.friends !== undefined ? (
             <div className="">
               <h6>Friends list:</h6>
               {currentUser.social.friends.map((e: User, i: number) => {
