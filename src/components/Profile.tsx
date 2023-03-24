@@ -1,6 +1,6 @@
 import { Card, Image, Button, Col, Form } from "react-bootstrap";
 import { FaPuzzlePiece, FaDeviantart } from "react-icons/fa";
-import { AiFillCamera } from "react-icons/ai";
+import { AiFillCamera, AiOutlineCloudDownload } from "react-icons/ai";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
@@ -133,6 +133,12 @@ const Profile = () => {
                     ? currentProfileUser.name + " " + currentProfileUser.surname
                     : ""}
                 </b>
+                <Link
+                  className="pdf-btn ml-2"
+                  to={`${process.env.REACT_APP_BACK_END}/api/users/${currentProfileUser._id}/CV`}
+                >
+                  <AiOutlineCloudDownload />
+                </Link>
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
                 {currentProfileUser !== undefined
@@ -174,12 +180,6 @@ const Profile = () => {
           <Button className="more-btn" variant="outline-secondary">
             More
           </Button>
-          <Link
-            className="pdf-btn outline-secondary"
-            to={`${process.env.REACT_APP_BACK_END}/api/users/${currentProfileUser._id}/CV`}
-          >
-            CV
-          </Link>
         </div>
       </div>
     </Col>

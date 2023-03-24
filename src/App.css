@@ -77,3 +77,9 @@
   background-color: #1378cb;
   cursor: pointer;
 }
+
+/* pdf download */
+
+.pdf-btn {
+  font-size: 2rem;
+}
