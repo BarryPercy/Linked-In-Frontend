@@ -5,12 +5,14 @@ import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { getSpecificUser, updateUser } from "../redux/actions";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 // import { BsPencil } from "react-icons/bs";
 
 const Profile = () => {
   let experiences = useAppSelector((state) => (state.exps as any).expList);
-  let currentProfileUser = useAppSelector((state) => state.users.currentProfileUser);
+  let currentProfileUser = useAppSelector(
+    (state) => state.users.currentProfileUser
+  );
   let [show, setShow] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const { userId } = useParams();
@@ -27,12 +29,12 @@ const Profile = () => {
   });
 
   const handleSubmit = () => {
-    dispatch(updateUser(editProfileObj, userId ,image));
+    dispatch(updateUser(editProfileObj, userId, image));
     handleClose();
   };
 
   // useEffect(() => {
-    
+
   // }, []);
   return (
     <Col className="main px-0">
@@ -95,7 +97,7 @@ const Profile = () => {
                 id="imageFile"
                 label="Upload an Image"
                 accept="image/*"
-                onChange={(e:any) =>
+                onChange={(e: any) =>
                   setImage((e.target as HTMLInputElement)?.files?.[0])
                 }
               />
@@ -111,7 +113,11 @@ const Profile = () => {
           </Modal.Footer>
         </Modal>
         <div className="profile-icon">
-        {currentProfileUser!==undefined ?<Image src={currentProfileUser.image} roundedCircle />:""}
+          {currentProfileUser !== undefined ? (
+            <Image src={currentProfileUser.image} roundedCircle />
+          ) : (
+            ""
+          )}
         </div>
         <div className="img-area">
           <div className="camera-btn mr-3 d-flex justify-content-center align-items-center">
@@ -123,14 +129,20 @@ const Profile = () => {
             <Card.Body className="profile-info-area">
               <Card.Title>
                 <b>
-                {currentProfileUser!==undefined ? currentProfileUser.name +" "+currentProfileUser.surname:""}
+                  {currentProfileUser !== undefined
+                    ? currentProfileUser.name + " " + currentProfileUser.surname
+                    : ""}
                 </b>
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
-                {currentProfileUser!==undefined ?currentProfileUser.title:""}
+                {currentProfileUser !== undefined
+                  ? currentProfileUser.title
+                  : ""}
               </Card.Subtitle>
               <Card.Text>
-                {currentProfileUser!==undefined ?currentProfileUser.area:""}
+                {currentProfileUser !== undefined
+                  ? currentProfileUser.area
+                  : ""}
                 <Card.Link href="#"> Contact Info</Card.Link>
               </Card.Text>
               <Card.Link className="mt-0">89 connections</Card.Link>
@@ -162,6 +174,12 @@ const Profile = () => {
           <Button className="more-btn" variant="outline-secondary">
             More
           </Button>
+          <Link
+            className="pdf-btn outline-secondary"
+            to={`${process.env.REACT_APP_BACK_END}/api/users/${currentProfileUser._id}/CV`}
+          >
+            CV
+          </Link>
         </div>
       </div>
     </Col>
