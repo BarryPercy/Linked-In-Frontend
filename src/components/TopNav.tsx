@@ -181,12 +181,12 @@ const TopNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-end">
-            <Nav.Link href="/">
-              <div className="d-flex flex-column align-items-center nav-options home-text">
+            <Link to="/main">
+              <div className=" nav-link d-flex flex-column align-items-center nav-options home-text">
                 <AiFillHome size="2em" />
                 <span className="nav-text home-text">Home</span>
               </div>
-            </Nav.Link>
+            </Link>
             <Nav.Link>
               <div
                 className="d-flex flex-column align-items-center nav-options"
@@ -222,7 +222,7 @@ const TopNav = () => {
             </Link>
             <Nav.Link>
               <Link
-                to="/login"
+                to="/"
                 className="d-flex flex-column align-items-center nav-options"
               >
                 <BsFillFilePersonFill size="2em" />
