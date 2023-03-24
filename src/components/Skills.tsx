@@ -56,25 +56,23 @@ const Skills: React.FC = () => {
         <Card>
           <Card.Body>
             <Card.Title className="d-flex align-items-center">
+              <h4>Skills</h4>
               {currentProfileUser._id === currentUser._id && (
-                <>
-                  <h4>Skills</h4>
-                  <div className="edit-main mr-4 d-flex align-items-center">
-                    <Button className="mr-4" style={{ borderRadius: "20px" }}>
-                      Demonstrate Skill
-                    </Button>
-                    <BsPlusLg
-                      style={{ cursor: "pointer" }}
-                      className="plus-icon mr-4"
-                      onClick={() => setIsAddClicked(!isAddClicked)}
-                    />
-                    <BsPencil
-                      style={{ cursor: "pointer" }}
-                      className="pencil-icon"
-                      onClick={() => setIsEditClicked(!isEditClicked)}
-                    />
-                  </div>
-                </>
+                <div className="edit-main mr-4 d-flex align-items-center">
+                  <Button className="mr-4" style={{ borderRadius: "20px" }}>
+                    Demonstrate Skill
+                  </Button>
+                  <BsPlusLg
+                    style={{ cursor: "pointer" }}
+                    className="plus-icon mr-4"
+                    onClick={() => setIsAddClicked(!isAddClicked)}
+                  />
+                  <BsPencil
+                    style={{ cursor: "pointer" }}
+                    className="pencil-icon"
+                    onClick={() => setIsEditClicked(!isEditClicked)}
+                  />
+                </div>
               )}
             </Card.Title>
 
