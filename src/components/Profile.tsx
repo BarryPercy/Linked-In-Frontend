@@ -26,7 +26,6 @@ const Profile = () => {
     surname: "",
     area: "",
     title: "",
-    image: "",
   });
 
   const handleSubmit = () => {

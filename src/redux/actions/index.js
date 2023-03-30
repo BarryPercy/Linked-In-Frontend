@@ -149,7 +149,7 @@ export const profileImage = (userId, imageFile) => {
   return async (dispatch) => {
     try {
       const formData = new FormData();
-      formData.append("profile", imageFile);
+      formData.append("image", imageFile);
       const response = await fetch(
         `${process.env.REACT_APP_BACK_END}/api/users/` + userId + "/image",
         {
